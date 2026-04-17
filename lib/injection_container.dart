@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'core/api/api_consumer.dart';
@@ -19,6 +18,12 @@ import 'features/orders/data/repositories/orders_repository_impl.dart';
 import 'features/orders/domain/repositories/orders_repository.dart';
 import 'features/orders/domain/usecases/get_orders.dart';
 import 'features/orders/presentation/bloc/orders_bloc.dart';
+import 'features/layout/presentation/cubit/layout_cubit.dart';
+import 'features/cards/data/datasources/cards_remote_data_source.dart';
+import 'features/cards/data/repositories/cards_repository_impl.dart';
+import 'features/cards/domain/repositories/cards_repository.dart';
+import 'features/cards/domain/usecases/get_cards.dart';
+import 'features/cards/presentation/bloc/cards_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -26,6 +31,10 @@ Future<void> init() async {
   //! Features - Product Details
   // Bloc
   sl.registerFactory(() => ProductBloc(getProductDetailsUseCase: sl()));
+
+  //! Features - Layout
+  // Cubit
+  sl.registerFactory(() => LayoutCubit());
 
   // Use cases
   sl.registerLazySingleton(() => GetProductDetailsUseCase(sl()));
@@ -78,6 +87,23 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<OrdersRemoteDataSource>(
     () => OrdersRemoteDataSourceImpl(sl()),
+  );
+
+  //! Features - Cards
+  // Bloc
+  sl.registerFactory(() => CardsBloc(getCardsUseCase: sl()));
+
+  // Use cases
+  sl.registerLazySingleton(() => GetCardsUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<CardsRepository>(
+    () => CardsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<CardsRemoteDataSource>(
+    () => CardsRemoteDataSourceImpl(sl()),
   );
 
   //! Core
