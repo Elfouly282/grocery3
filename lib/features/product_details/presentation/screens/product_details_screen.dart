@@ -39,7 +39,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Product Detailes',
+          'Product Details',
           style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -154,7 +154,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: 20),
                   // Details Section
                   const Text(
-                    'Detailes',
+                    'Details',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
