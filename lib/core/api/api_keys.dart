@@ -1,5 +1,5 @@
 class EndPoint {
-  static const String baseUrl = "";
+  static const String baseUrl = "https://grocery.newcinderella.online/api";
   static const String login = "/api/v1/auth/login";
   static const String register = "/api/v1/auth/register";
   static const String verfiyEmail = "/api/v1/auth/verify-email";
