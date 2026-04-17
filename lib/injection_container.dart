@@ -18,6 +18,12 @@ import 'features/orders/data/repositories/orders_repository_impl.dart';
 import 'features/orders/domain/repositories/orders_repository.dart';
 import 'features/orders/domain/usecases/get_orders.dart';
 import 'features/orders/presentation/bloc/orders_bloc.dart';
+import 'features/smart_lists/data/datasources/smart_lists_remote_data_source.dart';
+import 'features/smart_lists/data/repositories/smart_lists_repository_impl.dart';
+import 'features/smart_lists/domain/repositories/smart_lists_repository.dart';
+import 'features/smart_lists/domain/usecases/get_smart_list_details.dart';
+import 'features/smart_lists/domain/usecases/get_smart_lists.dart';
+import 'features/smart_lists/presentation/bloc/smart_lists_bloc.dart';
 import 'features/layout/presentation/cubit/layout_cubit.dart';
 import 'features/cards/data/datasources/cards_remote_data_source.dart';
 import 'features/cards/data/repositories/cards_repository_impl.dart';
@@ -87,6 +93,29 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<OrdersRemoteDataSource>(
     () => OrdersRemoteDataSourceImpl(sl()),
+  );
+
+  //! Features - Smart Lists
+  // Bloc
+  sl.registerFactory(
+    () => SmartListsBloc(
+      getSmartListsUseCase: sl(),
+      getSmartListDetailsUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetSmartListsUseCase(sl()));
+  sl.registerLazySingleton(() => GetSmartListDetailsUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<SmartListsRepository>(
+    () => SmartListsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<SmartListsRemoteDataSource>(
+    () => SmartListsRemoteDataSourceImpl(sl()),
   );
 
   //! Features - Cards
