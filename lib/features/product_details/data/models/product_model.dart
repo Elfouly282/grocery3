@@ -1,5 +1,4 @@
-
-import '../../domain/entities/product.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel({

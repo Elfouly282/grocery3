@@ -6,6 +6,11 @@ class EndPoint {
   static const String forgetPassword = "/api/v1/auth/forgot-password";
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String resendOTP = "/api/v1/auth/resend-otp";
+  static const String favorites = "/api/v1/favorites";
+  static const String toggleFavorite = "/api/v1/favorites/";
+  static const String orders = "/api/v1/orders";
+  static const String smartLists = "/api/v1/smart-lists";
+  static const String cards = "/api/v1/payment-cards";
 }
 
 class ApiKeys {

@@ -1,35 +1,35 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'core/api/api_consumer.dart';
-import 'core/api/dio_consumer.dart';
-import 'features/product_details/data/datasources/product_remote_data_source.dart';
-import 'features/product_details/data/repositories/product_repository_impl.dart';
-import 'features/product_details/domain/repositories/product_repository.dart';
-import 'features/product_details/domain/usecases/get_product_details.dart';
-import 'features/product_details/presentation/bloc/product_bloc.dart';
-import 'features/favorites/data/datasources/favorites_remote_data_source.dart';
-import 'features/favorites/data/repositories/favorites_repository_impl.dart';
-import 'features/favorites/domain/repositories/favorites_repository.dart';
-import 'features/favorites/domain/usecases/get_favorites.dart';
-import 'features/favorites/domain/usecases/toggle_favorite.dart';
-import 'features/favorites/presentation/bloc/favorites_bloc.dart';
-import 'features/orders/data/datasources/orders_remote_data_source.dart';
-import 'features/orders/data/repositories/orders_repository_impl.dart';
-import 'features/orders/domain/repositories/orders_repository.dart';
-import 'features/orders/domain/usecases/get_orders.dart';
-import 'features/orders/presentation/bloc/orders_bloc.dart';
-import 'features/smart_lists/data/datasources/smart_lists_remote_data_source.dart';
-import 'features/smart_lists/data/repositories/smart_lists_repository_impl.dart';
-import 'features/smart_lists/domain/repositories/smart_lists_repository.dart';
-import 'features/smart_lists/domain/usecases/get_smart_list_details.dart';
-import 'features/smart_lists/domain/usecases/get_smart_lists.dart';
-import 'features/smart_lists/presentation/bloc/smart_lists_bloc.dart';
-import 'features/layout/presentation/cubit/layout_cubit.dart';
-import 'features/cards/data/datasources/cards_remote_data_source.dart';
-import 'features/cards/data/repositories/cards_repository_impl.dart';
-import 'features/cards/domain/repositories/cards_repository.dart';
-import 'features/cards/domain/usecases/get_cards.dart';
-import 'features/cards/presentation/bloc/cards_bloc.dart';
+import 'package:grocery3/core/api/api_consumer.dart';
+import 'package:grocery3/core/api/dio_consumer.dart';
+import 'package:grocery3/features/product_details/data/datasources/product_remote_data_source.dart';
+import 'package:grocery3/features/product_details/data/repositories/product_repository_impl.dart';
+import 'package:grocery3/features/product_details/domain/repositories/product_repository.dart';
+import 'package:grocery3/features/product_details/domain/usecases/get_product_details.dart';
+import 'package:grocery3/features/product_details/presentation/bloc/product_bloc.dart';
+import 'package:grocery3/features/favorites/data/datasources/favorites_remote_data_source.dart';
+import 'package:grocery3/features/favorites/data/repositories/favorites_repository_impl.dart';
+import 'package:grocery3/features/favorites/domain/repositories/favorites_repository.dart';
+import 'package:grocery3/features/favorites/domain/usecases/get_favorites.dart';
+import 'package:grocery3/features/favorites/domain/usecases/toggle_favorite.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:grocery3/features/orders/data/datasources/orders_remote_data_source.dart';
+import 'package:grocery3/features/orders/data/repositories/orders_repository_impl.dart';
+import 'package:grocery3/features/orders/domain/repositories/orders_repository.dart';
+import 'package:grocery3/features/orders/domain/usecases/get_orders.dart';
+import 'package:grocery3/features/orders/presentation/bloc/orders_bloc.dart';
+import 'package:grocery3/features/smart_lists/data/datasources/smart_lists_remote_data_source.dart';
+import 'package:grocery3/features/smart_lists/data/repositories/smart_lists_repository_impl.dart';
+import 'package:grocery3/features/smart_lists/domain/repositories/smart_lists_repository.dart';
+import 'package:grocery3/features/smart_lists/domain/usecases/get_smart_list_details.dart';
+import 'package:grocery3/features/smart_lists/domain/usecases/get_smart_lists.dart';
+import 'package:grocery3/features/smart_lists/presentation/bloc/smart_lists_bloc.dart';
+import 'package:grocery3/features/layout/presentation/cubit/layout_cubit.dart';
+import 'package:grocery3/features/cards/data/datasources/cards_remote_data_source.dart';
+import 'package:grocery3/features/cards/data/repositories/cards_repository_impl.dart';
+import 'package:grocery3/features/cards/domain/repositories/cards_repository.dart';
+import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
+import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -65,8 +65,8 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GetFavoritesUseCase(sl()));
-  sl.registerLazySingleton(() => ToggleFavoriteUseCase(sl()));
+  sl.registerLazySingleton(() => GetFavoritesUseCase(repository: sl()));
+  sl.registerLazySingleton(() => ToggleFavoriteUseCase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<FavoritesRepository>(
@@ -75,7 +75,7 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<FavoritesRemoteDataSource>(
-    () => FavoritesRemoteDataSourceImpl(sl()),
+    () => FavoritesRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Orders
@@ -83,7 +83,7 @@ Future<void> init() async {
   sl.registerFactory(() => OrdersBloc(getOrdersUseCase: sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => GetOrdersUseCase(sl()));
+  sl.registerLazySingleton(() => GetOrdersUseCase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<OrdersRepository>(
@@ -92,7 +92,7 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<OrdersRemoteDataSource>(
-    () => OrdersRemoteDataSourceImpl(sl()),
+    () => OrdersRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Smart Lists
@@ -105,8 +105,8 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GetSmartListsUseCase(sl()));
-  sl.registerLazySingleton(() => GetSmartListDetailsUseCase(sl()));
+  sl.registerLazySingleton(() => GetSmartListsUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetSmartListDetailsUseCase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<SmartListsRepository>(
@@ -115,7 +115,7 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<SmartListsRemoteDataSource>(
-    () => SmartListsRemoteDataSourceImpl(sl()),
+    () => SmartListsRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Cards
@@ -123,7 +123,7 @@ Future<void> init() async {
   sl.registerFactory(() => CardsBloc(getCardsUseCase: sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => GetCardsUseCase(sl()));
+  sl.registerLazySingleton(() => GetCardsUseCase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<CardsRepository>(
@@ -132,7 +132,7 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<CardsRemoteDataSource>(
-    () => CardsRemoteDataSourceImpl(sl()),
+    () => CardsRemoteDataSourceImpl(api: sl()),
   );
 
   //! Core
