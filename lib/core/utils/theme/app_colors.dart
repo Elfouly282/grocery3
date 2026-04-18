@@ -8,7 +8,7 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color grey = Colors.grey;
   static const Color lightGrey = Color(0xFFE0E0E0);
-
+  static const Color darkBlue = Color(0xFF014162);
 
   // Status Colors
   static const Color success = Color(0xFF4CAF50);
