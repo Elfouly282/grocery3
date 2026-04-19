@@ -3,7 +3,9 @@ import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/profile/presentation/screens/delivery_addresses_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/help_support_screen.dart';
 import 'package:grocery3/features/profile/presentation/screens/notifications_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/payment_method_screen.dart';
 import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_avatar.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_menu_item.dart';
@@ -67,6 +69,14 @@ class ProfileScreen extends StatelessWidget {
                     label: 'Notifications Allowed',
                   ),
                   ProfileMenuItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentMethodsScreen(),
+                        ),
+                      );
+                    },
                     imagePath: "assets/images/payment_icon.png",
                     label: 'Payment methods',
                   ),
@@ -75,6 +85,14 @@ class ProfileScreen extends StatelessWidget {
                     label: 'Settings',
                   ),
                   ProfileMenuItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HelpSupportScreen(),
+                        ),
+                      );
+                    },
                     imagePath: "assets/images/help_icon.png",
                     label: 'Help & Support',
                   ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grocery3/core/shared_widgets/custom_divider.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
-import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
-import 'package:grocery3/features/profile/presentation/widgets/custom_divider.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final String label;

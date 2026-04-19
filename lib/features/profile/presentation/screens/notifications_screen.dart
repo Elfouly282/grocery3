@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
+import 'package:grocery3/core/shared_widgets/custom_divider.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
-import 'package:grocery3/features/profile/presentation/widgets/custom_divider.dart';
 import 'package:grocery3/features/profile/presentation/widgets/notification_model.dart';
 import '../widgets/notification_section.dart';
 

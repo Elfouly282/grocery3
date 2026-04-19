@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/shared_widgets/custom_button.dart';
+import 'package:grocery3/core/shared_widgets/custom_divider.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/profile/presentation/widgets/email_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/name_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/phone_field.dart';
-import '../widgets/custom_divider.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
   const PersonalDetailsScreen({super.key});
