@@ -16,6 +16,7 @@ class AuthRepoImpl extends AuthRepo {
     required String email,
     required String password,
     required String name,
+    required String phone,
   }) async {
     try {
       var response = await apiConsumer.post(
@@ -23,7 +24,7 @@ class AuthRepoImpl extends AuthRepo {
         data: FormData.fromMap({
           'username': name,
           'email': email,
-          'phone': '+201114636417',
+          'phone': phone,
           'password': password,
           'password_confirmation': password,
           'agree_terms': '1',

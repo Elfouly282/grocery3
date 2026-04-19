@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/theme/app_colors.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomPasswordField extends StatefulWidget {
   final String hintText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final bool isObscureText;
   final TextEditingController? controller;
   // final String? Function(String?)? validator;
   final TextInputType? keyboardType;
-  final void Function(String?)? onSaved;
+  final Function(String?)? onSaved;
 
-  const CustomTextFormField({
+  const CustomPasswordField({
     super.key,
     required this.hintText,
     this.suffixIcon,
     this.prefixIcon,
-    this.isObscureText = false,
+    // this.isObscureText ,
     this.controller,
     // this.validator,
     this.keyboardType,
@@ -25,12 +24,18 @@ class CustomTextFormField extends StatelessWidget {
   });
 
   @override
+  State<CustomPasswordField> createState() => _CustomPasswordFieldState();
+}
+
+class _CustomPasswordFieldState extends State<CustomPasswordField> {
+  bool isObscureText = true;
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onSaved: onSaved,
-      controller: controller,
+      onSaved: widget.onSaved,
+      controller: widget.controller,
       obscureText: isObscureText,
-      keyboardType: keyboardType,
+      keyboardType: widget.keyboardType,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter some text';
@@ -40,15 +45,33 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         constraints: BoxConstraints(maxHeight: 42.h, minHeight: 42.h),
         contentPadding: EdgeInsets.zero,
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: TextStyle(
           color: const Color(0xFF878787) /* Color-gray */,
           fontSize: 12,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w400,
         ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              isObscureText = !isObscureText;
+            });
+          },
+          child:
+              isObscureText
+                  ? const Icon(
+                    Icons.visibility_off_rounded,
+                    size: 20,
+                    color: Color(0xFF878787) /* Color-gray */,
+                  )
+                  : const Icon(
+                    Icons.visibility_rounded,
+                    size: 20,
+                    color: Color(0xFF878787) /* Color-gray */,
+                  ),
+        ),
         filled: true,
         fillColor: AppColors.white,
         border: outlineInputBorder(),
