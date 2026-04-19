@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/profile/presentation/widgets/custom_divider.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final String label;
@@ -45,16 +46,10 @@ class ProfileMenuItem extends StatelessWidget {
               : const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
-                  color: AppColors.arrowColor,
+                  color: AppColors.iconColor,
                 ),
         ),
-        !isLogout
-            ? const Divider(
-                height: 1,
-                color: AppColors.dividerColor,
-                thickness: 0.45,
-              )
-            : SizedBox.shrink(),
+        !isLogout ? CustomDivider() : SizedBox.shrink(),
       ],
     );
   }

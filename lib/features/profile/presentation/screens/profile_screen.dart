@@ -12,11 +12,12 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        bgColor: AppColors.profileBackground,
         showBackButton: true,
         style: AppStyles.font16Medium.copyWith(color: AppColors.black),
         title: 'My Profile',
       ),
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.profileBackground,
       body: SafeArea(
         child: Column(
           children: [

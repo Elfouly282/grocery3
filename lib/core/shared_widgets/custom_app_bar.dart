@@ -4,6 +4,7 @@ import '../utils/theme/app_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Color? bgColor;
   final List<Widget>? actions;
   final bool showBackButton;
   final TextStyle? style;
@@ -13,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.showBackButton = true,
     this.style,
+    required this.bgColor,
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title, style: style ?? AppStyles.font24Bold),
       centerTitle: true,
       actions: actions,
-      backgroundColor: AppColors.white,
+      backgroundColor: bgColor ?? AppColors.white,
       automaticallyImplyLeading: showBackButton,
       elevation: 0,
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primary = Color(0xFF003E5B);
+  static const Color buttonBackground = Color(0xff014162);
   static const Color secondary = Color(0xFF0077B6);
   static const Color accent = Color(0xFFFDC500);
   static const Color background = Color(0xFFF8F9FA);
@@ -11,10 +12,10 @@ class AppColors {
   static const Color lightGrey = Color(0xFFE9ECEF);
   static const Color border = Color(0xFFDEE2E6);
   static const Color dividerColor = Color(0xffEBEBF2);
-  static const Color backgroundGrey = Color(0xFFF5F5F5);
+  static const Color profileBackground = Color(0xFFF7FCFF);
   static const Color profileMenuItemBackground = Color(0xffEBEBF2);
   static const Color logoutColor = Color(0xffFF4D4D);
-  static const Color arrowColor = Color(0xFFBBBBBB);
+  static const Color iconColor = Color(0xFFBBBBBB);
   // Status Colors
   static const Color success = Color(0xFF28A745);
   static const Color error = Color(0xFFDC3545);
