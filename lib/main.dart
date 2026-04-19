@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grocery3/features/profile/presentation/screens/delivery_addresses_screen.dart';
-import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/notifications_screen.dart';
 import 'features/profile/presentation/screens/profile_screen.dart';
 import 'injection_container.dart' as di;
-import 'features/product_details/presentation/bloc/product_bloc.dart';
-import 'features/product_details/presentation/screens/product_details_screen.dart';
-
 import 'core/helper/cache/cache_helper.dart';
 
 void main() async {
@@ -28,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ProfileScreen(),
+      home: NotificationsScreen(),
       // home: BlocProvider(
       //   create: (context) => di.sl<ProductBloc>(),
       //   child: const ProductDetailsScreen(productId: 1),
