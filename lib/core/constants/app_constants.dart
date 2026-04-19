@@ -24,4 +24,6 @@ class AppConstants {
   static const String tokenKey = "user_token";
   static const String isUserLoggedIn = "is_logged_in";
   static const String languageKey = "app_lang";
+  static const double kHorizontalPadding = 24.0;
+
 }

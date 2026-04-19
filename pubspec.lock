@@ -158,6 +158,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_assets:
+    dependency: "direct main"
+    description:
+      name: flutter_assets
+      sha256: "726d4045c566efe5888dc52741d2dbfdf6cea6c7873d37047ad5a2ba3cbfb9b7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -182,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8239210dd68bee6b0577aa4a090890342d04a136ce1c81f98ee513fc0ce891de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.3"
   flutter_secure_storage:
     dependency: "direct main"
     description:
