@@ -3,46 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/api/dio_consumer.dart';
 
-// 1. Data Sources
 import 'package:grocery3/features/product_list/data/data_sources/product_remote_data_source.dart';
 
-// 2. Repositories (تأكد من الـ Imports دي لمكان الـ Impl بجد)
 import 'package:grocery3/features/product_list/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_list/data/repositories/sub_category_repository_impl.dart';
 
-// 3. Use Cases
 import 'package:grocery3/features/product_list/domain/product/get_products_use_case.dart';
 import 'package:grocery3/features/product_list/domain/SubCategories/get_categories_use_case.dart';
 
-// 4. Cubit & UI
 import 'package:grocery3/features/product_list/presentation/cubit/product_list_cubit.dart';
 import 'package:grocery3/features/product_list/presentation/screen/product_list_screen.dart';
 
 void main() async {
-  // دي مهمة جداً عشان الـ Flutter يتأكد إن كل حاجة جاهزة قبل ما يبدأ
   WidgetsFlutterBinding.ensureInitialized();
 
-  // --- مرحلة بناء الـ Dependencies (الـ Manual DI) ---
-
-  // أ. إنشاء الـ Network Client
   final dio = Dio();
   final apiConsumer = DioConsumer(dio: dio);
 
-  // ب. إنشاء الـ Remote Data Source وبعتله الـ apiConsumer
   final remoteDataSource = ProductRemoteDataSourceImpl(apiConsumer);
-
-  // ج. إنشاء الـ Repositories وبعتلهم نفس الـ remoteDataSource
   final productRepo = ProductRepositoryImpl(remoteDataSource: remoteDataSource);
-  final subCategoryRepo = SubCategoryRepositoryImpl(remoteDataSource: remoteDataSource);
+  final subCategoryRepo = SubCategoryRepositoryImpl(
+    remoteDataSource: remoteDataSource,
+  );
 
-  // د. إنشاء الـ Use Cases وبعتلهم الـ Repos
   final getProductsUseCase = GetProductsUseCase(productRepo);
   final getSubCategoriesUseCase = GetSubCategoriesUseCase(subCategoryRepo);
 
-  runApp(MyApp(
-    getProductsUseCase: getProductsUseCase,
-    getSubCategoriesUseCase: getSubCategoriesUseCase,
-  ));
+  runApp(
+    MyApp(
+      getProductsUseCase: getProductsUseCase,
+      getSubCategoriesUseCase: getSubCategoriesUseCase,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -61,11 +53,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Grocery App',
       home: BlocProvider(
-        // حقن الـ Cubit بالـ Use Cases اللي جهزناها في الـ main
-        create: (context) => ProductListCubit(
-          getProductsUseCase,
-          getSubCategoriesUseCase,
-        )..getInitialData(),
+        create: (context) =>
+            ProductListCubit(getProductsUseCase, getSubCategoriesUseCase)
+              ..getInitialData(),
         child: const ProductListScreen(),
       ),
     );

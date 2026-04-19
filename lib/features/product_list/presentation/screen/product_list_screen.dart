@@ -30,27 +30,32 @@ class _ProductListScreenState extends State<ProductListScreen> {
           if (state is ProductListLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductListSuccess) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSubCategoriesSection(context, state),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text("Products", style: AppStyles.font18SemiBold),
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: _buildSubCategoriesSection(context, state),
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Text("Products", style: AppStyles.font18SemiBold),
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverGrid(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                       childAspectRatio: 0.62,
                     ),
-                    itemCount: state.products.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(product: state.products[index]);
-                    },
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return ProductCard(product: state.products[index]);
+                      },
+                      childCount: state.products.length,
+                    ),
                   ),
                 ),
               ],
