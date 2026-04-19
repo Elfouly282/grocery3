@@ -7,7 +7,8 @@ class EndPoint {
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String resendOTP = "/api/v1/auth/resend-otp";
   static const String getAllRecommendedProducts = "/api/meals/recommendations";
-  static const String getAllTodayDeals = "api/meals/today";
+  static const String getAllTodayDeals = "/api/meals/today";
+  static const String getAllCategory = "/api/categories";
 }
 
 class ApiKeys {
