@@ -1,31 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
+import 'package:grocery3/core/constants/app_validators.dart';
 import 'package:grocery3/core/shared_widgets/custom_button.dart';
 import 'package:grocery3/core/shared_widgets/custom_text_form_field.dart';
+import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/login/presentation/cubit/login_cubit.dart';
+import 'package:grocery3/features/login/presentation/cubit/login_state.dart';
 
-class LoginViewBody extends StatelessWidget {
+class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
 
   @override
+  State<LoginViewBody> createState() => _LoginViewBodyState();
+}
+
+class _LoginViewBodyState extends State<LoginViewBody> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _appBar(context),
-          SizedBox(height: 42),
-          _loginText(),
-          SizedBox(height: 32),
-          _inputField(),
-          SizedBox(height: 35),
-          _loginButton(),
-          SizedBox(height: 12),
-          _haveAccount(),
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _appBar(context),
+            SizedBox(height: 42),
+            _loginText(),
+            SizedBox(height: 32),
+            _inputField(),
+            SizedBox(height: 35),
+            _loginButton(),
+            SizedBox(height: 12),
+            _haveAccount(),
+          ],
+        ),
       ),
     );
   }
@@ -35,7 +57,32 @@ class LoginViewBody extends StatelessWidget {
   Padding _loginButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: CustomButton(text: 'Login', onPressed: () {}),
+      child: BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            CustomSnackBar.show(context, message: 'Login Sucessed');
+          } else if (state is LoginFailure) {
+            CustomSnackBar.show(context, isError: true, message: state.message);
+          } else {
+            return;
+          }
+        },
+        builder: (context, state) {
+          return state is LoginLoading
+              ? CupertinoActivityIndicator()
+              : CustomButton(
+                  text: 'Login',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<LoginCubit>().login(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      );
+                    }
+                  },
+                );
+        },
+      ),
     );
   }
 
@@ -56,10 +103,13 @@ class LoginViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Form(
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             CustomTextFormField(
+              controller: emailController,
+              validator: AppValidators.validateEmail,
               prefixIcon: Icon(
                 CupertinoIcons.mail,
                 color: AppColors.grey,
@@ -69,12 +119,13 @@ class LoginViewBody extends StatelessWidget {
             ),
             SizedBox(height: 8),
             CustomTextFormField(
+              controller: passwordController,
+              validator: AppValidators.validatePassword,
               suffixIcon: Icon(
                 CupertinoIcons.eye_slash_fill,
                 color: AppColors.grey,
                 size: 20,
               ),
-              isObscureText: true,
               prefixIcon: Icon(
                 CupertinoIcons.lock_fill,
                 color: AppColors.grey,
@@ -94,11 +145,10 @@ class LoginViewBody extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        SvgPicture.asset(
-          AppAssets.authAppbar,
+        SizedBox(
           width: double.infinity,
-          fit: BoxFit.contain,
           height: MediaQuery.sizeOf(context).height * 0.3,
+          child: SvgPicture.asset(AppAssets.authAppbar, fit: BoxFit.cover),
         ),
         Text('Welcome back !', style: AppStyles.font24s600wWhite),
       ],

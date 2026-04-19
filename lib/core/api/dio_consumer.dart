@@ -6,12 +6,12 @@ import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
 
-
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.headers = {'Accept': 'application/json'};
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(
       LogInterceptor(

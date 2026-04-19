@@ -1,14 +1,21 @@
-// import 'package:grocery3/core/api/api_consumer.dart';
+import 'package:grocery3/core/api/api_consumer.dart';
+import 'package:grocery3/core/api/api_keys.dart';
+import 'package:grocery3/features/login/data/models/login_model.dart';
 
+class LoginRemoteDataSource {
+  final ApiConsumer api;
 
-// import '../models/login_model.dart';
+  LoginRemoteDataSource({required this.api});
 
-// class LoginRemoteDataSource {
-//   final ApiConsumer api;
-
-//   LoginRemoteDataSource({required this.api});
-//   Future<loginModel> getlogin(loginParams params) async {
-//     final response = await api.get("${EndPoints.login}/${params.id}");
-//     return loginModel.fromJson(response);
-//   }
-// }
+  Future<AuthResultModel> login({
+    required String email,
+    required String password,
+  }) async {
+    final response = await api.post(
+      EndPoint.login,
+      data: {ApiKeys.login: email, ApiKeys.password: password},
+      isFromData: true,
+    );
+    return AuthResultModel.fromJson(response);
+  }
+}

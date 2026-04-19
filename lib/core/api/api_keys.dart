@@ -1,14 +1,17 @@
 class EndPoint {
-  static const String baseUrl = "";
-  static const String login = "/api/v1/auth/login";
+  static const String baseUrl = "https://grocery.newcinderella.online";
+  static const String login = "/api/auth/login";
   static const String register = "/api/v1/auth/register";
   static const String verfiyEmail = "/api/v1/auth/verify-email";
   static const String forgetPassword = "/api/v1/auth/forgot-password";
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String resendOTP = "/api/v1/auth/resend-otp";
+  static const String getAllRecommendedProducts = "/api/meals/recommendations";
+  static const String getAllTodayDeals = "api/meals/today";
 }
 
 class ApiKeys {
+  static const String login = "login";
   static const String email = "email";
   static const String password = "password";
   static const String name = "name";
@@ -19,13 +22,14 @@ class ApiKeys {
   static const String newPassword = "newPassword";
   static const String statusCode = "statusCode";
   static const String userId = "userId";
+  static const String user = "user";
   static const String id = "id";
   static const String data = "data";
   static const String message = "message";
   static const String token = "token";
   static const String errors = "errors";
   static const String meta = "meta";
-  static const String succeeded = "succeeded";
+  static const String succeess = "success";
   static const String isLogged = "isLogged";
   static const String isVisitedOnBoarding = "isVisitedOnBoarding";
   static const String resetPasswordEmail = "resetPasswordEmail";
