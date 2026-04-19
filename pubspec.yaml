@@ -30,6 +30,7 @@ environment:
 dependencies:
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
   data_connection_checker_tv: ^0.3.5-nullsafety
   dio: ^5.4.3+1
   flutter:
@@ -39,8 +40,10 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_secure_storage: ^9.0.0
   fluttertoast: ^8.2.5
+  get_it: ^9.2.1
   infinite_scroll_pagination: ^4.0.0
   intl: ^0.19.0
+  modal_progress_hud_nsn: ^0.5.1
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
 
@@ -61,7 +64,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
- 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
@@ -89,5 +91,6 @@ flutter_assets:
   assets_path: assets/
   output_path: lib/core/constants/
   filename: app_assets.dart
+
 # flutter_intl:
 #   enabled: true
