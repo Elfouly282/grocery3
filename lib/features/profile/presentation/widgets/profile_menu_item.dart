@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
 import 'package:grocery3/features/profile/presentation/widgets/custom_divider.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final String label;
   final bool isLogout;
   final String imagePath;
-
+  final Function()? onTap;
   const ProfileMenuItem({
     super.key,
     required this.label,
     this.isLogout = false,
     required this.imagePath,
+    this.onTap,
   });
 
   @override
@@ -20,7 +22,7 @@ class ProfileMenuItem extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          onTap: () {},
+          onTap: onTap,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 30,
             vertical: 8,

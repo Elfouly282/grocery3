@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/profile/presentation/screens/delivery_addresses_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_avatar.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_menu_item.dart';
 
@@ -24,14 +26,30 @@ class ProfileScreen extends StatelessWidget {
             Divider(color: AppColors.dividerColor, thickness: 0.45, height: 1),
             Expanded(
               child: ListView(
-                children: const [
+                children: [
                   ProfileAvatar(),
                   SizedBox(height: 16),
                   ProfileMenuItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PersonalDetailsScreen(),
+                        ),
+                      );
+                    },
                     imagePath: "assets/images/user_icon.png",
                     label: 'Personal details',
                   ),
                   ProfileMenuItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DeliveryAddressesScreen(),
+                        ),
+                      );
+                    },
                     imagePath: "assets/images/map_point_icon.png",
                     label: 'Delivery addresses',
                   ),
