@@ -3,6 +3,7 @@ import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/profile/presentation/screens/delivery_addresses_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/notifications_screen.dart';
 import 'package:grocery3/features/profile/presentation/screens/personl_details_screen.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_avatar.dart';
 import 'package:grocery3/features/profile/presentation/widgets/profile_menu_item.dart';
@@ -54,6 +55,14 @@ class ProfileScreen extends StatelessWidget {
                     label: 'Delivery addresses',
                   ),
                   ProfileMenuItem(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationsScreen(),
+                        ),
+                      );
+                    },
                     imagePath: "assets/images/notifications_icon.png",
                     label: 'Notifications Allowed',
                   ),

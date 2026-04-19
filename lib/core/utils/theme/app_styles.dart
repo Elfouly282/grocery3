@@ -8,6 +8,18 @@ class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.black,
   );
+  static const TextStyle font18Bold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+    fontFamily: AppFonts.interFont,
+  );
+  static const TextStyle font12Regular = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey,
+    fontFamily: AppFonts.interFont,
+  );
 
   static const TextStyle font16Medium = TextStyle(
     fontSize: 16,

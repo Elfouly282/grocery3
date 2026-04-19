@@ -16,6 +16,7 @@ class AppColors {
   static const Color profileMenuItemBackground = Color(0xffEBEBF2);
   static const Color logoutColor = Color(0xffFF4D4D);
   static const Color iconColor = Color(0xFFBBBBBB);
+  static const Color inactiveTrackColor = Color(0xFFCCCCCC);
   // Status Colors
   static const Color success = Color(0xFF28A745);
   static const Color error = Color(0xFFDC3545);

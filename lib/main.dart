@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocery3/features/profile/presentation/screens/notifications_screen.dart';
+import 'package:grocery3/features/profile/presentation/screens/payment_method_screen.dart';
 import 'features/profile/presentation/screens/profile_screen.dart';
 import 'injection_container.dart' as di;
 import 'core/helper/cache/cache_helper.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: NotificationsScreen(),
+      home: PaymentMethodsScreen(),
       // home: BlocProvider(
       //   create: (context) => di.sl<ProductBloc>(),
       //   child: const ProductDetailsScreen(productId: 1),
