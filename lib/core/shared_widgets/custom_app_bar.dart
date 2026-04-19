@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:grocery3/core/utils/theme/app_colors.dart';
 import '../utils/theme/app_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
   final bool showBackButton;
-
+  final TextStyle? style;
   const CustomAppBar({
     super.key,
     required this.title,
     this.actions,
     this.showBackButton = true,
+    this.style,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: AppStyles.font24Bold),
+      title: Text(title, style: style ?? AppStyles.font24Bold),
       centerTitle: true,
       actions: actions,
+      backgroundColor: AppColors.white,
       automaticallyImplyLeading: showBackButton,
       elevation: 0,
     );

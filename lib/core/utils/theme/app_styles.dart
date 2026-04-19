@@ -13,6 +13,7 @@ class AppStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.black,
+    fontFamily: AppFonts.interFont,
   );
 
   static const TextStyle font14RegularGrey = TextStyle(
@@ -23,10 +24,8 @@ class AppStyles {
 
   static const TextStyle font14Regular = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.normal, 
-    fontFamily: AppFonts.mainFont, 
-    color: AppColors.black,       
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
   );
-  
-  
 }
