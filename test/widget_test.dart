@@ -8,12 +8,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_repo.dart';
+import 'package:grocery3/features/product_list/domain/SubCategories/get_categories_use_case.dart';
+import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_entity.dart';
+import 'package:grocery3/features/product_list/domain/product/get_products_use_case.dart';
+import 'package:grocery3/features/product_list/domain/product/product_repository.dart';
+import 'package:grocery3/features/product_list/data/models/product_model.dart';
 import 'package:grocery3/main.dart';
+
+class FakeProductRepo implements BaseProductRepo {
+  @override
+  Future<List<ProductModel>> getProducts() async => [];
+}
+
+class FakeSubCategoryRepo implements BaseSubCategoryRepo {
+  @override
+  Future<List<SubCategoryEntity>> getSubCategory() async => [];
+}
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    final getProductsUseCase = GetProductsUseCase(FakeProductRepo());
+    final getSubCategoriesUseCase = GetSubCategoriesUseCase(FakeSubCategoryRepo());
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(
+      getProductsUseCase: getProductsUseCase,
+      getSubCategoriesUseCase: getSubCategoriesUseCase,
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

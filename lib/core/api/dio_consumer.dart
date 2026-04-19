@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../error/exception.dart';
@@ -61,6 +62,11 @@ class DioConsumer extends ApiConsumer {
           },
         ),
       );
+      
+      // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
+      if (response.data is String) {
+        return jsonDecode(response.data);
+      }
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);

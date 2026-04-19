@@ -1,11 +1,23 @@
 class EndPoint {
-  static const String baseUrl = "";
-  static const String login = "/api/v1/auth/login";
-  static const String register = "/api/v1/auth/register";
-  static const String verfiyEmail = "/api/v1/auth/verify-email";
-  static const String forgetPassword = "/api/v1/auth/forgot-password";
-  static const String resetPassword = "/api/v1/auth/reset-password";
-  static const String resendOTP = "/api/v1/auth/resend-otp";
+  static const String baseUrl = "https://grocery.newcinderella.online/api";
+
+  static const String login = "/auth/login";
+  static const String register = "/auth/register";
+  static const String logout = "/auth/logout";
+  static const String forgetPassword = "/auth/forgot-password";
+  static const String verifyOtp = "/auth/verify-otp";
+  static const String resetPassword = "/auth/reset-password";
+  static const String changePassword = "/auth/change-password";
+  static const String deleteAccount = "/auth/delete-account";
+
+  static const String products = "/meals";
+  static const String subCategories = "/subcategories";
+
+  // روابط إضافية مفيدة من الـ Postman
+  static const String todayDeals = "/meals/today";
+  static const String hotMeals = "/meals/hot";
+  static const String bestSells = "/best-sells";
+  static const String newProducts = "/new-products";
 }
 
 class ApiKeys {
@@ -38,4 +50,7 @@ class ApiKeys {
   static const String icon = 'icon';
   static const String isActive = 'isActive';
   static const String createdAt = 'createdAt';
+  static const String rating = 'rating';
+  static const String oldPrice = 'oldPrice';
+  static const String weight = 'weight';
 }

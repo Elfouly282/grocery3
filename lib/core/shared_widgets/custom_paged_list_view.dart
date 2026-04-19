@@ -79,7 +79,7 @@ class CustomPagedListView<T> extends StatelessWidget {
       itemCount: skeletonCount,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (_, __) => skeletonItem!,
+      itemBuilder: (context, index) => skeletonItem!,
     );
   }
 }
