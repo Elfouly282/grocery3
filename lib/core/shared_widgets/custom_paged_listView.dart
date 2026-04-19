@@ -16,7 +16,7 @@ class CustomPagedListView<T> extends StatelessWidget {
 
   final PagingController<int, T> pagingController;
 
-  final Widget Function(BuildContext context, T item, int index)itemBuilder;
+  final Widget Function(BuildContext context, T item, int index) itemBuilder;
 
   final String emptyMessage;
   final EdgeInsetsGeometry? padding;
@@ -39,36 +39,24 @@ class CustomPagedListView<T> extends StatelessWidget {
           return itemBuilder(context, item, index);
         },
 
+        noItemsFoundIndicatorBuilder: (_) =>
+            _EmptyWidget(message: emptyMessage),
 
-        noItemsFoundIndicatorBuilder: (_) => _EmptyWidget(
-          message: emptyMessage,
-        ),
+        firstPageErrorIndicatorBuilder: (_) =>
+            _ErrorWidget(onRetry: pagingController.refresh),
 
-        firstPageErrorIndicatorBuilder: (_) => _ErrorWidget(
-          onRetry: pagingController.refresh,
-        ),
+        newPageErrorIndicatorBuilder: (_) =>
+            _ErrorWidget(onRetry: pagingController.retryLastFailedRequest),
 
+        firstPageProgressIndicatorBuilder: (_) => _buildSkeletonList(),
 
-        newPageErrorIndicatorBuilder: (_) => _ErrorWidget(
-          onRetry: pagingController.retryLastFailedRequest,
-        ),
-
-
-        firstPageProgressIndicatorBuilder: (_) =>
-            _buildSkeletonList(),
-
-
-        newPageProgressIndicatorBuilder: (_) =>
-        const Padding(
+        newPageProgressIndicatorBuilder: (_) => const Padding(
           padding: EdgeInsets.all(16),
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: Center(child: CircularProgressIndicator()),
         ),
       ),
     );
   }
-
 
   Widget _buildSkeletonList() {
     if (skeletonItem == null) {
@@ -79,7 +67,7 @@ class CustomPagedListView<T> extends StatelessWidget {
       itemCount: skeletonCount,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (_, __) => skeletonItem!,
+      itemBuilder: (_, _) => skeletonItem!,
     );
   }
 }
@@ -91,12 +79,9 @@ class _EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(message),
-    );
+    return Center(child: Text(message));
   }
 }
-
 
 class _ErrorWidget extends StatelessWidget {
   final VoidCallback onRetry;
@@ -111,10 +96,7 @@ class _ErrorWidget extends StatelessWidget {
         children: [
           const Text("Something went wrong"),
           const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: onRetry,
-            child: const Text("Retry"),
-          ),
+          ElevatedButton(onPressed: onRetry, child: const Text("Retry")),
         ],
       ),
     );

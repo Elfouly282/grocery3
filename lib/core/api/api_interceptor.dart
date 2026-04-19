@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
-import '../error/error_model.dart';
 import '../helper/cache/cache_helper.dart';
 import 'api_keys.dart';
 
