@@ -21,7 +21,9 @@ class HomeView extends StatelessWidget {
             create: (context) =>
                 RecommendedProductCubit()..getAllRecommendedProducts(),
           ),
-          BlocProvider(create: (context)=>CategoryCubit()..getAllCategories())
+          BlocProvider(
+            create: (context) => CategoryCubit()..getAllCategories(),
+          ),
         ],
         child: HomeViewBody(),
       ),
