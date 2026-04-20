@@ -1,11 +1,18 @@
 class EndPoint {
-  static const String baseUrl = "";
+  static const String baseUrl = "https://grocery.newcinderella.online";
   static const String login = "/api/v1/auth/login";
   static const String register = "/api/v1/auth/register";
   static const String verfiyEmail = "/api/v1/auth/verify-email";
   static const String forgetPassword = "/api/v1/auth/forgot-password";
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String resendOTP = "/api/v1/auth/resend-otp";
+  static const String notificationSettings = "/api/notification-settings";
+  static const String faqs=  "/api/faqs";
+  static const String contact_Us=  "/api/contact";
+  static const String terms=  "/api/pages/slug/terms-and-conditions";
+  static const String privacy_policy= "/api/pages/slug/privacy-policy";
+  static const String about_Us="/api/pages/slug/about-us";
+  static const String delete_account="/api/auth/delete-account";
 }
 
 class ApiKeys {

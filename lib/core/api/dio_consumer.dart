@@ -54,13 +54,8 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.get(
         path,
         queryParameters: queryParameters,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-            ...?headers,
-          },
-        ),
       );
+
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
@@ -75,7 +70,7 @@ class DioConsumer extends ApiConsumer {
     bool isFromData = false,
   }) async {
     try {
-      final response = await dio.patch(
+      final response = await dio.put(
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
@@ -106,7 +101,7 @@ class DioConsumer extends ApiConsumer {
   }
 }
 
-//! Get token from cache/local storage
+
 Future<String> _getToken() async {
   final token = await CacheHelper().getData(key: ApiKeys.token);
   return token ?? '';

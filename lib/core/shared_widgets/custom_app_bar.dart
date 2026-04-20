@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grocery3/Features/notification/presentation/views/custom_Divider.dart';
+import 'package:grocery3/core/utils/theme/app_colors.dart';
 import '../utils/theme/app_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -16,11 +18,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: AppStyles.font24Bold),
+     // backgroundColor: AppColors.primary,
+      title: Text(title, style: AppStyles.font16regular),
       centerTitle: true,
       actions: actions,
       automaticallyImplyLeading: showBackButton,
       elevation: 0,
+      leading: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Icon(Icons.arrow_back_ios,),
+      ),
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(1),
+        child:Custom_Divider()
+      ),
     );
   }
 
