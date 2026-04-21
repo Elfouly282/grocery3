@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:grocery3/features/auth/domin/repos/auth_repo.dart';
-import 'package:grocery3/features/auth/presentation/cubit/cubit/sign_up_cubit.dart' as authRepo;
+import 'package:grocery3/features/auth/presentation/cubit/cubit/sign_up_cubit.dart'
+    as authRepo;
 import 'package:meta/meta.dart';
 
 part 'sign_up_state.dart';
@@ -18,9 +19,14 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String phone,
   }) async {
     emit(SignUpLoading());
-    var result = await authRepo.signUp(email: email, password: password, name: name, phone: phone);
+    var result = await authRepo.signUp(
+      email: email,
+      password: password,
+      name: name,
+      phone: phone,
+    );
     result.fold(
-      (failure) => emit(SignUpError( message: failure.errModel.message)),
+      (failure) => emit(SignUpError(message: failure.errModel.message)),
       (user) => emit(SignUpSuccess()),
     );
   }

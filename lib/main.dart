@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery3/core/bloc_observer/bloc_observer.dart';
 import 'package:grocery3/core/helper/cache/cache_helper.dart';
 import 'package:grocery3/core/utils/get_it_server_locator.dart';
+import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/features/auth/presentation/sign_up_view.dart';
-import 'package:grocery3/features/SubCategories/presentation/sub_categories_view.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/categories_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +20,17 @@ class Grocery3 extends StatelessWidget {
   const Grocery3({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+        scaffoldBackgroundColor: Colors.white,
+      ),
       home: ScreenUtilInit(
         designSize: Size(402, 874),
         minTextAdapt: true,
         splitScreenMode: true,
-        child: SubCategoriesView(),
+        child: CategoriesView(),
       ),
     );
   }

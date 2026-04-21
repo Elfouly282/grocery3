@@ -16,11 +16,7 @@ class NoInternetWidget extends StatelessWidget {
           const SizedBox(height: 16),
           const Text("لا يوجد اتصال بالإنترنت"),
           const SizedBox(height: 24),
-          CustomButton(
-            text: "إعادة المحاولة",
-            width: 200,
-            onPressed: onRetry,
-          ),
+          CustomButton(text: "إعادة المحاولة", width: 200, onPressed: onRetry),
         ],
       ),
     );

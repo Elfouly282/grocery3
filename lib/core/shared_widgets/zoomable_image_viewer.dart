@@ -10,13 +10,16 @@ class ZoomableImageViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(backgroundColor: Colors.transparent, iconTheme: const IconThemeData(color: Colors.white)),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body: Center(
         child: InteractiveViewer(
           clipBehavior: Clip.none,
           minScale: 1.0,
           maxScale: 4.0,
-          child: CachedImageWidget(imageUrl: imageUrl, fit: BoxFit.contain),
+          child: CustomNetworkImage(imageUrl: imageUrl),
         ),
       ),
     );

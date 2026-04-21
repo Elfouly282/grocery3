@@ -14,12 +14,12 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-  return UserModel(
-    id: json["id"],
-    name: json["username"],
-    phone: json["phone"],
-    email: json["email"],
-    token: json["token"],
-  );
-}
+    return UserModel(
+      id: json["id"],
+      name: json["username"],
+      phone: json["phone"],
+      email: json["email"],
+      token: json["token"],
+    );
+  }
 }

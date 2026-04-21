@@ -23,8 +23,7 @@ class CustomCheckBox extends StatelessWidget {
           activeColor: AppColors.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
-        if (label != null)
-          Text(label!, style: const TextStyle(fontSize: 14)),
+        if (label != null) Text(label!, style: const TextStyle(fontSize: 14)),
       ],
     );
   }

@@ -4,9 +4,7 @@ import 'package:grocery3/core/constants/app_assets.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 
 class UpperSignUpViewSection extends StatelessWidget {
-  const UpperSignUpViewSection({
-    super.key,
-  });
+  const UpperSignUpViewSection({super.key});
 
   @override
   Widget build(BuildContext context) {

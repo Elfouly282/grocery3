@@ -9,7 +9,7 @@ class CustomLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/images/logo.png', 
+      'assets/images/logo.png',
       height: height ?? 120,
       width: width,
       fit: BoxFit.contain,

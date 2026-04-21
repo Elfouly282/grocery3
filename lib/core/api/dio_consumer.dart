@@ -40,7 +40,9 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -61,9 +63,11 @@ class DioConsumer extends ApiConsumer {
           },
         ),
       );
-      return response.data;
+      return response;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -80,9 +84,11 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return response.data;
+      return response;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -97,7 +103,8 @@ class DioConsumer extends ApiConsumer {
     try {
       final response = await dio.post(
         path,
-        data: isFromData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data:
+            isFromData ? FormData.fromMap(data as Map<String, dynamic>) : data,
         queryParameters: queryParameters,
         options: options,
       );

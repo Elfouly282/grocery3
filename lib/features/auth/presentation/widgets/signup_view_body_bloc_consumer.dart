@@ -19,17 +19,14 @@ class SignupViewBodyBlocConsumer extends StatelessWidget {
             isError: true,
           );
         } else if (state is SignUpSuccess) {
-          customSnakebar(
-            context,
-            'Sign Up Successful',
-            isError: false,
-          );
+          customSnakebar(context, 'Sign Up Successful', isError: false);
         }
       },
       builder: (context, state) {
-        return CoustomProgressIndicatorHud( 
+        return CoustomProgressIndicatorHud(
           isLoad: state is SignUpLoading,
-          child: const SignupViewBody());
+          child: const SignupViewBody(),
+        );
       },
     );
   }
