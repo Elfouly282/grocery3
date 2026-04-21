@@ -10,24 +10,35 @@ class AppStyles {
   );
 
   static const TextStyle font16SemiBold = TextStyle(
-              color:  Color(0xFF000015) /* Color-black */,
-              fontSize: 16,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
-            );
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+  );
   static const TextStyle font16Regular = TextStyle(
-              color:  Color(0xFF000015) /* Color-black */,
-              fontSize: 16,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
-            );
-
-  static const TextStyle font14RegularGrey = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.normal,
-    color: AppColors.grey,
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400,
   );
 
-  
-  
+  static const TextStyle font16Medium = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle font14Medium = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 14,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle font12Regular = TextStyle(
+    color: Color(0xFF878787) /* Color-gray */,
+    fontSize: 12,
+    fontFamily: 'Inter',
+
+    fontWeight: FontWeight.w400,
+  );
 }
