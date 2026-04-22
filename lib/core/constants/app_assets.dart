@@ -42,3 +42,4 @@ class Assets {
   /// assets/Use_icon.png
   static const String assetsUseIcon = "assets/Use_icon.png";
 }
+

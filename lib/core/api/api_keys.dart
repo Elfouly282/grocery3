@@ -14,6 +14,7 @@ class EndPoint {
 }
 
 class ApiKeys {
+  static const String login = "login";
   static const String email = "email";
   static const String password = "password";
   static const String name = "name";
@@ -24,13 +25,14 @@ class ApiKeys {
   static const String newPassword = "newPassword";
   static const String statusCode = "statusCode";
   static const String userId = "userId";
+  static const String user = "user";
   static const String id = "id";
   static const String data = "data";
   static const String message = "message";
   static const String token = "token";
   static const String errors = "errors";
   static const String meta = "meta";
-  static const String succeeded = "succeeded";
+  static const String succeess = "success";
   static const String isLogged = "isLogged";
   static const String isVisitedOnBoarding = "isVisitedOnBoarding";
   static const String resetPasswordEmail = "resetPasswordEmail";

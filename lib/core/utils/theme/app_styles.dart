@@ -40,6 +40,9 @@ class AppStyles {
     fontWeight: FontWeight.normal,
     fontFamily: AppFonts.mainFont,
     color: AppColors.black,
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
   );
   static const TextStyle font12Regular = TextStyle(
     fontSize: 12,
