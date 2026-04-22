@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:auto_route/auto_route.dart';
 import '../../../../core/utils/theme/app_colors.dart';
 import '../../../product_details/presentation/widgets/product_card.dart';
 import '../bloc/smart_lists_bloc.dart';
@@ -7,6 +8,7 @@ import '../bloc/smart_lists_event.dart';
 import '../bloc/smart_lists_state.dart';
 import '../../../../core/shared_widgets/empty_state_widget.dart';
 
+@RoutePage()
 class SmartListDetailsScreen extends StatefulWidget {
   final int listId;
   const SmartListDetailsScreen({super.key, required this.listId});
