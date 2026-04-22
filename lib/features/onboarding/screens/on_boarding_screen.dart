@@ -1,5 +1,8 @@
+// import 'package:dartz/dartz.dart'
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
+import 'package:grocery3/features/login/presentation/screens/login_view.dart'
+    show LoginView;
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -38,8 +41,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 });
               },
               onDone: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/login_screen', (route) => false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginView()),
+                );
               },
             ),
             Positioned(

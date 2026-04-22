@@ -12,7 +12,7 @@ import 'package:grocery3/features/login/presentation/widgets/login_view_body.dar
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
-
+ static String loginid = 'login_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

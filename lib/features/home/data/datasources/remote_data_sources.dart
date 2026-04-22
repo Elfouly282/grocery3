@@ -7,6 +7,7 @@ import '../models/today_deals_model.dart';
 class RemoteDataSources {
   final ApiConsumer api;
   RemoteDataSources({required this.api});
+
   Future<RecommendedProductsResponseModel> getAllRecommendedProducts() async {
     final response = await api.get(EndPoint.getAllRecommendedProducts);
     return RecommendedProductsResponseModel.fromJson(response);

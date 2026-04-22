@@ -20,7 +20,7 @@ class LoginRepositoryImpl extends LoginRepository {
   }) async {
     if (await networkInfo.isConnected!) {
       try {
-        final remoteData = await remoteDataSource.login(
+        dynamic remoteData = await remoteDataSource.login(
           email: email,
           password: password,
         );

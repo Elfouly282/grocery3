@@ -60,8 +60,8 @@ class HomeViewBody extends StatelessWidget {
       centerTitle: true,
       leading: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: SvgPicture.asset(
-          AppAssets.appLogo,
+        child: Image.asset(
+          Assets.assetsLogo,
           width: 30,
           height: 30,
           fit: BoxFit.contain,
@@ -108,7 +108,7 @@ class HomeViewBody extends StatelessWidget {
         child: Row(
           children: [
             Icon(Icons.search, color: AppColors.primary, size: 24),
-            Text('Search for any Product', style: AppStyles.font12s400wGrey),
+            Text('Search for any Product', style: AppStyles.font12Regular),
             Spacer(),
             Icon(
               Icons.qr_code_scanner_rounded,
@@ -195,7 +195,7 @@ class HomeViewBody extends StatelessWidget {
           ),
           Text(
             banner.description,
-            style: AppStyles.font12s400wGrey,
+            style: AppStyles.font12Regular,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

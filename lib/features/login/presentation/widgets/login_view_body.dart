@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
 import 'package:grocery3/core/constants/app_validators.dart';
 import 'package:grocery3/core/shared_widgets/custom_button.dart';
@@ -9,12 +9,13 @@ import 'package:grocery3/core/shared_widgets/custom_text_form_field.dart';
 import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/auth/presentation/sign_up_view.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_state.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
-
+  //  static String loginid = 'login_screen';
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
 }
@@ -60,9 +61,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            CustomSnackBar.show(context, message: 'Login Sucessed');
+            customSnakebar(context, 'Login Sucessed');
           } else if (state is LoginFailure) {
-            CustomSnackBar.show(context, isError: true, message: state.message);
+            customSnakebar(context, state.message);
           } else {
             return;
           }
@@ -71,16 +72,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           return state is LoginLoading
               ? CupertinoActivityIndicator()
               : CustomButton(
-                  text: 'Login',
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      context.read<LoginCubit>().login(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                      );
-                    }
-                  },
-                );
+                text: 'Login',
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    context.read<LoginCubit>().login(
+                      emailController: emailController,
+                      passwordController: passwordController,
+                    );
+                  }
+                },
+              );
         },
       ),
     );
@@ -90,10 +91,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Don’t have any account? ', style: AppStyles.font12s400wGrey),
+        Text('Don’t have any account? ', style: AppStyles.font12Regular),
         TextButton(
-          onPressed: () {},
-          child: Text('Sign up', style: AppStyles.font14s600wPrimary),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpView()),
+            );
+          },
+          child: Text('Sign up', style: AppStyles.font14Regular),
         ),
       ],
     );
@@ -109,7 +115,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           children: [
             CustomTextFormField(
               controller: emailController,
-              validator: AppValidators.validateEmail,
+              // validator: AppValidators.validateEmail,
               prefixIcon: Icon(
                 CupertinoIcons.mail,
                 color: AppColors.grey,
@@ -120,7 +126,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             SizedBox(height: 8),
             CustomTextFormField(
               controller: passwordController,
-              validator: AppValidators.validatePassword,
+              // validator: AppValidators.validatePassword,
               suffixIcon: Icon(
                 CupertinoIcons.eye_slash_fill,
                 color: AppColors.grey,
@@ -148,9 +154,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         SizedBox(
           width: double.infinity,
           height: MediaQuery.sizeOf(context).height * 0.3,
-          child: SvgPicture.asset(AppAssets.authAppbar, fit: BoxFit.cover),
+          child: Image.asset(Assets.assetsSignupBackground, fit: BoxFit.cover),
         ),
-        Text('Welcome back !', style: AppStyles.font24s600wWhite),
+        Text('Welcome back !', style: AppStyles.font24Bold),
       ],
     );
   }
