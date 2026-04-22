@@ -85,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         top: 16,
                         right: 16,
                         child: CircleAvatar(
-                          backgroundColor: AppColors.white,
+                          backgroundColor: AppColors.background,
                           child: Icon(
                             product.inStock ? Icons.favorite_border : Icons.favorite,
                             color: AppColors.grey,

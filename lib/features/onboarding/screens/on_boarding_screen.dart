@@ -7,7 +7,7 @@ import '../models/page_view_models.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
-
+  static String id = 'onboarding_screen';
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
@@ -38,7 +38,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 });
               },
               onDone: () {
-                // navigate to home screen
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login_screen', (route) => false);
               },
             ),
             Positioned(

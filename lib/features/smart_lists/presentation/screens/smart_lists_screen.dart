@@ -51,7 +51,7 @@ class _SmartListsScreenState extends State<SmartListsScreen> {
                 final list = state.smartLists[index];
                 return ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  tileColor: AppColors.white,
+                  tileColor: AppColors.background,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                     side: const BorderSide(color: AppColors.border),
