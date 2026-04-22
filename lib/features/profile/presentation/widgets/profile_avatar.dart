@@ -3,7 +3,8 @@ import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({super.key});
+  final String imgURL;
+  const ProfileAvatar({super.key, required this.imgURL});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ProfileAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.profileMenuItemBackground,
             ),
-            child: Image.asset("assets/images/user_icon.png"),
+            child: Image.network(imgURL),
           ),
           const SizedBox(height: 9),
           Text(

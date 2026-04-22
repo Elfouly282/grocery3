@@ -58,10 +58,7 @@ Future<void> init() async {
   //! Features - Favorites
   // Bloc
   sl.registerFactory(
-    () => FavoritesBloc(
-      getFavoritesUseCase: sl(),
-      toggleFavoriteUseCase: sl(),
-    ),
+    () => FavoritesBloc(getFavoritesUseCase: sl(), toggleFavoriteUseCase: sl()),
   );
 
   // Use cases
@@ -116,6 +113,23 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<SmartListsRemoteDataSource>(
     () => SmartListsRemoteDataSourceImpl(api: sl()),
+  );
+
+  //! Features - Cards
+  // Bloc
+  sl.registerFactory(() => CardsBloc(getCardsUseCase: sl()));
+
+  // Use cases
+  sl.registerLazySingleton(() => GetCardsUseCase(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<CardsRepository>(
+    () => CardsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<CardsRemoteDataSource>(
+    () => CardsRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Cards

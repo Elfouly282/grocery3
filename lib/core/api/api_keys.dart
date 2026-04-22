@@ -11,6 +11,9 @@ class EndPoint {
   static const String orders = "/api/v1/orders";
   static const String smartLists = "/api/v1/smart-lists";
   static const String cards = "/api/v1/payment-cards";
+  static const String profile = "/api/profile";
+  static const String profileImageUpdate = "/api/profile/image";
+  static const String profileUpdate = "/api/profile/info";
 }
 
 class ApiKeys {
