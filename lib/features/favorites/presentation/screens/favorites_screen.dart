@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
@@ -5,7 +6,9 @@ import '../../../product_details/presentation/widgets/product_card.dart';
 import '../bloc/favorites_bloc.dart';
 import '../bloc/favorites_event.dart';
 import '../bloc/favorites_state.dart';
+import '../../../../core/shared_widgets/empty_state_widget.dart';
 
+@RoutePage()
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
@@ -23,9 +26,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.appBarBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.appBarBackground,
         elevation: 0,
         title: const Text(
           'Favorites',
@@ -41,7 +44,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
           } else if (state is FavoritesLoaded) {
             if (state.favorites.isEmpty) {
-              return const Center(child: Text('No favorites yet'));
+              return const EmptyStateWidget(
+                icon: Icons.favorite_border,
+                message: 'You have not added any items to your favorites yet.',
+              );
             }
             return GridView.builder(
               padding: const EdgeInsets.all(16),

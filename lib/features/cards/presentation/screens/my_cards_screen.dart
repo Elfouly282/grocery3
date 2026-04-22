@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
@@ -5,6 +6,7 @@ import '../bloc/cards_bloc.dart';
 import '../bloc/cards_event.dart';
 import '../bloc/cards_state.dart';
 
+@RoutePage()
 class MyCardsScreen extends StatefulWidget {
   const MyCardsScreen({super.key});
 

@@ -12,6 +12,9 @@ class DioConsumer extends ApiConsumer {
 
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.headers = {
+      'Accept': 'application/json',
+    };
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(
       LogInterceptor(
@@ -54,12 +57,7 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.get(
         path,
         queryParameters: queryParameters,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-            ...?headers,
-          },
-        ),
+        options: headers != null ? Options(headers: headers) : null,
       );
       return response.data;
     } on DioException catch (e) {
@@ -106,8 +104,3 @@ class DioConsumer extends ApiConsumer {
   }
 }
 
-//! Get token from cache/local storage
-Future<String> _getToken() async {
-  final token = await CacheHelper().getData(key: ApiKeys.token);
-  return token ?? '';
-}

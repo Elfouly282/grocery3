@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
@@ -8,15 +9,15 @@ import '../../../cards/presentation/screens/my_cards_screen.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubit/layout_cubit.dart';
 
+@RoutePage()
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   final List<Widget> screens = const [
-    ProductDetailsScreen(productId: 1), // Placeholder for Home
-    FavoritesScreen(),
+    Center(child: Text('Home Screen')), // Placeholder for Home
     SmartListsScreen(),
     OrdersScreen(),
-    MyCardsScreen(),
+    Center(child: Text('Profile Screen')), // Placeholder for Profile
   ];
 
   @override
@@ -25,20 +26,50 @@ class MainScreen extends StatelessWidget {
       builder: (context, currentIndex) {
         return Scaffold(
           body: screens[currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: currentIndex,
-            onTap: (index) => context.read<LayoutCubit>().changeIndex(index),
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColors.primary,
-            unselectedItemColor: AppColors.grey,
-            showUnselectedLabels: true,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.favorite_outline), activeIcon: Icon(Icons.favorite), label: 'Favorites'),
-              BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), activeIcon: Icon(Icons.list_alt), label: 'Smart Lists'),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), activeIcon: Icon(Icons.shopping_bag), label: 'Orders'),
-              BottomNavigationBarItem(icon: Icon(Icons.credit_card_outlined), activeIcon: Icon(Icons.credit_card), label: 'Cards'),
-            ],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -5),
+                ),
+              ],
+            ),
+            child: BottomNavigationBar(
+              currentIndex: currentIndex,
+              onTap: (index) => context.read<LayoutCubit>().changeIndex(index),
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: AppColors.primary,
+              unselectedItemColor: const Color(0xFF9CA3AF),
+              showUnselectedLabels: true,
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list_alt_outlined),
+                  activeIcon: Icon(Icons.list_alt),
+                  label: 'My List',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.directions_car_outlined),
+                  activeIcon: Icon(Icons.directions_car),
+                  label: 'My Order',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline),
+                  activeIcon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+              ],
+            ),
           ),
           drawer: Drawer(
             child: ListView(
