@@ -34,11 +34,25 @@ class AppStyles {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
   );
-  static const TextStyle font12Regular = TextStyle(
-    color: Color(0xFF878787) /* Color-gray */,
-    fontSize: 12,
-    fontFamily: 'Inter',
 
-    fontWeight: FontWeight.w400,
+  static const TextStyle font14Regular = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
+  );
+
+  static const TextStyle font18SemdiBold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    fontFamily: AppFonts.interFont,
+    color: AppColors.black,
+  );
+
+  static const TextStyle font16Bold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    fontFamily: AppFonts.interFont,
+    color: AppColors.white,
   );
 }
