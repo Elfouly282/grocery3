@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failure.dart';
-import '../../product_details/domain/entities/product.dart';
-import '../repositories/favorites_repository.dart';
+import 'package:grocery3/core/error/failures.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
+import 'package:grocery3/features/favorites/domain/repositories/favorites_repository.dart';
 
 class GetFavoritesUseCase {
   final FavoritesRepository repository;

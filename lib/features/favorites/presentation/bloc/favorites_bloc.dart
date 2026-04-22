@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/get_favorites.dart';
-import '../../domain/usecases/toggle_favorite.dart';
-import 'favorites_event.dart';
-import 'favorites_state.dart';
+import 'package:grocery3/features/favorites/domain/usecases/get_favorites.dart';
+import 'package:grocery3/features/favorites/domain/usecases/toggle_favorite.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_event.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_state.dart';
+import 'package:grocery3/core/error/failures.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final GetFavoritesUseCase getFavoritesUseCase;

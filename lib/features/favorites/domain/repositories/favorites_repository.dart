@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failure.dart';
-import '../../product_details/domain/entities/product.dart';
+import 'package:grocery3/core/error/failures.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 abstract class FavoritesRepository {
   Future<Either<Failure, List<ProductEntity>>> getFavorites();

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
@@ -6,6 +7,7 @@ import '../bloc/orders_event.dart';
 import '../bloc/orders_state.dart';
 import '../../../../core/shared_widgets/empty_state_widget.dart';
 
+@RoutePage()
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
 
