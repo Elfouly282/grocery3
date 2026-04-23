@@ -30,7 +30,7 @@ final NotificationEntity notificationEntity;
                       );
                     },
                   ),
-                  Custom_Divider(),
+                 const  Custom_Divider(),
                 ],
               );
             }).toList(),

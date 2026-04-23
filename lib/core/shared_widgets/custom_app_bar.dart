@@ -7,12 +7,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
   final bool showBackButton;
+   final bool bottom_divider;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.actions,
     this.showBackButton = true,
+    this.bottom_divider=false
   });
 
   @override
@@ -28,10 +30,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () => Navigator.pop(context),
         child: Icon(Icons.arrow_back_ios,),
       ),
-      bottom: const PreferredSize(
+      bottom: bottom_divider ? const PreferredSize(
         preferredSize: Size.fromHeight(1),
         child:Custom_Divider()
-      ),
+      ):null ,
     );
   }
 

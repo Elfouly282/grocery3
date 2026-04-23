@@ -18,11 +18,11 @@ class Settingsviewbody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LanguageSection(),
-        Custom_Divider(),
-        AppearanceSection(),
-        Custom_Divider(),
-        DataManagmentSection(),
+       const LanguageSection(),
+        const Custom_Divider(),
+        const AppearanceSection(),
+        const Custom_Divider(),
+        const    DataManagmentSection(),
       ],
     );
   }

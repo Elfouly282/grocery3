@@ -16,7 +16,7 @@ class notificationView extends StatelessWidget {
       create: (context) => NotificationCubit(getIt.get<NotificationRepoImpl>())..getSettings(),
       child: Scaffold(
         backgroundColor: AppColors.primary,
-        appBar: CustomAppBar(title: "notifications"),
+        appBar: const CustomAppBar(title: "notifications"),
         body: notificationViewBody_BlocBuilder(),
       ),
     );

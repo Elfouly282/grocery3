@@ -13,7 +13,7 @@ class AllsettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Settings"),
+      appBar:const CustomAppBar(title: "Settings",bottom_divider: true,),
       body: BlocProvider(
         create: (context) => DeleteAccountCubit(getIt.get<DioConsumer>()),
         child: Settingsviewbody(),

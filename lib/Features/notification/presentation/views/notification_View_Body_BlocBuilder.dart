@@ -25,7 +25,7 @@ class notificationViewBody_BlocBuilder extends StatelessWidget {
           builder: (context, state) {
 
             if (state is NotificationFailure) {
-              return Center(child: Text(state.message));
+              return  Center(child: Text(state.message));
             }
             if(state is NotificationSuccess) {
               final order_Delivery_Entity = state.notifications.firstWhere(
