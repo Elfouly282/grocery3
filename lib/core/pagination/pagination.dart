@@ -2,10 +2,7 @@ class PaginationModel<T> {
   final List<T> data;
   final PaginationMeta meta;
 
-  PaginationModel({
-    required this.data,
-    required this.meta,
-  });
+  PaginationModel({required this.data, required this.meta});
 
   factory PaginationModel.fromJson(
     Map<String, dynamic> json,
@@ -50,8 +47,5 @@ class PaginationParams {
 
   PaginationParams({this.page = 1, this.limit = 10});
 
-  Map<String, dynamic> toJson() => {
-    'page': page,
-    'limit': limit,
-  };
+  Map<String, dynamic> toJson() => {'page': page, 'limit': limit};
 }

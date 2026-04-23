@@ -11,7 +11,7 @@ class LoginRemoteDataSource {
     required String email,
     required String password,
   }) async {
-    final response = await api.post(
+    dynamic response = await api.post(
       EndPoint.login,
       data: {ApiKeys.login: email, ApiKeys.password: password},
       isFromData: true,

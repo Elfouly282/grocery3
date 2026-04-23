@@ -1,16 +1,45 @@
-class AppAssets {
-  static const String _imagePath = "assets/images";
-  static const String _svgPath = "assets/svgs";
+// ignore_for_file: prefer_single_quotes
+class Assets {
+  Assets._();
 
-  // Images
-  static const String logo = "$_imagePath/logo.png";
-  static const String placeholder = "$_imagePath/placeholder.png";
-  static const String noInternet = "$_imagePath/no_internet.png";
-  static const String authAppbar = "assets/images/auth_aapbar.svg";
-  static const String appLogo = "assets/images/app_logo.svg";
+  /// Assets for assetsCartIcon
+  /// assets/cart_icon.png
+  static const String assetsCartIcon = "assets/cart_icon.png";
 
-  // Icons / SVGs
-  static const String homeIcon = "$_svgPath/home.svg";
-  static const String profileIcon = "$_svgPath/profile.svg";
-  static const String searchIcon = "$_svgPath/search.svg";
+  /// Assets for assetsEmailIcon
+  /// assets/email_icon.png
+  static const String assetsEmailIcon = "assets/email_icon.png";
+
+  /// Assets for assetsLogo
+  /// assets/logo.png
+  static const String assetsLogo = "assets/logo.png";
+
+  /// Assets for assetsPasswordIcon
+  /// assets/password_icon.png
+  static const String assetsPasswordIcon = "assets/password_icon.png";
+
+  /// Assets for assetsSearchIcon1
+  /// assets/search_icon1.png
+  static const String assetsSearchIcon1 = "assets/search_icon1.png";
+
+  /// Assets for assetsSignupBackground
+  /// assets/signup_background.png
+  static const String assetsSignupBackground = "assets/signup_background.png";
+
+  /// Assets for assetsTest2
+  /// assets/test2.png
+  static const String assetsTest2 = "assets/test2.png";
+
+  /// Assets for assetsTest3
+  /// assets/test3.png
+  static const String assetsTest3 = "assets/test3.png";
+
+  /// Assets for assetsTestImage
+  /// assets/test_image.png
+  static const String assetsTestImage = "assets/test_image.png";
+
+  /// Assets for assetsUseIcon
+  /// assets/Use_icon.png
+  static const String assetsUseIcon = "assets/Use_icon.png";
 }
+

@@ -97,6 +97,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Positioned(
                         top: 16,
                         right: 16,
+<<<<<<< HEAD
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -110,6 +111,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               (_isFavorited ?? false) ? Icons.favorite : Icons.favorite_border,
                               color: (_isFavorited ?? false) ? Colors.red : AppColors.grey,
                             ),
+=======
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.background,
+                          child: Icon(
+                            product.inStock ? Icons.favorite_border : Icons.favorite,
+                            color: AppColors.grey,
+>>>>>>> origin/home
                           ),
                         ),
                       ),
@@ -256,7 +264,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors. white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           boxShadow: [
             BoxShadow(

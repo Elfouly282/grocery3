@@ -6,6 +6,7 @@ class EndPoint {
   static const String forgetPassword = "/api/v1/auth/forgot-password";
   static const String resetPassword = "/api/v1/auth/reset-password";
   static const String resendOTP = "/api/v1/auth/resend-otp";
+<<<<<<< HEAD
   static const String favorites = "/api/favorites";
   static const String toggleFavorite = "/api/favorites/";
   static const String orders = "/api/orders";
@@ -14,6 +15,16 @@ class EndPoint {
   static const String meals = "/api/meals";
   static const String getAllRecommendedProducts = "/api/meals/recommendations";
   static const String getAllTodayDeals = "api/meals/today";
+=======
+  static const String favorites = "/api/v1/favorites";
+  static const String toggleFavorite = "/api/v1/favorites/";
+  static const String orders = "/api/v1/orders";
+  static const String smartLists = "/api/v1/smart-lists";
+  static const String cards = "/api/v1/payment-cards";
+  static const String getAllRecommendedProducts = "/api/meals/recommendations";
+  static const String getAllTodayDeals = "/api/meals/today";
+  static const String getAllCategory = "/api/categories";
+>>>>>>> origin/home
 }
 
 class ApiKeys {

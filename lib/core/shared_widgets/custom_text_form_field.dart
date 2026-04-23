@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/theme/app_colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -7,8 +8,9 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final bool isObscureText;
   final TextEditingController? controller;
-  final String? Function(String?)? validator;
+  // final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final void Function(String?)? onSaved;
 
   const CustomTextFormField({
     super.key,
@@ -17,19 +19,34 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.isObscureText = false,
     this.controller,
-    this.validator,
+    // this.validator,
     this.keyboardType,
+    this.onSaved,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onSaved: onSaved,
       controller: controller,
       obscureText: isObscureText,
       keyboardType: keyboardType,
-      validator: validator,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
       decoration: InputDecoration(
+        constraints: BoxConstraints(maxHeight: 42.h, minHeight: 42.h),
+        contentPadding: EdgeInsets.zero,
         hintText: hintText,
+        hintStyle: TextStyle(
+          color: const Color(0xFF878787) /* Color-gray */,
+          fontSize: 12,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w400,
+        ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
@@ -45,7 +62,13 @@ class CustomTextFormField extends StatelessWidget {
   OutlineInputBorder outlineInputBorder([Color? color]) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: color ?? Colors.grey.shade300, width: 1.5),
+
+      borderSide: BorderSide(
+        width: 0.50,
+
+        color: const Color(0xFF878787) /* Color-gray */,
+      ),
     );
   }
 }
+

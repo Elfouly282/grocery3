@@ -22,21 +22,20 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.infinity,
-      height: 50,
+      height: 42,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? AppColors.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: isLoading ? null : onPressed,
-        child: isLoading
-            ? const CircularProgressIndicator(color: Colors.white)
-            : Text(
-                text,
-                style: AppStyles.font16Medium.copyWith(color: Colors.white),
-              ),
+        child:
+            isLoading
+                ? const CircularProgressIndicator(color: Colors.white)
+                : Text(
+                  text,
+                  style: AppStyles.font16SemiBold.copyWith(color: Colors.white),
+                ),
       ),
     );
   }

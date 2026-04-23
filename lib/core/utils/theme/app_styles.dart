@@ -8,41 +8,42 @@ class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.black,
   );
-  static const TextStyle font24s600wWhite = TextStyle(
-    fontSize: 24,
+
+  static const TextStyle font16SemiBold = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 16,
+    fontFamily: 'Inter',
     fontWeight: FontWeight.w600,
-    color: AppColors.white,
+  );
+  static const TextStyle font16Regular = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400,
   );
 
   static const TextStyle font16Medium = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
     fontSize: 16,
+    fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
-    color: AppColors.black,
   );
-  static const TextStyle font12s400wPrimary = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: AppColors.primary,
-  );
-  static const TextStyle font14s600wPrimary = TextStyle(
+  static const TextStyle font14Medium = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
     fontSize: 14,
-    fontWeight: FontWeight.w600,
-    color: AppColors.primary,
-  );
-  static const TextStyle font12s400wGrey = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: AppColors.grey,
-  );
-
-  static const TextStyle font14RegularGrey = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.normal,
-    color: AppColors.grey,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
   );
 
   static const TextStyle font14Regular = TextStyle(
     fontSize: 14,
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
+    
+  );
+  static const TextStyle font12Regular = TextStyle(
+    fontSize: 12,
     fontWeight: FontWeight.normal,
     fontFamily: AppFonts.mainFont,
     color: AppColors.black,

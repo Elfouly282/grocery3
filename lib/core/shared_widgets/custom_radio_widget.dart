@@ -42,9 +42,10 @@ class CustomRadioButton<T> extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               label,
-              style: AppStyles.font14Regular.copyWith(
+              style: AppStyles.font16SemiBold.copyWith(
                 color: value == groupValue ? AppColors.black : AppColors.grey,
-                fontWeight: value == groupValue ? FontWeight.w600 : FontWeight.normal,
+                fontWeight:
+                    value == groupValue ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
           ],

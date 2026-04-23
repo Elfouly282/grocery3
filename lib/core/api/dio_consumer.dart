@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../error/exception.dart';
 import '../helper/cache/cache_helper.dart';
@@ -42,7 +43,9 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -58,9 +61,11 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
         options: headers != null ? Options(headers: headers) : null,
       );
-      return response.data;
+      return response;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -77,28 +82,36 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return response.data;
+      return response;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
   @override
-  Future post(
+  Future<dynamic> post(
     String path, {
-    dynamic data,
+    Object? data,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
+    Options? options,
   }) async {
     try {
       final response = await dio.post(
         path,
-        data: isFromData ? FormData.fromMap(data) : data,
+        data:
+            isFromData ? FormData.fromMap(data as Map<String, dynamic>) : data,
         queryParameters: queryParameters,
+        options: options,
       );
-      return response.data;
+
+      return response;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      throw e; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 }
