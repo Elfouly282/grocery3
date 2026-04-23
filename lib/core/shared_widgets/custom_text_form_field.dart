@@ -44,11 +44,8 @@ class CustomTextFormField extends StatelessWidget {
 
   OutlineInputBorder outlineInputBorder([Color? color]) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide(
-        color: color ?? Colors.grey.shade300,
-        width: 1.5,
-      ),
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(color: color ?? Colors.grey.shade300, width: 1.5),
     );
   }
 }

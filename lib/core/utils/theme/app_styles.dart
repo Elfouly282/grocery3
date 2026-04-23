@@ -8,11 +8,31 @@ class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.black,
   );
+  static const TextStyle font24s600wWhite = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
 
   static const TextStyle font16Medium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.black,
+  );
+  static const TextStyle font12s400wPrimary = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primary,
+  );
+  static const TextStyle font14s600wPrimary = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
+  static const TextStyle font12s400wGrey = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey,
   );
 
   static const TextStyle font14RegularGrey = TextStyle(

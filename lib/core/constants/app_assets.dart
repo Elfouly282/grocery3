@@ -6,6 +6,8 @@ class AppAssets {
   static const String logo = "$_imagePath/logo.png";
   static const String placeholder = "$_imagePath/placeholder.png";
   static const String noInternet = "$_imagePath/no_internet.png";
+  static const String authAppbar = "assets/images/auth_aapbar.svg";
+  static const String appLogo = "assets/images/app_logo.svg";
 
   // Icons / SVGs
   static const String homeIcon = "$_svgPath/home.svg";

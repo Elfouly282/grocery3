@@ -6,7 +6,6 @@ import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
 
-
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
@@ -103,4 +102,3 @@ class DioConsumer extends ApiConsumer {
     }
   }
 }
-
