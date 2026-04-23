@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocery3/features/onboarding/screens/on_boarding_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery3/features/splash/presentation/screens/splash_screen.dart';
 import 'injection_container.dart' as di;
-import 'features/product_details/presentation/bloc/product_bloc.dart';
-import 'features/product_details/presentation/screens/product_details_screen.dart';
 
 import 'core/helper/cache/cache_helper.dart';
 
@@ -20,10 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: OnBoardingScreen(),
+      debugShowCheckedModeBanner: false,
+      title: 'Grocery App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const SplashScreen(),
     );
   }
 }
