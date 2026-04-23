@@ -64,11 +64,9 @@ class DioConsumer extends ApiConsumer {
           },
         ),
       );
-      return response;
+      return response.data;
     } on DioException catch (e) {
-      debugPrint('post error: ${e.toString()}');
-
-      throw e; // 🔥 مهم جدًا بدل ما ترجع null
+      handleDioExceptions(e);
     }
   }
 
@@ -94,27 +92,21 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future<dynamic> post(
+  Future post(
     String path, {
-    Object? data,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
-    Options? options,
   }) async {
     try {
       final response = await dio.post(
         path,
-        data:
-            isFromData ? FormData.fromMap(data as Map<String, dynamic>) : data,
+        data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
-        options: options,
       );
-
-      return response;
+      return response.data;
     } on DioException catch (e) {
-      debugPrint('post error: ${e.toString()}');
-
-      throw e; // 🔥 مهم جدًا بدل ما ترجع null
+      handleDioExceptions(e);
     }
   }
 }

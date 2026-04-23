@@ -10,7 +10,7 @@ abstract class ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
-    Options? options,
+    // Options? options,
     bool isFromData = false,
   });
   Future<dynamic> patch(

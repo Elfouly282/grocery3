@@ -1,10 +1,5 @@
-import 'dart:math';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/features/auth/domin/repos/auth_repo.dart';
-import 'package:grocery3/features/auth/presentation/cubit/cubit/sign_up_cubit.dart'
-    as authRepo;
-import 'package:meta/meta.dart';
 
 part 'sign_up_state.dart';
 
@@ -26,7 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       phone: phone,
     );
     result.fold(
-      (failure) => emit(SignUpError(message: failure.errModel.message)),
+      (failure) => emit(SignUpError(message: failure)),
       (user) => emit(SignUpSuccess()),
     );
   }

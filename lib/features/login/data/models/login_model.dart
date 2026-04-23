@@ -23,9 +23,9 @@ class UserModel extends User {
 class AuthResultModel extends AuthResult {
   AuthResultModel({required super.user, required super.token});
 
-  factory AuthResultModel.fromJson(dynamic json) {
+  factory AuthResultModel.fromJson(Map<String, dynamic> json) {
     // Accessing 'data' directly from the unwrapped Map
-    final data = json['data'] ;
+    final data = json['data'] as Map<String, dynamic>;
 
     return AuthResultModel(
       user: UserModel.fromJson(data['user'] as Map<String, dynamic>),

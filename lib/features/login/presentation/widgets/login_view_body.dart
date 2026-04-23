@@ -10,6 +10,7 @@ import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/auth/presentation/sign_up_view.dart';
+import 'package:grocery3/features/home/presentation/screens/home_view.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_state.dart';
 
@@ -62,6 +63,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             customSnakebar(context, 'Login Sucessed');
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => HomeView()));
           } else if (state is LoginFailure) {
             customSnakebar(context, state.message);
           } else {
@@ -72,16 +76,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           return state is LoginLoading
               ? CupertinoActivityIndicator()
               : CustomButton(
-                text: 'Login',
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    context.read<LoginCubit>().login(
-                      emailController: emailController,
-                      passwordController: passwordController,
-                    );
-                  }
-                },
-              );
+                  text: 'Login',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<LoginCubit>().login(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      );
+                    }
+                  },
+                );
         },
       ),
     );
@@ -154,7 +158,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         SizedBox(
           width: double.infinity,
           height: MediaQuery.sizeOf(context).height * 0.3,
-          child: Image.asset(Assets.assetsSignupBackground, fit: BoxFit.cover),
+          child: SvgPicture.asset(
+            'assets/images/auth_aapbar.svg',
+            fit: BoxFit.cover,
+          ),
         ),
         Text('Welcome back !', style: AppStyles.font24Bold),
       ],
