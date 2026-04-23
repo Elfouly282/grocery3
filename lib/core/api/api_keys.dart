@@ -13,6 +13,8 @@ class EndPoint {
   static const String privacy_policy= "/api/pages/slug/privacy-policy";
   static const String about_Us="/api/pages/slug/about-us";
   static const String delete_account="/api/auth/delete-account";
+  static const String meals = "/api/meals";
+  static const String smart_list = "/api/smart-lists";
 }
 
 class ApiKeys {

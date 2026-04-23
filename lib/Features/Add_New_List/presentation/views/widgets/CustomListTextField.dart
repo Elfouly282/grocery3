@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomListTextField extends StatelessWidget {
   final String? hintText;
 
 
 
 
-  final void Function(String?)? onSaved;
-  final void Function(String?)? onchanged;
+
+  final void Function(String) onchanged;
   final Color? filledColor;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final TextStyle? hintStyle;
 
-  const CustomTextFormField({
+  const CustomListTextField({
     super.key,
     this.hintStyle,
     this.suffixIcon,
     this.filledColor,
-    this.onchanged,
+   required this.onchanged,
     this.hintText,
-    this.onSaved,
+
     this.prefixIcon,
 
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
 
-       onSaved: onSaved,
+
       onChanged: onchanged,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "هذا الحقل مطلوب";
-        }
-        return null;
-      },
+
       maxLength: 40,
 
 
@@ -51,6 +46,10 @@ class CustomTextFormField extends StatelessWidget {
         border: _buildOutlineInputBorder(),
         enabledBorder: _buildOutlineInputBorder(),
         focusedBorder: _buildOutlineInputBorder(),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
 
       ),
     );
