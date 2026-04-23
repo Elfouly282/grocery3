@@ -9,6 +9,8 @@ import 'package:grocery3/features/favorites/presentation/screens/favorites_scree
 import 'package:grocery3/features/cards/presentation/screens/my_cards_screen.dart';
 import 'package:grocery3/features/layout/presentation/screens/product_list_screen.dart';
 import 'package:grocery3/features/orders/presentation/screens/cart_screen.dart';
+import 'package:grocery3/features/splash/presentation/screens/splash_screen.dart';
+import 'package:grocery3/features/onboarding/screens/on_boarding_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -18,7 +20,9 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: MainRoute.page, initial: true),
+        AutoRoute(page: SplashRoute.page, initial: true),
+        AutoRoute(page: OnBoardingRoute.page),
+        AutoRoute(page: MainRoute.page),
         AutoRoute(page: ProductDetailsRoute.page),
         AutoRoute(page: SmartListsRoute.page),
         AutoRoute(page: SmartListDetailsRoute.page),

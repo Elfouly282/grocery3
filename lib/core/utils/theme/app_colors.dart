@@ -9,12 +9,14 @@ class AppColors {
   static const Color black = Color(0xFF212529);
   static const Color grey = Color(0xFF6C757D);
   static const Color lightGrey = Color(0xFFE9ECEF);
-  static const Color border = Color(0xFFDEE2E6);
   static const Color appBarBackground = Color(0xFFF5F7F7);
   static const Color backgroundAlternative = Color(0xFFF5F7F7);
+  static const Color darkBlue = Color(0xFF014162);
   
   // Status Colors
-  static const Color success = Color(0xFF28A745);
-  static const Color error = Color(0xFFDC3545);
-  static const Color warning = Color(0xFFFFC107);
+  static const Color success = Color(0xFF4CAF50);
+  static const Color error = Color(0xFFE53935);
+  static const Color warning = Color(0xFFFFB300);
+
+  static const Color border = Color(0xFFDEE2E6);
 }

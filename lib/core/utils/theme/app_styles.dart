@@ -23,10 +23,22 @@ class AppStyles {
 
   static const TextStyle font14Regular = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.normal, 
-    fontFamily: AppFonts.mainFont, 
-    color: AppColors.black,       
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
   );
-  
-  
+
+  static const TextStyle font18SemdiBold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    fontFamily: AppFonts.interFont,
+    color: AppColors.black,
+  );
+
+  static const TextStyle font16Bold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    fontFamily: AppFonts.interFont,
+    color: AppColors.white,
+  );
 }
