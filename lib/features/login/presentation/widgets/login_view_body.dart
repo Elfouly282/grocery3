@@ -76,16 +76,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           return state is LoginLoading
               ? CupertinoActivityIndicator()
               : CustomButton(
-                  text: 'Login',
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      context.read<LoginCubit>().login(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                      );
-                    }
-                  },
-                );
+                text: 'Login',
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    context.read<LoginCubit>().login(
+                      emailController: emailController,
+                      passwordController: passwordController,
+                    );
+                  }
+                },
+              );
         },
       ),
     );
@@ -151,18 +151,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     );
   }
 
-  Stack _appBar(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
+  Column _appBar(BuildContext context) {
+    return Column(
+      // alignment: Alignment.center,
       children: [
         SizedBox(
           width: double.infinity,
           height: MediaQuery.sizeOf(context).height * 0.3,
-          child: SvgPicture.asset(
-            'assets/images/auth_aapbar.svg',
-            fit: BoxFit.cover,
-          ),
+          child: SvgPicture.asset(Assets.assetsSignupBackground),
         ),
+        Image.asset(Assets.assetsAuthAppLogo, scale: 4),
         Text('Welcome back !', style: AppStyles.font24Bold),
       ],
     );

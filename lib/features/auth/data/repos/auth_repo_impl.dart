@@ -28,7 +28,7 @@ class AuthRepoImpl extends AuthRepo {
           'agree_terms': '1',
         }),
       );
-      dynamic data = response.data["data"];
+      dynamic data = response["data"];
       dynamic user = UserModel.fromJson({
         ...data["user"],
         "token": data["token"],

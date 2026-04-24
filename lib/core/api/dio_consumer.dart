@@ -43,7 +43,7 @@ class DioConsumer extends ApiConsumer {
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 
-      throw e; // 🔥 مهم جدًا بدل ما ترجع null
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -67,6 +67,8 @@ class DioConsumer extends ApiConsumer {
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -87,7 +89,7 @@ class DioConsumer extends ApiConsumer {
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 
-      throw e; // 🔥 مهم جدًا بدل ما ترجع null
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -107,6 +109,8 @@ class DioConsumer extends ApiConsumer {
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 }

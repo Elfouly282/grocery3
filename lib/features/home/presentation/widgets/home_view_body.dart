@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/categories_view.dart';
 import 'package:grocery3/features/home/domain/entities/recommended_products_entity.dart';
 import 'package:grocery3/features/home/domain/entities/today_deal_entity.dart';
 import 'package:grocery3/features/home/presentation/cubit/home_category_cubit/category_cubit.dart';
@@ -30,15 +31,15 @@ class HomeViewBody extends StatelessWidget {
                 const SizedBox(height: 16),
                 _buildSearchBar(),
                 const SizedBox(height: 24),
-                _buildSectionTitle('Today\'s Deals'),
+                _buildSectionTitle(context, 'Today\'s Deals'),
                 const SizedBox(height: 16),
                 _buildPromoBanner(),
                 const SizedBox(height: 24),
-                _buildSectionTitle('Categories'),
+                _buildSectionTitle(context, 'Categories'),
                 const SizedBox(height: 16),
                 _buildCategoriesRow(),
                 const SizedBox(height: 24),
-                _buildSectionTitle('Recommended For You'),
+                _buildSectionTitle(context, 'Recommended For You'),
                 const SizedBox(height: 16),
               ],
             ),
@@ -98,7 +99,7 @@ class HomeViewBody extends StatelessWidget {
 
   Widget _buildSearchBar() {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -204,8 +205,16 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
-    return Text(title, style: AppStyles.font24Bold.copyWith(fontSize: 20));
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CategoriesView()),
+        );
+      },
+      child: Text(title, style: AppStyles.font24Bold.copyWith(fontSize: 20)),
+    );
   }
 
   Widget _buildCategoriesRow() {
@@ -233,9 +242,7 @@ class HomeViewBody extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.grey.shade200),
                           image: DecorationImage(
-                            image: NetworkImage(
-                              categories[index].imageUrl,
-                            ),
+                            image: NetworkImage(categories[index].imageUrl),
                           ),
                         ),
                       ),

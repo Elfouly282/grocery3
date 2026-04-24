@@ -23,7 +23,7 @@ class Grocery3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateRoute:  onGenerateRoute ,
+      // onGenerateRoute:  onGenerateRoute ,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),

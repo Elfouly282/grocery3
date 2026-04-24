@@ -12,7 +12,7 @@ class UpperSignUpViewSection extends StatelessWidget {
       children: [
         Image(image: AssetImage(Assets.assetsSignupBackground)),
         SizedBox(height: 46.h),
-        Image.asset(Assets.assetsLogo, scale: 4),
+        Image.asset(Assets.assetsAuthAppLogo, scale: 4),
         SizedBox(height: 32.h),
         Text('Create your Account', style: AppStyles.font16SemiBold),
         Text(

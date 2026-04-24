@@ -1,5 +1,6 @@
 // import 'package:dartz/dartz.dart'
 import 'package:flutter/material.dart';
+import 'package:grocery3/core/constants/app_assets.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/features/login/presentation/screens/login_view.dart'
     show LoginView;
@@ -31,9 +32,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               isProgress: false,
               key: introKey,
               pages: pagesViewModel,
-              done: Image.asset("assets/images/right_arrow.png"),
-              next: Image.asset("assets/images/right_arrow.png"),
-              back: Image.asset("assets/images/left_arrow.png"),
+              done: Image.asset(Assets.assetsRightArrow, scale: 2),
+              next: Image.asset(Assets.assetsRightArrow, scale: 2),
+              back: Image.asset(Assets.assetsLeftArrow, scale: 2),
               showBackButton: true,
               onChange: (index) {
                 setState(() {

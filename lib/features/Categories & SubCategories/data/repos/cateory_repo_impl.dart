@@ -20,8 +20,8 @@ class CategoryRepoImpl implements CategoryRepo {
       var response = await apiConsumer.get(
         'https://grocery.newcinderella.online/api/categories',
       );
-      if (response.data["success"] == true) {
-        List<dynamic> data = response.data["data"];
+      if (response["success"] == true) {
+        List<dynamic> data = response["data"];
 
         List<CategoriesItemEntity> categories = [];
         for (var item in data) {
@@ -32,11 +32,11 @@ class CategoryRepoImpl implements CategoryRepo {
 
         return right(categories);
       } else {
-        debugPrint(response.data["message"]);
+        debugPrint(response["message"]);
       }
       return left(
         ServerException(
-          errModel: ErrorModel(message: response.data["message"]),
+          errModel: ErrorModel(message: response["message"]),
         ),
       );
     } catch (e) {
@@ -61,8 +61,8 @@ class CategoryRepoImpl implements CategoryRepo {
       var response = await apiConsumer.get(
         'https://grocery.newcinderella.online/api/categories/$id',
       );
-      if (response.data["success"] == true) {
-        List<dynamic> data = response.data["data"]["meals"];
+      if (response["success"] == true) {
+        List<dynamic> data = response["data"]["meals"];
 
         List<SubCategoresItemEntity> subCategories = [];
         for (var item in data) {
@@ -75,11 +75,11 @@ class CategoryRepoImpl implements CategoryRepo {
 
         return right(subCategories);
       } else {
-        debugPrint(response.data["message"]);
+        debugPrint(response["message"]);
       }
       return left(
         ServerException(
-          errModel: ErrorModel(message: response.data["message"]),
+          errModel: ErrorModel(message: response["message"]),
         ),
       );
     } catch (e) {
