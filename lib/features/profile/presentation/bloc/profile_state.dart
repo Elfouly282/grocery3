@@ -1,50 +1,35 @@
-import 'package:grocery3/features/profile/domain/entities/profile.dart';
+import 'package:equatable/equatable.dart';
+import 'package:grocery3/features/profile/data/models/update_profile_mode.dart';
+import 'package:grocery3/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:grocery3/features/profile/domain/entities/update_profile_entity.dart';
 
-abstract class ProfileState {
-  final ProfileEntity? profile;
-  final String? message;
+abstract class ProfileState extends Equatable {
+  const ProfileState();
 
-  const ProfileState({this.profile, this.message});
+  @override
+  List<Object?> get props => [];
 }
 
-class ProfileInitial extends ProfileState {
-  const ProfileInitial();
+class ProfileInitial extends ProfileState {}
+
+class ProfileLoading extends ProfileState {}
+
+class ProfileLoaded extends ProfileState {
+  final ProfileUserEntity? user;
+  final UpdateProfileEntity? updateProfileModel;
+  final String? imageUrl;
+
+  const ProfileLoaded({this.user, this.imageUrl, this.updateProfileModel});
+
+  @override
+  List<Object?> get props => [user];
 }
 
-class GetProfileLoading extends ProfileState {
-  const GetProfileLoading();
-}
+class ProfileError extends ProfileState {
+  final String message;
 
-class GetProfileLoaded extends ProfileState {
-  const GetProfileLoaded(ProfileEntity profile) : super(profile: profile);
-}
+  const ProfileError({required this.message});
 
-class GetProfileError extends ProfileState {
-  const GetProfileError({required super.message});
-}
-
-// update profile
-class UpdateProfileLoading extends ProfileState {
-  const UpdateProfileLoading();
-}
-
-class UpdateProfileLoaded extends ProfileState {
-  const UpdateProfileLoaded(ProfileEntity profile) : super(profile: profile);
-}
-
-class UpdateProfileError extends ProfileState {
-  const UpdateProfileError({required super.message});
-}
-
-class UpdateProfileImageLoading extends ProfileState {
-  const UpdateProfileImageLoading();
-}
-
-class UpdateProfileImageLoaded extends ProfileState {
-  const UpdateProfileImageLoaded(ProfileEntity profile)
-    : super(profile: profile);
-}
-
-class UpdateProfileImageError extends ProfileState {
-  const UpdateProfileImageError({required super.message});
+  @override
+  List<Object?> get props => [message];
 }

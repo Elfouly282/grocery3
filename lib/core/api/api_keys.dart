@@ -2,18 +2,19 @@ class EndPoint {
   static const String baseUrl = "https://grocery.newcinderella.online/api";
   static const String login = "/api/v1/auth/login";
   static const String register = "/api/v1/auth/register";
-  static const String verfiyEmail = "/api/v1/auth/verify-email";
-  static const String forgetPassword = "/api/v1/auth/forgot-password";
-  static const String resetPassword = "/api/v1/auth/reset-password";
-  static const String resendOTP = "/api/v1/auth/resend-otp";
-  static const String favorites = "/api/v1/favorites";
-  static const String toggleFavorite = "/api/v1/favorites/";
-  static const String orders = "/api/v1/orders";
-  static const String smartLists = "/api/v1/smart-lists";
-  static const String cards = "/api/v1/payment-cards";
-  static const String profile = "/api/profile";
-  static const String profileImageUpdate = "/api/profile/image";
-  static const String profileUpdate = "/api/profile/info";
+  static const String verfiyEmail = "/auth/verify-email";
+  static const String forgetPassword = "/auth/forgot-password";
+  static const String verifyOtp = "/auth/verify-otp";
+  static const String resetPassword = "/auth/reset-password";
+  static const String resendOTP = "/auth/resend-otp";
+  static const String favorites = "/favorites";
+  static const String toggleFavorite = "/favorites/";
+  static const String orders = "/orders";
+  static const String smartLists = "/smart-lists";
+  static const String cards = "/payment-cards";
+  static const String profile = "/profile";
+  static const String updateProfile = "/profile/info";
+  static const String updateProfileImage = "/profile/image";
 }
 
 class ApiKeys {

@@ -30,6 +30,13 @@ import 'package:grocery3/features/cards/data/repositories/cards_repository_impl.
 import 'package:grocery3/features/cards/domain/repositories/cards_repository.dart';
 import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
+import 'package:grocery3/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:grocery3/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:grocery3/features/profile/domain/repositories/profile_repository.dart';
+import 'package:grocery3/features/profile/domain/usecases/get_profile.dart';
+import 'package:grocery3/features/profile/domain/usecases/update_image.dart';
+import 'package:grocery3/features/profile/domain/usecases/update_profile.dart';
+import 'package:grocery3/features/profile/presentation/bloc/profile_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -132,21 +139,30 @@ Future<void> init() async {
     () => CardsRemoteDataSourceImpl(api: sl()),
   );
 
-  //! Features - Cards
+
+  //! Features - Profile
   // Bloc
-  sl.registerFactory(() => CardsBloc(getCardsUseCase: sl()));
+  sl.registerFactory(
+    () => ProfileBloc(
+      getProfileUseCase: sl(),
+      updateImageUseCase: sl(),
+      updateProfileUseCase: sl(),
+    ),
+  );
 
   // Use cases
-  sl.registerLazySingleton(() => GetCardsUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetProfileUseCase(repository: sl()));
+  sl.registerLazySingleton(() => UpdateImageUseCase(repository: sl()));
+  sl.registerLazySingleton(() => UpdateProfileUseCase(repository: sl()));
 
   // Repository
-  sl.registerLazySingleton<CardsRepository>(
-    () => CardsRepositoryImpl(remoteDataSource: sl()),
+  sl.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(remoteDataSource: sl()),
   );
 
   // Data sources
-  sl.registerLazySingleton<CardsRemoteDataSource>(
-    () => CardsRemoteDataSourceImpl(api: sl()),
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+    () => ProfileRemoteDataSourceImpl(api: sl()),
   );
 
   //! Core

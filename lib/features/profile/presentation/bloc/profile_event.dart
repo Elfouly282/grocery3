@@ -1,17 +1,29 @@
-import 'package:grocery3/features/profile/domain/usecases/update_profile.dart';
+import 'package:equatable/equatable.dart';
+import 'package:grocery3/features/profile/domain/entities/update_profile_entity.dart';
 
-abstract class ProfileEvent {}
+abstract class ProfileEvent extends Equatable {
+  const ProfileEvent();
+
+  @override
+  List<Object> get props => [];
+}
 
 class GetProfileEvent extends ProfileEvent {}
-
-class UpdateProfileEvent extends ProfileEvent {
-  final UpdateProfileParams params;
-
-  UpdateProfileEvent(this.params);
-}
 
 class UpdateProfileImageEvent extends ProfileEvent {
   final String imagePath;
 
-  UpdateProfileImageEvent(this.imagePath);
+  const UpdateProfileImageEvent({required this.imagePath});
+
+  @override
+  List<Object> get props => [imagePath];
+}
+
+class UpdateProfileEvent extends ProfileEvent {
+  final UpdateProfileEntity params;
+
+  const UpdateProfileEvent({required this.params});
+
+  @override
+  List<Object> get props => [params];
 }

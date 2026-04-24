@@ -5,7 +5,10 @@ import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/features/profile/presentation/widgets/build_country_picker.dart';
 
 class PhoneField extends StatefulWidget {
-  const PhoneField({super.key});
+  final TextEditingController? controller;
+  final ValueChanged<String>? onCountryCodeChanged;
+
+  const PhoneField({super.key, this.controller, this.onCountryCodeChanged});
 
   @override
   State<PhoneField> createState() => _PhoneFieldState();
@@ -13,6 +16,14 @@ class PhoneField extends StatefulWidget {
 
 class _PhoneFieldState extends State<PhoneField> {
   String _countryCode = '+20';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.onCountryCodeChanged != null) {
+      widget.onCountryCodeChanged!(_countryCode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +37,7 @@ class _PhoneFieldState extends State<PhoneField> {
         // phone number field
         Expanded(
           child: CustomTextFormField(
+            controller: widget.controller,
             hintText: '+20123456789',
             keyboardType: TextInputType.phone,
             prefixIcon: const Icon(
@@ -57,6 +69,9 @@ class _PhoneFieldState extends State<PhoneField> {
                 title: Text(code),
                 onTap: () {
                   setState(() => _countryCode = code);
+                  if (widget.onCountryCodeChanged != null) {
+                    widget.onCountryCodeChanged!(code);
+                  }
                   Navigator.pop(context);
                 },
               ),

@@ -37,6 +37,11 @@ class DioConsumer extends ApiConsumer {
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${await _getToken()}',
+          },
+        ),
       );
       return response.data;
     } on DioException catch (e) {
@@ -79,13 +84,40 @@ class DioConsumer extends ApiConsumer {
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${await _getToken()}',
+          },
+        ),
       );
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
-
+  @override
+  Future put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    bool isFromData = false,
+  }) async {
+    try {
+      final response = await dio.put(
+        path,
+        data: isFromData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${await _getToken()}',
+          },
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    }
+  }
   @override
   Future post(
     String path, {
@@ -98,6 +130,11 @@ class DioConsumer extends ApiConsumer {
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${await _getToken()}',
+          },
+        ),
       );
       return response.data;
     } on DioException catch (e) {
@@ -109,5 +146,5 @@ class DioConsumer extends ApiConsumer {
 //! Get token from cache/local storage
 Future<String> _getToken() async {
   final token = await CacheHelper().getData(key: ApiKeys.token);
-  return token ?? '';
+  return "1019|T7zpSUcUKCtuzTeMFJkdJVB2WrUXcW6sUhjt2lrz09e12db2";
 }

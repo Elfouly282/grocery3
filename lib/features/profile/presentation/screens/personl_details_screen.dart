@@ -1,15 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/shared_widgets/custom_button.dart';
 import 'package:grocery3/core/shared_widgets/custom_divider.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/profile/domain/entities/update_profile_entity.dart';
+import 'package:grocery3/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:grocery3/features/profile/presentation/bloc/profile_event.dart';
+import 'package:grocery3/features/profile/presentation/bloc/profile_state.dart';
 import 'package:grocery3/features/profile/presentation/widgets/email_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/name_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/phone_field.dart';
 
-class PersonalDetailsScreen extends StatelessWidget {
+class PersonalDetailsScreen extends StatefulWidget {
   const PersonalDetailsScreen({super.key});
+
+  @override
+  State<PersonalDetailsScreen> createState() => _PersonalDetailsScreenState();
+}
+
+class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  String? _countryCode;
+
+  @override
+  void initState() {
+    super.initState();
+    final state = context.read<ProfileBloc>().state;
+    if (state is ProfileLoaded) {
+      _nameController.text = state.user!.name ?? '';
+      _phoneController.text = state.user!.phone ?? '';
+      _emailController.text = state.user!.email ?? '';
+      _countryCode = state.user!.countryCode;
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  void _saveProfile() {
+    final updateEntity = UpdateProfileEntity(
+      name: _nameController.text.trim(),
+      phone: _phoneController.text.trim(),
+      email: _emailController.text.trim(),
+      countryCode: _countryCode,
+    );
+    context.read<ProfileBloc>().add(UpdateProfileEvent(params: updateEntity));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +77,46 @@ class PersonalDetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // name field
-                    NameField(),
+                    NameField(controller: _nameController),
                     SizedBox(height: 14),
                     // phone field
-                    PhoneField(),
+                    PhoneField(
+                      controller: _phoneController,
+                      onCountryCodeChanged: (code) {
+                        _countryCode = code;
+                      },
+                    ),
                     SizedBox(height: 14),
                     // email field
-                    EmailField(),
+                    EmailField(controller: _emailController),
                     Spacer(),
-                    CustomButton(
-                      text: 'Save',
-                      backgroundColor: AppColors.buttonBackground,
-                      onPressed: () {},
+                    BlocConsumer<ProfileBloc, ProfileState>(
+                      listener: (context, state) {
+                        if (state is ProfileLoaded) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Profile updated successfully'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                        } else if (state is ProfileError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is ProfileLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return CustomButton(
+                          text: 'Save',
+                          backgroundColor: AppColors.buttonBackground,
+                          onPressed: _saveProfile,
+                        );
+                      },
                     ),
                   ],
                 ),

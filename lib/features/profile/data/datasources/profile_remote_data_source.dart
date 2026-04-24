@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/api_keys.dart';
-import 'package:grocery3/features/profile/data/models/profile_model.dart';
-import 'package:grocery3/features/profile/domain/usecases/update_profile.dart';
+import 'package:grocery3/features/profile/data/models/profile_user_model.dart';
+import 'package:grocery3/features/profile/data/models/update_profile_mode.dart';
 
 abstract class ProfileRemoteDataSource {
-  Future<ProfileModel> getProfile();
-  Future<ProfileModel> updateProfile(UpdateProfileParams params);
-  Future<ProfileModel> updateImage(String imagePath);
+  Future<ProfileUserModel> getProfile();
+  Future<UpdateProfileModel> updateProfile(UpdateProfileModel params);
+  Future<String> updateImage(String imagePath);
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -16,32 +16,35 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   ProfileRemoteDataSourceImpl({required this.api});
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<ProfileUserModel> getProfile() async {
     final response = await api.get(EndPoint.profile);
-    return ProfileModel.fromJson(response);
+    final profile = ProfileUserModel.fromJson(response[ApiKeys.data]['me']);
+    print(profile);
+    return profile;
   }
 
   @override
-  Future<ProfileModel> updateProfile(UpdateProfileParams params) async {
-    final response = await api.patch(
-      EndPoint.profileUpdate,
+  Future<UpdateProfileModel> updateProfile(UpdateProfileModel params) async {
+    final response = await api.put(
+      EndPoint.updateProfile,
       data: params.toJson(),
     );
-    return ProfileModel.fromJson(response);
+
+    final userData = response['data'];
+    return UpdateProfileModel.fromJson(userData);
   }
 
   @override
-  Future<ProfileModel> updateImage(String imagePath) async {
+  Future<String> updateImage(String imagePath) async {
     try {
       final file = await MultipartFile.fromFile(imagePath);
-
       final response = await api.post(
-        EndPoint.profileImageUpdate,
+        EndPoint.updateProfileImage,
         isFromData: true,
         data: {'image': file},
       );
-
-      return ProfileModel.fromJson(response);
+      final img = response['data']['profile_image_url'];
+      return img;
     } catch (e) {
       rethrow;
     }
