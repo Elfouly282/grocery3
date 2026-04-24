@@ -1,11 +1,14 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery3/Features/Add_New_List/presentation/views/widgets/CustomListTextField.dart';
-
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/utils/theme/app_colors.dart';
 import '../../cubit/addNewList/SmartListCubit.dart';
+import '../../cubit/addNewList/SmartListState.dart';
 import '../../cubit/produts/productCubit.dart';
 import 'CustomSearchTextField.dart';
 
@@ -21,13 +24,42 @@ class HeaderSection extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
 
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              decoration: BoxDecoration(
-                color: AppColors.lightGrey,
-                borderRadius: BorderRadius.circular(12),
+            GestureDetector(
+              onTap: () {
+                context.read<SmartListCubit>().pickImage();
+              },
+              child: BlocBuilder<SmartListCubit, SmartListState>(
+                builder: (context, state) {
+                  final cubit = context.read<SmartListCubit>();
+
+                  if (state is ImagePickedState) {
+                    return GestureDetector(
+                      onTap: () => cubit.pickImage(),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(
+                          state.image,
+                          width: size*0.2,
+                          height: 120,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }
+
+                  return GestureDetector(
+                    onTap: () => cubit.pickImage(),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGrey,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: SvgPicture.asset("assets/images/image_outline.svg"),
+                    ),
+                  );
+                },
               ),
-              child:  Icon(Icons.image_outlined,size: size*0.17,),
             ),
 
             const SizedBox(height: 12),
@@ -36,7 +68,10 @@ class HeaderSection extends StatelessWidget {
               hintText: "Name of List",
 
               filledColor: AppColors.lightGrey,
-              prefixIcon: const Icon(Icons.safety_check_rounded),
+              prefixIcon: SvgPicture.asset(
+                "assets/images/Vector11.svg",
+                fit: BoxFit.scaleDown,
+              ),
               onchanged: (value) =>
                   context.read<SmartListCubit>().onNameChanged(value),
             ),
@@ -44,10 +79,25 @@ class HeaderSection extends StatelessWidget {
             const SizedBox(height: 12),
 
             CustomTextSearchField(
+              suffixIcon: SizedBox(
+                width: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/images/scan.svg",
+                      width: 20,
+                    ),
+                    SvgPicture.asset(
+                      "assets/images/mic.svg",
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ),
               hintText: "Search for any Product",
-              prefixIcon: const Icon(Icons.search),
-              onchanged: (q) =>
-                  context.read<ProductCubit>().search(q),
+              prefixIcon: SvgPicture.asset("assets/images/search.svg",fit: BoxFit.scaleDown,),
+              onchanged: (q) => context.read<ProductCubit>().search(q),
               filledColor: const Color(0xffEAEEF0),
             ),
 
@@ -57,4 +107,5 @@ class HeaderSection extends StatelessWidget {
       ),
     );
   }
+
 }

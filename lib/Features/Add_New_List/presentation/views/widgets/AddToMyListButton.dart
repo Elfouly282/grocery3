@@ -23,7 +23,7 @@ class AddListButton extends StatelessWidget {
           final smartList = context.read<SmartListCubit>();
 
           if (smartList.name.trim().isEmpty) {
-            CustomSnackBar.show(context, message: "Add List Name");
+            CustomSnackBar.show(context,isError: true, message: "Add List Name");
             return;
           }
 
@@ -31,11 +31,12 @@ class AddListButton extends StatelessWidget {
           context.read<SelectionCubit>().state.toList();
 
           if (selectedIds.isEmpty) {
-            CustomSnackBar.show(context, message: "Select some products");
+            CustomSnackBar.show(context, isError: true,message: "Select some products");
             return;
           }
 
           smartList.createList(selectedIds);
+
         },
         backgroundColor: AppColors.secondary,
       ),

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:grocery3/Features/Add_New_List/presentation/views/widgets/productGrid.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../cubit/produts/productCubit.dart';
 import '../../cubit/produts/product_state.dart';
 
 import 'header_section.dart';
+import 'header_shimmer.dart';
 
 class AddNewListViewBody extends StatelessWidget {
   const AddNewListViewBody({Key? key}) : super(key: key);
@@ -16,7 +18,14 @@ class AddNewListViewBody extends StatelessWidget {
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomScrollView(
+            slivers: [
+              HeaderShimmer(),
+              SliverFillRemaining(
+                child: ProductGridShimmer(),
+              ),
+            ],
+          );
         }
 
         if (state is ProductError) {

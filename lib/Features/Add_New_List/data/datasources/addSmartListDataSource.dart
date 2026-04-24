@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import '../../../../core/api/api_consumer.dart';
@@ -7,7 +9,7 @@ abstract class AddSmartListRemoteDataSource {
   Future<void> createSmartList({
     required String name,
     String? description,
-    String? image,
+    File? image,
     required List<int> mealIds,
   });
 }
@@ -20,7 +22,7 @@ class AddSmartListRemoteDataSourceImpl implements AddSmartListRemoteDataSource {
   Future<void> createSmartList({
     required String name,
     String? description,
-    String? image,
+    File? image,
     required List<int> mealIds,
   }) async {
     final formData = FormData();
@@ -33,7 +35,17 @@ class AddSmartListRemoteDataSourceImpl implements AddSmartListRemoteDataSource {
         MapEntry("meal_ids[$i]", mealIds[i].toString()),
       );
     }
-
+    if (image != null) {
+      formData.files.add(
+        MapEntry(
+          "image",
+          await MultipartFile.fromFile(
+            image.path,
+            filename: image.path.split('/').last,
+          ),
+        ),
+      );
+    }
     await api.post(
       EndPoint.smart_list,
       data: formData,

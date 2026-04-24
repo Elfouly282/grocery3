@@ -1,8 +1,10 @@
+import 'dart:io';
+
 abstract class SmartListRepository {
   Future<void> createSmartList({
     required String name,
     String? description,
-    String? image,
+    File? image,
     required List<int> mealIds,
   });
 }

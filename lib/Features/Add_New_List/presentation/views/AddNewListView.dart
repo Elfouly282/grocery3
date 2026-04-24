@@ -40,6 +40,7 @@ class AddnewListView extends StatelessWidget {
       child: BlocListener<SmartListCubit, SmartListState>(
         listener: (context, state) {
           if (state is SmartListAddedSuccess) {
+            CustomSnackBar.show(context,message: "list added successfully");
             Navigator.pop(context);
           }
         },

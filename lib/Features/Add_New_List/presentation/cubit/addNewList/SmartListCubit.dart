@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../domain/useCase/addSmartList_UseCase.dart';
 import 'SmartListState.dart';
@@ -12,8 +14,8 @@ class SmartListCubit extends Cubit<SmartListState> {
 
   String name = "";
   String description = "description";
-
-
+  File? imageFile;
+  final ImagePicker picker = ImagePicker();
   Timer? _debounce;
 
   void onNameChanged(String value) {
@@ -35,6 +37,7 @@ class SmartListCubit extends Cubit<SmartListState> {
         name: name,
         description: description,
         mealIds: mealIds,
+        image: imageFile
       );
 
       emit(SmartListAddedSuccess());
@@ -42,9 +45,18 @@ class SmartListCubit extends Cubit<SmartListState> {
       emit(AddSmartListError(e.toString()));
     }
   }
-  @override
-  Future<void> close() {
-    _debounce?.cancel();
-    return super.close();
+
+  Future<void> pickImage() async {
+    final picked = await picker.pickImage(source: ImageSource.gallery);
+
+    if (picked != null) {
+      imageFile = File(picked.path);
+      emit(ImagePickedState(imageFile!));
+    }
+    @override
+    Future<void> close() {
+      _debounce?.cancel();
+      return super.close();
+    }
   }
 }
