@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery3/core/bloc_observer/bloc_observer.dart';
 import 'package:grocery3/core/helper/cache/cache_helper.dart';
-import 'package:grocery3/core/shared_widgets/routing.dart';
 import 'package:grocery3/core/utils/get_it_server_locator.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
-import 'package:grocery3/features/auth/presentation/sign_up_view.dart';
-import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/categories_view.dart';
 import 'package:grocery3/features/onboarding/screens/on_boarding_screen.dart';
 
 void main() async {
@@ -23,7 +20,6 @@ class Grocery3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // onGenerateRoute:  onGenerateRoute ,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
