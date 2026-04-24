@@ -11,16 +11,13 @@ class ProfileUserModel extends ProfileUserEntity {
     required super.phoneVerified,
     required super.createdAt,
     required super.updatedAt,
-    required super.birthday, 
-    required super.firstname, 
-    required super.gender, 
-    required super.lastname, 
+    required super.birthday,
+    required super.firstname,
+    required super.gender,
+    required super.lastname,
     required super.name,
     required super.preferredLanguages,
     required super.profilePicture,
-
-
-
   });
   factory ProfileUserModel.fromJson(Map<String, dynamic> json) {
     return ProfileUserModel(
@@ -28,8 +25,8 @@ class ProfileUserModel extends ProfileUserEntity {
       profilePicture: json['profile_picture'],
       name: json['name'],
       username: json['username'],
-      firstname: json['firstname'],
-      lastname: json['lastname'],
+      firstname: json['firstname'] ?? '',
+      lastname: json['lastname'] ?? '',
       gender: json['gender'],
       birthday: json['birthday'],
       email: json['email'],
@@ -43,7 +40,3 @@ class ProfileUserModel extends ProfileUserEntity {
     );
   }
 }
-
-
-
-

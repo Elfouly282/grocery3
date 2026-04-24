@@ -19,19 +19,22 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   Future<ProfileUserModel> getProfile() async {
     final response = await api.get(EndPoint.profile);
     final profile = ProfileUserModel.fromJson(response[ApiKeys.data]['me']);
-    print(profile);
+
     return profile;
   }
 
   @override
   Future<UpdateProfileModel> updateProfile(UpdateProfileModel params) async {
+    print("Here000");
+
     final response = await api.put(
       EndPoint.updateProfile,
       data: params.toJson(),
     );
 
-    final userData = response['data'];
-    return UpdateProfileModel.fromJson(userData);
+    final updateUserProfile = UpdateProfileModel.fromJson(response['data']);
+
+    return updateUserProfile;
   }
 
   @override

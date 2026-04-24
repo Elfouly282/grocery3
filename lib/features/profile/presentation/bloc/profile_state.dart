@@ -12,23 +12,64 @@ abstract class ProfileState extends Equatable {
 
 class ProfileInitial extends ProfileState {}
 
-class ProfileLoading extends ProfileState {}
+// Get Profile States
+class GetProfileLoading extends ProfileState {}
 
-class ProfileLoaded extends ProfileState {
-  final ProfileUserEntity? user;
-  final UpdateProfileEntity? updateProfileModel;
-  final String? imageUrl;
+class GetProfileLoaded extends ProfileState {
+  final ProfileUserEntity user;
 
-  const ProfileLoaded({this.user, this.imageUrl, this.updateProfileModel});
+  const GetProfileLoaded({required this.user});
 
   @override
   List<Object?> get props => [user];
 }
 
-class ProfileError extends ProfileState {
+class GetProfileError extends ProfileState {
   final String message;
 
-  const ProfileError({required this.message});
+  const GetProfileError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+// Update Profile States
+class UpdateProfileLoading extends ProfileState {}
+
+class UpdateProfileLoaded extends ProfileState {
+  final UpdateProfileEntity updateProfileModel;
+
+  const UpdateProfileLoaded({required this.updateProfileModel});
+
+  @override
+  List<Object?> get props => [updateProfileModel];
+}
+
+class UpdateProfileError extends ProfileState {
+  final String message;
+
+  const UpdateProfileError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+// Update Image States
+class UpdateImageLoading extends ProfileState {}
+
+class UpdateImageLoaded extends ProfileState {
+  final String imageUrl;
+
+  const UpdateImageLoaded({required this.imageUrl});
+
+  @override
+  List<Object?> get props => [imageUrl];
+}
+
+class UpdateImageError extends ProfileState {
+  final String message;
+
+  const UpdateImageError({required this.message});
 
   @override
   List<Object?> get props => [message];

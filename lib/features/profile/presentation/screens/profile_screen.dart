@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
+import 'package:grocery3/core/utils/custom_toast.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/profile/domain/entities/profile_user_entity.dart';
@@ -46,35 +47,18 @@ class ProfileBody extends StatelessWidget {
         Divider(color: AppColors.dividerColor, thickness: 0.45, height: 1),
         Expanded(
           child: BlocConsumer<ProfileBloc, ProfileState>(
-            listenWhen: (previous, current) =>
-                current is ProfileError ||
-                current is ProfileLoading ||
-                (previous is ProfileLoading && current is ProfileLoaded),
             listener: (context, state) {
-              if (state is ProfileLoading) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Updating...'),
-                    duration: Duration(seconds: 1),
-                  ),
-                );
-              } else if (state is ProfileError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-              } else if (state is ProfileLoaded) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('Success!')));
+              if (state is GetProfileError) {
+                CustomToast.showToast(message: state.message);
+              } else if (state is UpdateImageError) {
+                CustomToast.showToast(message: state.message);
               }
             },
-            buildWhen: (previous, current) =>
-                current is ProfileLoaded ||
-                (current is ProfileError && previous is! ProfileLoaded),
+
             builder: (context, state) {
-              if (state is ProfileLoaded) {
-                return _buildProfileList(context, state.user!);
-              } else if (state is ProfileError) {
+              if (state is GetProfileLoaded) {
+                return _buildProfileList(context, state.user);
+              } else if (state is GetProfileError) {
                 return Center(child: Text(state.message));
               }
               return const Center(child: CircularProgressIndicator());

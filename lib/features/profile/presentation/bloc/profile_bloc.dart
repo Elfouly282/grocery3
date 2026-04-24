@@ -25,11 +25,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     GetProfileEvent event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading());
+    emit(GetProfileLoading());
     final failureOrUser = await getProfileUseCase();
     failureOrUser.fold(
-      (failure) => emit(ProfileError(message: failure.message)),
-      (user) => emit(ProfileLoaded(user: user)),
+      (failure) => emit(GetProfileError(message: failure.message)),
+      (user) => emit(GetProfileLoaded(user: user)),
     );
   }
 
@@ -39,19 +39,23 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     final currentState = state;
     ProfileUserEntity? currentUser;
-    if (currentState is ProfileLoaded) {
+    
+    // Get current user from any loaded state
+    if (currentState is GetProfileLoaded) {
       currentUser = currentState.user;
     }
 
-    emit(ProfileLoading());
+    emit(UpdateImageLoading());
     final failureOrUser = await updateImageUseCase(event.imagePath);
     failureOrUser.fold(
-      (failure) => emit(ProfileError(message: failure.message)),
+      (failure) => emit(UpdateImageError(message: failure.message)),
       (img) {
         if (currentUser != null) {
-          emit(ProfileLoaded(user: currentUser.copyWith(profilePicture: img)));
+          // Update the current user with new image and return to GetProfileLoaded state
+          final updatedUser = currentUser.copyWith(profilePicture: img);
+          emit(GetProfileLoaded(user: updatedUser));
         } else {
-          emit(ProfileLoaded(imageUrl: img));
+          emit(UpdateImageLoaded(imageUrl: img));
         }
       },
     );
@@ -61,11 +65,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     UpdateProfileEvent event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading());
+    emit(UpdateProfileLoading());
     final failureOrUser = await updateProfileUseCase(event.params);
     failureOrUser.fold(
-      (failure) => emit(ProfileError(message: failure.message)),
-      (user) => emit(ProfileLoaded(updateProfileModel: user)),
+      (failure) => emit(UpdateProfileError(message: failure.message)),
+      (user) => emit(UpdateProfileLoaded(updateProfileModel: user)),
     );
   }
 }

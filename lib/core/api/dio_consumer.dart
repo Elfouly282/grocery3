@@ -6,7 +6,6 @@ import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
 
-
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
@@ -38,9 +37,7 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-          },
+          headers: {'Authorization': 'Bearer ${await _getToken()}'},
         ),
       );
       return response.data;
@@ -85,9 +82,7 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-          },
+          headers: {'Authorization': 'Bearer ${await _getToken()}'},
         ),
       );
       return response.data;
@@ -95,6 +90,7 @@ class DioConsumer extends ApiConsumer {
       handleDioExceptions(e);
     }
   }
+
   @override
   Future put(
     String path, {
@@ -108,9 +104,7 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-          },
+          headers: {'Authorization': 'Bearer ${await _getToken()}'},
         ),
       );
       return response.data;
@@ -118,6 +112,7 @@ class DioConsumer extends ApiConsumer {
       handleDioExceptions(e);
     }
   }
+
   @override
   Future post(
     String path, {
@@ -131,9 +126,7 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-          },
+          headers: {'Authorization': 'Bearer ${await _getToken()}'},
         ),
       );
       return response.data;
@@ -146,5 +139,5 @@ class DioConsumer extends ApiConsumer {
 //! Get token from cache/local storage
 Future<String> _getToken() async {
   final token = await CacheHelper().getData(key: ApiKeys.token);
-  return "1019|T7zpSUcUKCtuzTeMFJkdJVB2WrUXcW6sUhjt2lrz09e12db2";
+  return "1115|GILibQ0W6Igkt9zFtJQ1iDSkykjinZ81MEBQuyUL7a219185";
 }

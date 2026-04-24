@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/shared_widgets/custom_app_bar.dart';
 import 'package:grocery3/core/shared_widgets/custom_button.dart';
 import 'package:grocery3/core/shared_widgets/custom_divider.dart';
+import 'package:grocery3/core/utils/custom_toast.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/profile/domain/entities/update_profile_entity.dart';
@@ -30,11 +31,11 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   void initState() {
     super.initState();
     final state = context.read<ProfileBloc>().state;
-    if (state is ProfileLoaded) {
-      _nameController.text = state.user!.name ?? '';
-      _phoneController.text = state.user!.phone ?? '';
-      _emailController.text = state.user!.email ?? '';
-      _countryCode = state.user!.countryCode;
+    if (state is GetProfileLoaded) {
+      _nameController.text = state.user.username;
+      _phoneController.text = state.user.phone;
+      _emailController.text = state.user.email;
+      _countryCode = state.user.countryCode;
     }
   }
 
@@ -47,11 +48,20 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   }
 
   void _saveProfile() {
+    final fullName = _nameController.text.trim();
+
+    final parts = fullName.split(' ');
+
+    final firstName = parts.isNotEmpty ? parts.first : '';
+    final lastName = parts.length > 1 ? parts.sublist(1).join(' ') : '';
     final updateEntity = UpdateProfileEntity(
-      name: _nameController.text.trim(),
+      firstName: firstName,
+      lastName: lastName,
+      preferredLanguages: ["en"],
+      userName: _nameController.text.trim(),
       phone: _phoneController.text.trim(),
       email: _emailController.text.trim(),
-      countryCode: _countryCode,
+      countryCode: _countryCode!,
     );
     context.read<ProfileBloc>().add(UpdateProfileEvent(params: updateEntity));
   }
@@ -92,21 +102,19 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                     Spacer(),
                     BlocConsumer<ProfileBloc, ProfileState>(
                       listener: (context, state) {
-                        if (state is ProfileLoaded) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Profile updated successfully'),
-                            ),
+                        if (state is UpdateProfileLoaded) {
+                          CustomToast.showToast(
+                            message: "Profile Updated Successfully",
                           );
-                          Navigator.pop(context);
-                        } else if (state is ProfileError) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.message)),
+                        } else if (state is UpdateProfileError) {
+                          CustomToast.showToast(
+                            message: state.message,
+                            state: ToastState.error,
                           );
                         }
                       },
                       builder: (context, state) {
-                        if (state is ProfileLoading) {
+                        if (state is UpdateProfileLoading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );

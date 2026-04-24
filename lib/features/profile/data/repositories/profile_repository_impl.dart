@@ -28,31 +28,29 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, UpdateProfileModel>> updateProfile(
+  Future<Either<Failure, UpdateProfileEntity>> updateProfile(
     UpdateProfileEntity params,
   ) async {
     try {
-      final profile = await remoteDataSource.updateProfile(
+      final profileModel = await remoteDataSource.updateProfile(
         UpdateProfileModel(
-          imgPath: params.imgPath,
-          id: params.id,
-          name: params.name,
-          email: params.email,
-          phone: params.phone,
-          countryCode: params.countryCode,
-          firstname: params.firstname,
-          lastname: params.lastname,
-          gender: params.gender,
-          birthday: params.birthday,
+          userName: params.userName ?? '',
+          firstName: params.firstName ?? '',
+          lastName: params.lastName ?? '',
+          email: params.email ?? '',
+          phone: params.phone ?? '',
+          countryCode: params.countryCode ?? '',
+          preferredLanguages: params.preferredLanguages,
         ),
       );
-      return Right(profile);
+      return Right(profileModel);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errModel.message ?? 'Server Error'));
     } on DioException catch (e) {
       return Left(ServerFailure(e.response?.data['message'] ?? 'Server Error'));
     } catch (e) {
-      return Left(ServerFailure("Some Thing Went Wrong  "));
+      print(e.toString());
+      return Left(ServerFailure(e.toString()));
     }
   }
 

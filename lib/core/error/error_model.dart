@@ -1,10 +1,9 @@
-
 import '../api/api_keys.dart';
 
 class ErrorModel {
   int? code;
   String? message;
-  String? errors;
+  dynamic errors;
   String? data;
 
   ErrorModel({this.code, this.message, this.errors, this.data});

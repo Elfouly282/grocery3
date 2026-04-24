@@ -44,10 +44,7 @@ class _PhoneFieldState extends State<PhoneField> {
               Icons.phone_outlined,
               color: AppColors.iconColor,
             ),
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(10),
-            ],
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
         ),
       ],
