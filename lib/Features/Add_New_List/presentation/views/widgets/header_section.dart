@@ -29,36 +29,36 @@ class HeaderSection extends StatelessWidget {
                 context.read<SmartListCubit>().pickImage();
               },
               child: BlocBuilder<SmartListCubit, SmartListState>(
-                builder: (context, state) {
-                  final cubit = context.read<SmartListCubit>();
+                  builder: (context, state) {
+                    final cubit = context.watch<SmartListCubit>();
 
-                  if (state is ImagePickedState) {
+                    if (cubit.imageFile != null) {
+                      return GestureDetector(
+                        onTap: () => cubit.pickImage(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.file(
+                            cubit.imageFile!,
+                            width: size * 0.2,
+                            height: 120,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    }
+
                     return GestureDetector(
                       onTap: () => cubit.pickImage(),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.file(
-                          state.image,
-                          width: size*0.2,
-                          height: 120,
-                          fit: BoxFit.cover,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                        child: SvgPicture.asset("assets/images/image_outline.svg"),
                       ),
                     );
                   }
-
-                  return GestureDetector(
-                    onTap: () => cubit.pickImage(),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGrey,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: SvgPicture.asset("assets/images/image_outline.svg"),
-                    ),
-                  );
-                },
               ),
             ),
 

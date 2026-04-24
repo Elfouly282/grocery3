@@ -53,10 +53,11 @@ class SmartListCubit extends Cubit<SmartListState> {
       imageFile = File(picked.path);
       emit(ImagePickedState(imageFile!));
     }
-    @override
-    Future<void> close() {
-      _debounce?.cancel();
-      return super.close();
-    }
+  }
+
+  @override
+  Future<void> close() {
+    _debounce?.cancel();
+    return super.close();
   }
 }
