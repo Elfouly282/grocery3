@@ -26,6 +26,7 @@ void handleDioExceptions(DioException e) {
       throw ServerException(errModel: ErrorModel.fromJson(e.response!.data));
     case DioExceptionType.badResponse:
       switch (e.response?.statusCode) {
+       
         case 400: // Bad request
           throw ServerException(
               errModel: ErrorModel.fromJson(e.response!.data));
@@ -47,6 +48,11 @@ void handleDioExceptions(DioException e) {
         case 504: // Server exception
           throw ServerException(
               errModel: ErrorModel.fromJson(e.response!.data));
+        case 500: // Server exception
+          throw ServerException(
+            errModel: ErrorModel.fromJson(e.response!.data),
+          );
+          
       }
   }
 }

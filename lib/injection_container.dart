@@ -30,6 +30,13 @@ import 'package:grocery3/features/cards/data/repositories/cards_repository_impl.
 import 'package:grocery3/features/cards/domain/repositories/cards_repository.dart';
 import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
+import 'package:grocery3/features/forget_password/data/datasources/forget_password_remote_data_source.dart';
+import 'package:grocery3/features/forget_password/data/repositories/forget_password_repository_impl.dart';
+import 'package:grocery3/features/forget_password/domain/repositories/forget_password_repository.dart';
+import 'package:grocery3/features/forget_password/domain/usecases/forget_password.dart';
+import 'package:grocery3/features/forget_password/domain/usecases/reset_password.dart';
+import 'package:grocery3/features/forget_password/domain/usecases/verify_otp.dart';
+import 'package:grocery3/features/forget_password/presentation/bloc/forget_password_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -133,6 +140,28 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<CardsRemoteDataSource>(
     () => CardsRemoteDataSourceImpl(api: sl()),
+  );
+
+  //! Features - Forget password
+  // Bloc
+  sl.registerFactory(
+    () => ForgetPasswordBloc(
+      forgetPasswordUseCase: sl(),
+      verifyOtpUseCase: sl(),
+      resetPasswordUseCase: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton(() => ForgetPasswordUseCase(repository: sl()));
+  sl.registerLazySingleton(() => VerifyOtpUseCase(repository: sl()));
+  sl.registerLazySingleton(() => ResetPasswordUseCase(repository: sl()));
+
+  sl.registerLazySingleton<ForgetPasswordRepository>(
+    () => ForgetPasswordRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  sl.registerLazySingleton<ForgetPasswordRemoteDataSource>(
+    () => ForgetPasswordRemoteDataSourceImpl(api: sl()),
   );
 
   //! Core
