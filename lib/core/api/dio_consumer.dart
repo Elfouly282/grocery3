@@ -7,7 +7,6 @@ import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
 
-
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
@@ -62,7 +61,7 @@ class DioConsumer extends ApiConsumer {
           },
         ),
       );
-      
+
       // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
       if (response.data is String) {
         return jsonDecode(response.data);
@@ -114,6 +113,6 @@ class DioConsumer extends ApiConsumer {
 
 //! Get token from cache/local storage
 Future<String> _getToken() async {
-  final token = await CacheHelper().getData(key: ApiKeys.token);
+  final token = CacheHelper.getData(key: ApiKeys.token);
   return token ?? '';
 }

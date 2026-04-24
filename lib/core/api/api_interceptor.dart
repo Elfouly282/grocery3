@@ -8,7 +8,7 @@ import 'api_keys.dart';
 class ApiInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = CacheHelper().getData(key: ApiKeys.token);
+    final token = CacheHelper.getData(key: ApiKeys.token);
 
     if (token != null && token.isNotEmpty && token != 'guest') {
       options.headers['Authorization'] = 'Bearer $token';

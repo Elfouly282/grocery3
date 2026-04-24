@@ -13,7 +13,6 @@ class EndPoint {
   static const String products = "/meals";
   static const String subCategories = "/subcategories";
 
-  // روابط إضافية مفيدة من الـ Postman
   static const String todayDeals = "/meals/today";
   static const String hotMeals = "/meals/hot";
   static const String bestSells = "/best-sells";
@@ -53,4 +52,15 @@ class ApiKeys {
   static const String rating = 'rating';
   static const String oldPrice = 'oldPrice';
   static const String weight = 'weight';
+}
+
+class StripeKeys {
+  static const String publishableKey =
+      "pk_test_51TOickRsbjFLOoimFJJoHxAVC6Zv8RLvHkscQSwgwgEFKyMNua0MX4uigF4z5bAAM5440SJyPS7sJAsi8z9zcBBs00AvZdbWph";
+}
+
+extension PaymentEndPoints on EndPoint {
+  static const String savedCardsList = "/cards";
+  static const String storeSavedCard = "/store";
+  static const String paymentsHistory = "/payments/history";
 }

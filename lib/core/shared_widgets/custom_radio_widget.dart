@@ -30,7 +30,9 @@ class CustomRadioButton<T> extends StatelessWidget {
           children: [
             Radio<T>(
               value: value,
+              // ignore: deprecated_member_use
               groupValue: groupValue,
+              // ignore: deprecated_member_use
               onChanged: onChanged,
               activeColor: activeColor ?? AppColors.primary,
               // تقليل المساحة المحيطة بالدائرة ليكون التصميم متناسقاً

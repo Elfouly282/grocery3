@@ -3,69 +3,45 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CacheHelper {
   static SharedPreferences? _sharedPreferences;
 
-  static set sharedPreferences(SharedPreferences value) {
-    _sharedPreferences = value;
-  }
-
-  static SharedPreferences get sharedPreferences {
-    if (_sharedPreferences == null) {
-      throw Exception("CacheHelper: SharedPreferences not initialized! Call setupServiceLocator() first.");
-    }
-    return _sharedPreferences!;
-  }
-
-  //! Here The Initialize of cache .
-  Future<void> init() async {
+  // Initialize the shared preferences
+  static Future<void> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  String? getDataString({required String key}) {
-    return _sharedPreferences?.getString(key);
+  // Generic method to get data (Static)
+  static dynamic getData({required String key}) {
+    return _sharedPreferences?.get(key);
   }
 
-  Future<bool> setData({required String key, required dynamic value}) async {
+  // Method to set data (Static)
+  static Future<bool> setData({
+    required String key,
+    required dynamic value,
+  }) async {
     if (_sharedPreferences == null) return false;
-    
+
     if (value is bool) {
       return await _sharedPreferences!.setBool(key, value);
     }
     if (value is String) {
       return await _sharedPreferences!.setString(key, value);
     }
-
     if (value is int) {
       return await _sharedPreferences!.setInt(key, value);
-    } else {
+    }
+    if (value is double) {
       return await _sharedPreferences!.setDouble(key, value);
     }
+    return false;
   }
 
-  dynamic getData({required String key}) {
-    return _sharedPreferences?.get(key);
+  // Method to remove data
+  static Future<bool> removeData({required String key}) async {
+    return await _sharedPreferences?.remove(key) ?? false;
   }
 
-  Future<bool> removeData({required String key}) async {
-    if (_sharedPreferences == null) return false;
-    return await _sharedPreferences!.remove(key);
-  }
-
-  Future<bool> containsKey({required String key}) async {
-    return _sharedPreferences?.containsKey(key) ?? false;
-  }
-
-  Future<bool> clearData() async {
-    if (_sharedPreferences == null) return false;
-    return await _sharedPreferences!.clear();
-  }
-
-  Future<dynamic> put({required String key, required dynamic value}) async {
-    if (_sharedPreferences == null) return false;
-    if (value is String) {
-      return await _sharedPreferences!.setString(key, value);
-    } else if (value is bool) {
-      return await _sharedPreferences!.setBool(key, value);
-    } else {
-      return await _sharedPreferences!.setInt(key, value);
-    }
+  // Clear all data
+  static Future<bool> clearData() async {
+    return await _sharedPreferences?.clear() ?? false;
   }
 }
