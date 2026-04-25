@@ -19,6 +19,7 @@ class AppColors {
   static const Color inactiveTrackColor = Color(0xFFCCCCCC);
   static const Color dataActionBackground = Color(0xFFDAD8D8);
   static const Color dataActionBackgroundLight = Color(0xffF7E7E7);
+  static const Color detailsValueText = Color(0xCC212529);
   // Status Colors
   static const Color success = Color(0xFF28A745);
   static const Color error = Color(0xFFDC3545);

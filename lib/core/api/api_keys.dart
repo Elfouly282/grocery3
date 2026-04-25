@@ -15,6 +15,7 @@ class EndPoint {
   static const String profile = "/profile";
   static const String updateProfile = "/profile/info";
   static const String updateProfileImage = "/profile/image";
+  static const String addresses = "/addresses";
 }
 
 class ApiKeys {

@@ -28,6 +28,27 @@ class AppStyles {
     fontFamily: AppFonts.interFont,
   );
 
+  static const TextStyle font16Regular = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontFamily: AppFonts.interFont,
+  );
+
+  static const TextStyle addressDetailsLabel = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+    fontFamily: AppFonts.interFont,
+  );
+
+  static const TextStyle addressDetailsValue = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.detailsValueText,
+    fontFamily: AppFonts.interFont,
+  );
+
   static const TextStyle font14RegularGrey = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,

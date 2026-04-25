@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/api_keys.dart';
+import 'package:grocery3/features/profile/data/models/add_address_params_model.dart';
+import 'package:grocery3/features/profile/data/models/address_model.dart';
 import 'package:grocery3/features/profile/data/models/profile_user_model.dart';
 import 'package:grocery3/features/profile/data/models/update_profile_mode.dart';
 
@@ -8,6 +10,8 @@ abstract class ProfileRemoteDataSource {
   Future<ProfileUserModel> getProfile();
   Future<UpdateProfileModel> updateProfile(UpdateProfileModel params);
   Future<String> updateImage(String imagePath);
+  Future<List<AddressModel>> getAddresses();
+  Future<AddressModel> addAddress(AddAddressParamsModel params);
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -25,8 +29,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   @override
   Future<UpdateProfileModel> updateProfile(UpdateProfileModel params) async {
-    print("Here000");
-
     final response = await api.put(
       EndPoint.updateProfile,
       data: params.toJson(),
@@ -51,5 +53,27 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<List<AddressModel>> getAddresses() async {
+    final response = await api.get(EndPoint.addresses);
+    final data = response[ApiKeys.data];
+
+    if (data is List) {
+      return data.map((e) => AddressModel.fromJson(e)).toList();
+    }
+
+    if (data is Map<String, dynamic>) {
+      return [AddressModel.fromJson(data)];
+    }
+
+    return [];
+  }
+
+  @override
+  Future<AddressModel> addAddress(AddAddressParamsModel params) async {
+    final response = await api.post(EndPoint.addresses, data: params.toJson());
+    return AddressModel.fromJson(response[ApiKeys.data]);
   }
 }

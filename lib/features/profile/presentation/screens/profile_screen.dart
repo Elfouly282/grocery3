@@ -99,7 +99,10 @@ class ProfileBody extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DeliveryAddressesScreen(),
+                builder: (context) => BlocProvider(
+                  create: (context) => sl<ProfileBloc>(),
+                  child: const DeliveryAddressesScreen(),
+                ),
               ),
             );
           },

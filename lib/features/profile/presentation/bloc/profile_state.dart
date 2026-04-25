@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:grocery3/features/profile/data/models/update_profile_mode.dart';
+import 'package:grocery3/features/profile/domain/entities/address_entity.dart';
 import 'package:grocery3/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:grocery3/features/profile/domain/entities/update_profile_entity.dart';
 
@@ -28,6 +28,47 @@ class GetProfileError extends ProfileState {
   final String message;
 
   const GetProfileError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+// Addresses States
+class GetAddressesLoading extends ProfileState {}
+
+class GetAddressesLoaded extends ProfileState {
+  final List<AddressEntity> addresses;
+
+  const GetAddressesLoaded({required this.addresses});
+
+  @override
+  List<Object?> get props => [addresses];
+}
+
+class GetAddressesError extends ProfileState {
+  final String message;
+
+  const GetAddressesError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class AddAddressLoading extends ProfileState {}
+
+class AddAddressLoaded extends ProfileState {
+  final AddressEntity address;
+
+  const AddAddressLoaded({required this.address});
+
+  @override
+  List<Object?> get props => [address];
+}
+
+class AddAddressError extends ProfileState {
+  final String message;
+
+  const AddAddressError({required this.message});
 
   @override
   List<Object?> get props => [message];

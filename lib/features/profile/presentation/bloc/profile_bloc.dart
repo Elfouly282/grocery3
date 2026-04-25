@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:grocery3/features/profile/domain/usecases/add_address.dart';
+import 'package:grocery3/features/profile/domain/usecases/get_addresses.dart';
 import 'package:grocery3/features/profile/domain/usecases/get_profile.dart';
 import 'package:grocery3/features/profile/domain/usecases/update_image.dart';
 import 'package:grocery3/features/profile/domain/usecases/update_profile.dart';
@@ -8,15 +10,21 @@ import 'package:grocery3/features/profile/presentation/bloc/profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfileUseCase getProfileUseCase;
+  final GetAddressesUseCase getAddressesUseCase;
+  final AddAddressUseCase addAddressUseCase;
   final UpdateImageUseCase updateImageUseCase;
   final UpdateProfileUseCase updateProfileUseCase;
 
   ProfileBloc({
     required this.getProfileUseCase,
+    required this.getAddressesUseCase,
+    required this.addAddressUseCase,
     required this.updateImageUseCase,
     required this.updateProfileUseCase,
   }) : super(ProfileInitial()) {
     on<GetProfileEvent>(_onGetProfile);
+    on<GetAddressesEvent>(_onGetAddresses);
+    on<AddAddressEvent>(_onAddAddress);
     on<UpdateProfileImageEvent>(_onUpdateProfileImage);
     on<UpdateProfileEvent>(_onUpdateProfile);
   }
@@ -70,6 +78,30 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     failureOrUser.fold(
       (failure) => emit(UpdateProfileError(message: failure.message)),
       (user) => emit(UpdateProfileLoaded(updateProfileModel: user)),
+    );
+  }
+
+  Future<void> _onGetAddresses(
+    GetAddressesEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(GetAddressesLoading());
+    final failureOrAddresses = await getAddressesUseCase();
+    failureOrAddresses.fold(
+      (failure) => emit(GetAddressesError(message: failure.message)),
+      (addresses) => emit(GetAddressesLoaded(addresses: addresses)),
+    );
+  }
+
+  Future<void> _onAddAddress(
+    AddAddressEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(AddAddressLoading());
+    final failureOrAddress = await addAddressUseCase(event.params);
+    failureOrAddress.fold(
+      (failure) => emit(AddAddressError(message: failure.message)),
+      (address) => emit(AddAddressLoaded(address: address)),
     );
   }
 }

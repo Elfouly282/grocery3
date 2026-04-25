@@ -10,6 +10,7 @@ import 'package:grocery3/features/profile/domain/entities/update_profile_entity.
 import 'package:grocery3/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:grocery3/features/profile/presentation/bloc/profile_event.dart';
 import 'package:grocery3/features/profile/presentation/bloc/profile_state.dart';
+import 'package:grocery3/features/profile/presentation/screens/profile_screen.dart';
 import 'package:grocery3/features/profile/presentation/widgets/email_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/name_field.dart';
 import 'package:grocery3/features/profile/presentation/widgets/phone_field.dart';
@@ -53,7 +54,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
     final parts = fullName.split(' ');
 
     final firstName = parts.isNotEmpty ? parts.first : '';
-    final lastName = parts.length > 1 ? parts.sublist(1).join(' ') : '';
+    final lastName = parts.length > 1 ? parts.sublist(1).join(' ') : 'null';
     final updateEntity = UpdateProfileEntity(
       firstName: firstName,
       lastName: lastName,
@@ -106,11 +107,20 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                           CustomToast.showToast(
                             message: "Profile Updated Successfully",
                           );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreen(),
+                            ),
+                          );
+                          
                         } else if (state is UpdateProfileError) {
                           CustomToast.showToast(
                             message: state.message,
                             state: ToastState.error,
                           );
+
+
                         }
                       },
                       builder: (context, state) {

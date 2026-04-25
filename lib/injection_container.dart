@@ -33,6 +33,8 @@ import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
 import 'package:grocery3/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:grocery3/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:grocery3/features/profile/domain/repositories/profile_repository.dart';
+import 'package:grocery3/features/profile/domain/usecases/add_address.dart';
+import 'package:grocery3/features/profile/domain/usecases/get_addresses.dart';
 import 'package:grocery3/features/profile/domain/usecases/get_profile.dart';
 import 'package:grocery3/features/profile/domain/usecases/update_image.dart';
 import 'package:grocery3/features/profile/domain/usecases/update_profile.dart';
@@ -145,6 +147,8 @@ Future<void> init() async {
   sl.registerFactory(
     () => ProfileBloc(
       getProfileUseCase: sl(),
+      getAddressesUseCase: sl(),
+      addAddressUseCase: sl(),
       updateImageUseCase: sl(),
       updateProfileUseCase: sl(),
     ),
@@ -152,6 +156,8 @@ Future<void> init() async {
 
   // Use cases
   sl.registerLazySingleton(() => GetProfileUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetAddressesUseCase(repository: sl()));
+  sl.registerLazySingleton(() => AddAddressUseCase(repository: sl()));
   sl.registerLazySingleton(() => UpdateImageUseCase(repository: sl()));
   sl.registerLazySingleton(() => UpdateProfileUseCase(repository: sl()));
 

@@ -4,13 +4,14 @@ import 'package:grocery3/core/utils/theme/app_styles.dart';
 
 class AddressItem extends StatelessWidget {
   final String address;
+  final VoidCallback? onTap;
 
-  const AddressItem({super.key, required this.address});
+  const AddressItem({super.key, required this.address, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: const BoxDecoration(
@@ -31,7 +32,7 @@ class AddressItem extends StatelessWidget {
             Expanded(
               child: Text(
                 address,
-                style: AppStyles.font16Medium.copyWith(color: AppColors.black),
+                style: AppStyles.font16Medium,
               ),
             ),
             const Icon(
