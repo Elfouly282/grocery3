@@ -139,5 +139,5 @@ class DioConsumer extends ApiConsumer {
 //! Get token from cache/local storage
 Future<String> _getToken() async {
   final token = await CacheHelper().getData(key: ApiKeys.token);
-  return "1115|GILibQ0W6Igkt9zFtJQ1iDSkykjinZ81MEBQuyUL7a219185";
+  return token;
 }
