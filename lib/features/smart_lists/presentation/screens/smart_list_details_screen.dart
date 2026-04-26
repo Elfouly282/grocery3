@@ -5,6 +5,7 @@ import '../../../product_details/presentation/widgets/product_card.dart';
 import '../bloc/smart_lists_bloc.dart';
 import '../bloc/smart_lists_event.dart';
 import '../bloc/smart_lists_state.dart';
+import '../../../../core/shared_widgets/empty_state_widget.dart';
 
 class SmartListDetailsScreen extends StatefulWidget {
   final int listId;
@@ -24,9 +25,9 @@ class _SmartListDetailsScreenState extends State<SmartListDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.appBarBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.appBarBackground,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: AppColors.primary),
@@ -47,7 +48,10 @@ class _SmartListDetailsScreenState extends State<SmartListDetailsScreen> {
           } else if (state is SmartListDetailsLoaded) {
             final list = state.smartList;
             if (list.products.isEmpty) {
-              return const Center(child: Text('No products in this list'));
+              return const EmptyStateWidget(
+                icon: Icons.shopping_basket_outlined,
+                message: 'This smart list has no products yet. Add some items!',
+              );
             }
             return GridView.builder(
               padding: const EdgeInsets.all(16),

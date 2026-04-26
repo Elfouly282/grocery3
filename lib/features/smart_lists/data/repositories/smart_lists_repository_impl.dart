@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/error/failure.dart';
-import '../../domain/entities/smart_list.dart';
-import '../../domain/repositories/smart_lists_repository.dart';
-import '../datasources/smart_lists_remote_data_source.dart';
+import 'package:grocery3/core/error/failures.dart';
+import 'package:grocery3/features/smart_lists/domain/entities/smart_list.dart';
+import 'package:grocery3/features/smart_lists/domain/repositories/smart_lists_repository.dart';
+import 'package:grocery3/features/smart_lists/data/datasources/smart_lists_remote_data_source.dart';
 
 class SmartListsRepositoryImpl implements SmartListsRepository {
   final SmartListsRemoteDataSource remoteDataSource;

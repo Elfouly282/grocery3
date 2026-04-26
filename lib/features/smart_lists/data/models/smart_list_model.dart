@@ -1,6 +1,6 @@
-import '../../domain/entities/smart_list.dart';
-import '../../product_details/data/models/product_model.dart';
-import '../../product_details/domain/entities/product.dart';
+import 'package:grocery3/features/smart_lists/domain/entities/smart_list.dart';
+import 'package:grocery3/features/product_details/data/models/product_model.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 class SmartListModel extends SmartListEntity {
   SmartListModel({

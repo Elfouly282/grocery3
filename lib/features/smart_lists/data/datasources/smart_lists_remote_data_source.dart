@@ -1,6 +1,6 @@
-import '../../../../core/api/api_consumer.dart';
-import '../../../../core/api/api_keys.dart';
-import '../models/smart_list_model.dart';
+import 'package:grocery3/core/api/api_consumer.dart';
+import 'package:grocery3/core/api/api_keys.dart';
+import 'package:grocery3/features/smart_lists/data/models/smart_list_model.dart';
 
 abstract class SmartListsRemoteDataSource {
   Future<List<SmartListModel>> getSmartLists();
