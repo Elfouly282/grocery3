@@ -10,7 +10,8 @@ class SmartListModel extends SmartListEntity {
     super.products,
   });
 
-  factory SmartListModel.fromJson(Map<String, dynamic> json) {
+  factory SmartListModel.fromJson(dynamic json) {
+    print(json);
     return SmartListModel(
       id: json['id'],
       title: json['title'] ?? '',

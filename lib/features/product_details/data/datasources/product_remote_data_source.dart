@@ -1,4 +1,4 @@
-
+import 'package:grocery3/core/api/api_keys.dart';
 import 'package:grocery3/core/api/dio_consumer.dart';
 
 import '../../../../core/api/api_consumer.dart';
@@ -13,10 +13,9 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   ProductRemoteDataSourceImpl({required this.api});
 
-
   @override
   Future<ProductModel> getProductDetails(String id) async {
-    final response = await api.get('/meals/$id');
+    final response = await api.get('${EndPoint.meals}/$id');
     return ProductModel.fromJson(response['data']);
   }
 }

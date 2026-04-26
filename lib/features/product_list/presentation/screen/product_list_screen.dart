@@ -10,14 +10,12 @@ import 'package:grocery3/features/product_list/presentation/widgets/custom_botto
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
-  
+
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-  int _navIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     // شيلنا الـ BlocProvider من هنا لأننا بنوفره في ملف الـ main.dart
@@ -44,18 +42,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   sliver: SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 0.62,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ProductCard(product: state.products[index]);
-                      },
-                      childCount: state.products.length,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.62,
+                        ),
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return ProductCard(product: state.products[index]);
+                    }, childCount: state.products.length),
                   ),
                 ),
               ],
@@ -71,10 +67,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
           return const SizedBox.shrink();
         },
       ),
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _navIndex,
-        onTap: (index) => setState(() => _navIndex = index),
-      ),
     );
   }
 
@@ -83,7 +75,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
       backgroundColor: AppColors.white,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.black, size: 20),
+        icon: const Icon(
+          Icons.arrow_back_ios_new,
+          color: AppColors.black,
+          size: 20,
+        ),
         onPressed: () {},
       ),
       actions: [
@@ -92,7 +88,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.black, size: 28),
+          icon: const Icon(
+            Icons.shopping_cart_outlined,
+            color: AppColors.black,
+            size: 28,
+          ),
           onPressed: () {},
         ),
         const SizedBox(width: 8),
@@ -100,7 +100,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 
-  Widget _buildSubCategoriesSection(BuildContext context, ProductListSuccess state) {
+  Widget _buildSubCategoriesSection(
+    BuildContext context,
+    ProductListSuccess state,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -123,8 +126,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 onTap: () {
                   // بننادي على الـ Cubit الموجود في الـ context
                   context.read<ProductListCubit>().getProductsByCategory(
-                        isSelected ? null : category.id,
-                      );
+                    isSelected ? null : category.id,
+                  );
                 },
               );
             },

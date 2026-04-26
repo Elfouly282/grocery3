@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_screen.dart';
+import 'package:grocery3/features/product_details/presentation/screens/product_details_view.dart';
 import 'package:grocery3/features/product_list/domain/product/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsScreen(productId: product.id),
+            builder: (context) => ProductDetailsView(productId: product.id),
           ),
         );
       },

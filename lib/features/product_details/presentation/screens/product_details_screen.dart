@@ -11,7 +11,7 @@ import '../widgets/product_card.dart';
 class ProductDetailsScreen extends StatefulWidget {
   final String productId;
   // BuildContext? context;
-  const ProductDetailsScreen({super.key, required this.productId});
+  const ProductDetailsScreen({super.key , required this.productId});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -25,7 +25,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     super.initState();
     context.read<ProductBloc>().add(GetProductDetailsEvent(widget.productId));
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -14,7 +14,8 @@ class SmartListsRemoteDataSourceImpl implements SmartListsRemoteDataSource {
 
   @override
   Future<List<SmartListModel>> getSmartLists() async {
-    final response = await api.get(EndPoint.smartLists);
+    dynamic response = await api.get(EndPoint.smartLists);
+    print(response[ApiKeys.data]);
     return (response[ApiKeys.data] as List)
         .map((e) => SmartListModel.fromJson(e))
         .toList();

@@ -29,17 +29,28 @@ class _SmartListsScreenState extends State<SmartListsScreen> {
         elevation: 0,
         title: const Text(
           'Smart Lists',
-          style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
       body: BlocBuilder<SmartListsBloc, SmartListsState>(
         builder: (context, state) {
           if (state is SmartListsLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            );
           } else if (state is SmartListsError) {
-            return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
+            return Center(
+              child: Text(
+                state.message,
+                style: const TextStyle(color: AppColors.error),
+              ),
+            );
           } else if (state is SmartListsLoaded) {
+            // print(state.smartLists);
             if (state.smartLists.isEmpty) {
               return const Center(child: Text('No smart lists found'));
             }
@@ -50,7 +61,10 @@ class _SmartListsScreenState extends State<SmartListsScreen> {
               itemBuilder: (context, index) {
                 final list = state.smartLists[index];
                 return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   tileColor: AppColors.background,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -65,12 +79,18 @@ class _SmartListsScreenState extends State<SmartListsScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text('${list.itemsCount} Items'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.grey),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: AppColors.grey,
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SmartListDetailsScreen(listId: list.id),
+                        builder:
+                            (context) =>
+                                SmartListDetailsScreen(listId: list.id),
                       ),
                     );
                   },

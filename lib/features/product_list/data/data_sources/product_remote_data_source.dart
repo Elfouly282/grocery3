@@ -16,7 +16,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
   Future<List<ProductModel>> getProducts({int? categoryId}) async {
     final response = await apiConsumer.get(
-      EndPoint.products,
+      EndPoint.meals,
       queryParameters: categoryId != null ? {'category_id': categoryId} : null,
     );
 
@@ -42,4 +42,3 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     }
   }
 }
-

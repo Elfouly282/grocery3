@@ -13,7 +13,7 @@ class SmartListsRepositoryImpl implements SmartListsRepository {
   @override
   Future<Either<Failure, List<SmartListEntity>>> getSmartLists() async {
     try {
-      final lists = await remoteDataSource.getSmartLists();
+      dynamic lists = await remoteDataSource.getSmartLists();
       return Right(lists);
     } catch (e) {
       if (e is DioException) {
