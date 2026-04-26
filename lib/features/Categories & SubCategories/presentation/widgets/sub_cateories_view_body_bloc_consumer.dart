@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/core/utils/dummy_data.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/cubit/cubit/sub_category_cubit.dart';
-import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/widgets/categories_view_body.dart';
-import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/widgets/sub_categories_bloc_consumer.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/widgets/sub_categories_section.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

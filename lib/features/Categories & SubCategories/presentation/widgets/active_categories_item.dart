@@ -53,7 +53,7 @@ class ActiveCategoriesItem extends StatelessWidget {
                   ),
                 ),
                 child: CustomNetworkImage(
-                  imageUrl: categoriesItemEntity.imageUrl ?? '',
+                 imageUrl: categoriesItemEntity.imageUrl ?? ' ',
                 ),
               ),
             ),

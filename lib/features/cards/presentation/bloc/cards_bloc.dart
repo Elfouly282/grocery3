@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_event.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_state.dart';
-import 'package:grocery3/core/error/failures.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
   final GetCardsUseCase getCardsUseCase;

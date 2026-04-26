@@ -14,6 +14,8 @@ class EndPoint {
   static const String getAllRecommendedProducts = "/api/meals/recommendations";
   static const String getAllTodayDeals = "/api/meals/today";
   static const String getAllCategory = "/api/categories";
+  static const String products = "/api/meals";
+  static const String subCategories = "/api/subcategories";
 }
 
 class ApiKeys {
@@ -48,4 +50,7 @@ class ApiKeys {
   static const String icon = 'icon';
   static const String isActive = 'isActive';
   static const String createdAt = 'createdAt';
+  static const String rating = 'rating';
+  static const String oldPrice = 'oldPrice';
+  static const String weight = 'weight';
 }

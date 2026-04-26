@@ -12,7 +12,7 @@ class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   final List<Widget> screens = const [
-    ProductDetailsScreen(productId: 1), // Placeholder for Home
+    ProductDetailsScreen(productId: '1'), // Placeholder for Home
     FavoritesScreen(),
     SmartListsScreen(),
     OrdersScreen(),
@@ -33,11 +33,31 @@ class MainScreen extends StatelessWidget {
             unselectedItemColor: AppColors.grey,
             showUnselectedLabels: true,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.favorite_outline), activeIcon: Icon(Icons.favorite), label: 'Favorites'),
-              BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), activeIcon: Icon(Icons.list_alt), label: 'Smart Lists'),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), activeIcon: Icon(Icons.shopping_bag), label: 'Orders'),
-              BottomNavigationBarItem(icon: Icon(Icons.credit_card_outlined), activeIcon: Icon(Icons.credit_card), label: 'Cards'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_outline),
+                activeIcon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt_outlined),
+                activeIcon: Icon(Icons.list_alt),
+                label: 'Smart Lists',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_bag_outlined),
+                activeIcon: Icon(Icons.shopping_bag),
+                label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.credit_card_outlined),
+                activeIcon: Icon(Icons.credit_card),
+                label: 'Cards',
+              ),
             ],
           ),
           drawer: Drawer(
@@ -50,10 +70,28 @@ class MainScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      CircleAvatar(radius: 30, backgroundColor: Colors.white, child: Icon(Icons.person, color: AppColors.primary, size: 40)),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.person,
+                          color: AppColors.primary,
+                          size: 40,
+                        ),
+                      ),
                       SizedBox(height: 10),
-                      Text('User Name', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text('user@example.com', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                      Text(
+                        'User Name',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'user@example.com',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
                     ],
                   ),
                 ),
@@ -105,7 +143,10 @@ class MainScreen extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.logout, color: Colors.red),
-                  title: const Text('Logout', style: TextStyle(color: Colors.red)),
+                  title: const Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.red),
+                  ),
                   onTap: () => Navigator.pop(context),
                 ),
               ],

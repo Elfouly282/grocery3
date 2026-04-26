@@ -1,4 +1,3 @@
-import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 abstract class FavoritesEvent {}
 

@@ -1,17 +1,16 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery3/features/product_details/presentation/bloc/product_event.dart';
 import '../../../../core/utils/theme/app_colors.dart';
 import '../bloc/product_bloc.dart';
-import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
 import '../widgets/info_card.dart';
 import '../widgets/product_card.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final int productId;
-
+  final String productId;
+  // BuildContext? context;
   const ProductDetailsScreen({super.key, required this.productId});
 
   @override
@@ -40,7 +39,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         title: const Text(
           'Product Details',
-          style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -49,7 +51,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.primary),
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              color: AppColors.primary,
+            ),
             onPressed: () {},
           ),
         ],
@@ -57,9 +62,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           if (state is ProductLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            );
           } else if (state is ProductError) {
-            return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
+            return Center(
+              child: Text(
+                state.message,
+                style: const TextStyle(color: AppColors.error),
+              ),
+            );
           } else if (state is ProductLoaded) {
             final product = state.product;
             return SingleChildScrollView(
@@ -77,8 +89,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           height: 250,
                           width: double.infinity,
                           fit: BoxFit.cover,
-                          placeholder: (context, url) => Container(color: AppColors.lightGrey),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          placeholder:
+                              (context, url) =>
+                                  Container(color: AppColors.lightGrey),
+                          errorWidget:
+                              (context, url, error) => const Icon(Icons.error),
                         ),
                       ),
                       Positioned(
@@ -87,7 +102,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: CircleAvatar(
                           backgroundColor: AppColors.background,
                           child: Icon(
-                            product.inStock ? Icons.favorite_border : Icons.favorite,
+                            product.inStock
+                                ? Icons.favorite_border
+                                : Icons.favorite,
                             color: AppColors.grey,
                           ),
                         ),
@@ -139,7 +156,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       ...List.generate(5, (index) {
                         return Icon(
-                          index < product.rating.floor() ? Icons.star : Icons.star_border,
+                          index < product.rating.floor()
+                              ? Icons.star
+                              : Icons.star_border,
                           color: AppColors.accent,
                           size: 20,
                         );
@@ -161,11 +180,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: InfoCard(title: 'Includes', value: product.includes)),
+                      Expanded(
+                        child: InfoCard(
+                          title: 'Includes',
+                          value: product.includes,
+                        ),
+                      ),
                       const SizedBox(width: 10),
-                      Expanded(child: InfoCard(title: 'Size', value: product.size)),
+                      Expanded(
+                        child: InfoCard(title: 'Size', value: product.size),
+                      ),
                       const SizedBox(width: 10),
-                      Expanded(child: InfoCard(title: 'Expiry', value: '6 months')), // Hardcoded as placeholder if not in entity
+                      Expanded(
+                        child: InfoCard(title: 'Expiry', value: '6 months'),
+                      ), // Hardcoded as placeholder if not in entity
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -195,7 +223,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   if (product.similarProducts.isNotEmpty) ...[
                     const Text(
                       'Similar Products',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     SizedBox(
@@ -203,7 +234,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: product.similarProducts.length,
-                        separatorBuilder: (context, index) => const SizedBox(width: 12),
+                        separatorBuilder:
+                            (context, index) => const SizedBox(width: 12),
                         itemBuilder: (context, index) {
                           return ProductCard(
                             product: product.similarProducts[index],
@@ -224,7 +256,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
-          color: AppColors. white,
+          color: AppColors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           boxShadow: [
             BoxShadow(
@@ -252,7 +284,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   Text(
                     '$quantity',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.add, color: AppColors.secondary),
@@ -269,11 +304,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
                 child: const Text(
                   'Add to cart',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

@@ -52,7 +52,7 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<ProductRemoteDataSource>(
-    () => ProductRemoteDataSourceImpl(sl()),
+    () => ProductRemoteDataSourceImpl(api: sl()) ,
   );
 
   //! Features - Favorites

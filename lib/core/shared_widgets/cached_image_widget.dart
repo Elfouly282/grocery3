@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomNetworkImage extends StatelessWidget {
-  const CustomNetworkImage({
+  const CustomNetworkImage( {
     super.key,
     required this.imageUrl,
     this.scaleValue,

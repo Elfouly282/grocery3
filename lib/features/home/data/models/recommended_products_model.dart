@@ -25,28 +25,17 @@ class RecommendedProductsResponseModel {
 
 class RecommendedProductModel extends RecommendedProductsEntity {
   RecommendedProductModel({
-    required int id,
-    required String title,
-    required String description,
-    required String imageUrl,
-    required double price,
-    required double finalPrice,
-    required bool hasOffer,
-    required CategoryModel category,
-    required String features,
-    required String recommendationReason,
-  }) : super(
-         id: id,
-         title: title,
-         description: description,
-         imageUrl: imageUrl,
-         price: price,
-         finalPrice: finalPrice,
-         hasOffer: hasOffer,
-         category: category,
-         features: features,
-         recommendationReason: recommendationReason,
-       );
+    required super.id,
+    required super.title,
+    required super.description,
+    required super.imageUrl,
+    required super.price,
+    required super.finalPrice,
+    required super.hasOffer,
+    required CategoryModel super.category,
+    required super.features,
+    required super.recommendationReason,
+  });
 
   factory RecommendedProductModel.fromJson(Map<String, dynamic> json) {
     return RecommendedProductModel(
@@ -67,8 +56,7 @@ class RecommendedProductModel extends RecommendedProductsEntity {
 
 // data/models/category_model.dart
 class CategoryModel extends CategoryEntity {
-  CategoryModel({required int id, required String name, required String slug})
-    : super(id: id, name: name, slug: slug);
+  CategoryModel({required super.id, required super.name, required super.slug});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(

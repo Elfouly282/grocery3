@@ -9,7 +9,7 @@ class GetProductDetailsUseCase {
 
   GetProductDetailsUseCase(this.repository);
 
-  Future<Either<Failure, ProductEntity>> call(int id) async {
+  Future<Either<Failure, ProductEntity>> call(String id) async {
     return await repository.getProductDetails(id);
   }
 }
