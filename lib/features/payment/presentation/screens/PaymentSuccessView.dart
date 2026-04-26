@@ -1,44 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grocery3/features/payment/domain/entities/PaymentDetails.dart';
 
-// 1. كلاس بيانات وهمي للتيست (بما أن الأصلي في مسار مختلف عندك)
-class PaymentDetails {
-  final String transactionId;
-  final String date;
-  final String paymentMethod;
-  final String amount;
-
-  PaymentDetails({
-    required this.transactionId,
-    required this.date,
-    required this.paymentMethod,
-    required this.amount,
-  });
-}
-
-// 2. كود الـ main للتشغيل المباشر
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: TestPaymentSuccess(),
-  ));
-}
-
-// 3. ويدجت بسيطة لتجهيز البيانات وفتح الصفحة
-class TestPaymentSuccess extends StatelessWidget {
-  const TestPaymentSuccess({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final mockDetails = PaymentDetails(
-      transactionId: "TRX-987654321",
-      date: "26 April, 2026",
-      paymentMethod: "Credit Card",
-      amount: "150.50",
-    );
-
-    return PaymentSuccessView(details: mockDetails);
-  }
-}
 
 class PaymentSuccessView extends StatelessWidget {
   final PaymentDetails details;
@@ -57,12 +19,11 @@ class PaymentSuccessView extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               
-               Container(
+              Container(
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFF006400), width: 3),
-                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFF006400), width: 3),  borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Icon(
                   Icons.check,
@@ -82,10 +43,12 @@ class PaymentSuccessView extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               
+              // كارت تفاصيل الدفع
               _buildDetailsCard(),
               
               const Spacer(flex: 2),
               
+              // الأزرار السفلية
               _buildActionButtons(context),
               const SizedBox(height: 20),
             ],
@@ -100,25 +63,22 @@ class PaymentSuccessView extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FBFC),
-        borderRadius: BorderRadius.circular(15),
+        color: const Color(0xFFF9FBFC),   borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Colors.blueGrey.withOpacity(0.1)),
       ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
+          // الـ Label الصغير اللي فوق الكارت "Payment Details"
           Positioned(
             top: -35,
-            left: 0, // تعديل الـ left ليناسب التصميم
+            left: 10,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              color: const Color(0xFFF0F4F7),
               child: const Text(
                 "Payment Details",
-                style: TextStyle(
-                  color: Color(0xFF003D5B), 
-                  fontSize: 16, 
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(color: Color(0xFF003D5B), fontSize: 14),
               ),
             ),
           ),
@@ -166,9 +126,11 @@ class PaymentSuccessView extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // Logic Track Order
+            },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF003D5B),
+              backgroundColor: const Color(0xFF003D5B), // نفس لون الزرار في الصورة
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
             child: const Text(
@@ -182,7 +144,7 @@ class PaymentSuccessView extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: OutlinedButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pop(context),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Color(0xFF003D5B)),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
