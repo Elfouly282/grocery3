@@ -1,5 +1,4 @@
-
-import '../../domain/entities/product.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel({
@@ -20,6 +19,7 @@ class ProductModel extends ProductEntity {
     required super.features,
     required super.inStock,
     required super.categoryName,
+    super.isFavorite = false,
     super.similarProducts,
   });
 
@@ -42,6 +42,7 @@ class ProductModel extends ProductEntity {
       features: json['features'] ?? '',
       inStock: json['in_stock'] ?? false,
       categoryName: json['category'] != null ? json['category']['name'] : '',
+      isFavorite: json['is_favorited'] ?? false,
       similarProducts: json['similar_products'] != null
           ? List<ProductModel>.from(json['similar_products'].map((x) => ProductModel.fromJson(x)))
           : [],
@@ -66,6 +67,7 @@ class ProductModel extends ProductEntity {
       'how_to_use': howToUse,
       'features': features,
       'in_stock': inStock,
+      'is_favorited': isFavorite,
       'category': {'name': categoryName},
       'similar_products': similarProducts.map((x) => (x as ProductModel).toJson()).toList(),
     };

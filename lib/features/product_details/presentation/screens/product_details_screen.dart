@@ -8,6 +8,13 @@ import '../bloc/product_event.dart';
 import '../bloc/product_state.dart';
 import '../widgets/info_card.dart';
 import '../widgets/product_card.dart';
+import 'package:auto_route/auto_route.dart';
+import '../../../../core/routes/app_router.dart';
+import '../../../../features/favorites/presentation/bloc/favorites_bloc.dart';
+import '../../../../features/favorites/presentation/bloc/favorites_event.dart';
+import '../../../../features/favorites/presentation/bloc/favorites_state.dart';
+
+@RoutePage()
 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
@@ -20,6 +27,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int quantity = 1;
+  bool? _isFavorited;
 
   @override
   void initState() {
@@ -35,8 +43,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.primary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios, color: AppColors.primary, size: 20),
+          onPressed: () {
+            if (context.router.canPop()) {
+              context.router.pop();
+            } else {
+              context.router.replace(const ProductListRoute());
+            }
+          },
         ),
         title: const Text(
           'Product Details',
@@ -45,12 +59,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: AppColors.primary),
-            onPressed: () {},
+            icon: const Icon(Icons.search, color: AppColors.primary, size: 22),
+            onPressed: () {
+              // Action for search
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.primary),
-            onPressed: () {},
+            icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.primary, size: 22),
+            onPressed: () => context.router.push(const CartRoute()),
           ),
         ],
       ),
@@ -62,48 +78,60 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
           } else if (state is ProductLoaded) {
             final product = state.product;
+            _isFavorited ??= product.isFavorite;
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product Image with Favorite Icon
+                  // Product Image with Favorite Icon (Full Width)
                   Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: CachedNetworkImage(
-                          imageUrl: product.imageUrl,
-                          height: 250,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Container(color: AppColors.lightGrey),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                        ),
+                      CachedNetworkImage(
+                        imageUrl: product.imageUrl,
+                        height: 250, // Increased height for full-width presentation
+                        width: double.infinity,
+                        fit: BoxFit.cover, // Fit to cover the entire width
+                        placeholder: (context, url) => Container(color: AppColors.lightGrey),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                       Positioned(
                         top: 16,
                         right: 16,
-                        child: CircleAvatar(
-                          backgroundColor: AppColors.white,
-                          child: Icon(
-                            product.inStock ? Icons.favorite_border : Icons.favorite,
-                            color: AppColors.grey,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isFavorited = !(_isFavorited ?? false);
+                            });
+                            context.read<FavoritesBloc>().add(ToggleFavoriteEvent(product.id));
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: AppColors.white,
+                            child: Icon(
+                              (_isFavorited ?? false) ? Icons.favorite : Icons.favorite_border,
+                              color: (_isFavorited ?? false) ? Colors.red : AppColors.grey,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  // Title and Price
-                  Row(
+                  const SizedBox(height: 16),
+                  
+                  // Rest of the content wrapped in padding
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Title and Price
+                        Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
                           product.title,
                           style: const TextStyle(
-                            fontSize: 22,
+                            fontSize: 18, // Reduced from 22
                             fontWeight: FontWeight.bold,
                             color: AppColors.black,
                           ),
@@ -115,7 +143,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Text(
                             '£${product.finalPrice.toStringAsFixed(0)}',
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 18, // Reduced from 20
                               fontWeight: FontWeight.bold,
                               color: AppColors.secondary,
                             ),
@@ -124,7 +152,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Text(
                               '£${product.price.toStringAsFixed(0)}',
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 13, // Reduced from 14
                                 color: AppColors.grey,
                                 decoration: TextDecoration.lineThrough,
                               ),
@@ -155,7 +183,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   // Details Section
                   const Text(
                     'Details',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -172,34 +200,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   // Description
                   const Text(
                     'Description',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     product.description,
-                    style: const TextStyle(color: AppColors.grey, height: 1.5),
+                    style: const TextStyle(color: AppColors.grey, height: 1.4, fontSize: 13),
                   ),
                   const SizedBox(height: 20),
                   // How to Use
                   const Text(
                     'How to Use',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     product.howToUse,
-                    style: const TextStyle(color: AppColors.grey, height: 1.5),
+                    style: const TextStyle(color: AppColors.grey, height: 1.4, fontSize: 13),
                   ),
                   const SizedBox(height: 20),
                   // Similar Products
                   if (product.similarProducts.isNotEmpty) ...[
                     const Text(
                       'Similar Products',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 12),
                     SizedBox(
-                      height: 280,
+                      height: 220, // Reduced from 280
+
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: product.similarProducts.length,
@@ -214,6 +243,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ],
                   const SizedBox(height: 100), // Spacing for bottom bar
+                      ],
+                    ),
+                  ),
                 ],
               ),
             );
@@ -265,7 +297,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Add to Cart Button
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => context.router.push(const CartRoute()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -273,7 +305,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
                 child: const Text(
                   'Add to cart',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
             ),

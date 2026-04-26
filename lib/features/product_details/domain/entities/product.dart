@@ -17,6 +17,7 @@ class ProductEntity {
   final String features;
   final bool inStock;
   final String categoryName;
+  final bool isFavorite;
   final List<ProductEntity> similarProducts;
 
   ProductEntity({
@@ -37,6 +38,7 @@ class ProductEntity {
     required this.features,
     required this.inStock,
     required this.categoryName,
+    this.isFavorite = false,
     this.similarProducts = const [],
   });
 }
