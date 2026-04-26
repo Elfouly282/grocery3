@@ -18,14 +18,24 @@ class OrderItemEntity {
   final int id;
   final String title;
   final int quantity;
-  final double price;
+  final double? price;
+  final double? finalPrice;
   final String imageUrl;
+  final String? size;
+  final double? rating;
+  final int? ratingCount;
+  final bool? hasOffer;
 
   OrderItemEntity({
     required this.id,
     required this.title,
     required this.quantity,
-    required this.price,
+    this.price,
+    this.finalPrice,
     required this.imageUrl,
+    this.size,
+    this.rating,
+    this.ratingCount,
+    this.hasOffer,
   });
 }
