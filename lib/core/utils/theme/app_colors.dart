@@ -12,6 +12,20 @@ class AppColors {
   static const Color border = Color(0xFFDEE2E6);
   static const Color appBarBackground = Color(0xFFF5F7F7);
   static const Color backgroundAlternative = Color(0xFFF5F7F7);
+
+  // Checkout Colors
+  static const Color checkoutPrimaryText = Color(0xFF1B3A57);
+  static const Color checkoutSecondaryText = Color(0xFF8A9BB0);
+  static const Color checkoutBorder = Color(0xFFE8ECF0);
+  static const Color checkoutShadow = Colors.black;
+  static const Color checkoutLocationAccent = Color(0xFF1B7B5B);
+  static const Color checkoutMastercard = Color(0xFFEB5757);
+  static const Color checkoutVisa = Color(0xFF1A1F71);
+  static const Color checkoutCardBackground = Color(0xFFF5F6FA);
+  static const Color checkoutIxpBackground = Color(0xFFFFF0E0);
+  static const Color checkoutIxpText = Color(0xFFFF6B00);
+  static const Color checkoutFpBackground = Color(0xFFE8F5E9);
+  static const Color checkoutFpText = Color(0xFF2E7D32);
   
   // Status Colors
   static const Color success = Color(0xFF28A745);
