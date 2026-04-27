@@ -1,9 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:grocery3/core/error/failures.dart';
+import 'package:flutter/material.dart';
+import 'package:grocery3/core/error/error_model.dart';
 import 'package:grocery3/features/smart_lists/domain/entities/smart_list.dart';
 import 'package:grocery3/features/smart_lists/domain/repositories/smart_lists_repository.dart';
 import 'package:grocery3/features/smart_lists/data/datasources/smart_lists_remote_data_source.dart';
+
+import '../../../../core/error/failures.dart';
 
 class SmartListsRepositoryImpl implements SmartListsRepository {
   final SmartListsRemoteDataSource remoteDataSource;
@@ -11,28 +14,58 @@ class SmartListsRepositoryImpl implements SmartListsRepository {
   SmartListsRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<SmartListEntity>>> getSmartLists() async {
+  @override
+  Future<Either<ServerException, List<SmartListEntity>>> getSmartLists() async {
     try {
-      dynamic lists = await remoteDataSource.getSmartLists();
-      return Right(lists);
+      var lists = await remoteDataSource.getSmartLists();
+      return right(lists);
     } catch (e) {
+      debugPrint('error  in  smart list impl  : ${e.toString()}');
       if (e is DioException) {
-         return Left(ServerFailure(e.response?.data['message'] ?? 'Server Error'));
+        return left(
+          ServerException(
+            e.response?.data['message'] ?? 'Server Error',
+            errModel: ErrorModel(
+              message: e.response?.data['message'] ?? 'Server Error',
+            ),
+          ),
+        );
       }
-      return Left(ServerFailure(e.toString()));
+      return left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 
   @override
-  Future<Either<Failure, SmartListEntity>> getSmartListDetails(int id) async {
+  @override
+  Future<Either<ServerException, SmartListEntity>> getSmartListDetails(
+    int id,
+  ) async {
     try {
-      final list = await remoteDataSource.getSmartListDetails(id);
-      return Right(list);
+      var list = await remoteDataSource.getSmartListDetails(id);
+      return right(list);
     } catch (e) {
+      debugPrint('error  in  smart list details impl  : ${e.toString()}');
       if (e is DioException) {
-         return Left(ServerFailure(e.response?.data['message'] ?? 'Server Error'));
+        return left(
+          ServerException(
+            e.response?.data['message'] ?? 'Server Error',
+            errModel: ErrorModel(
+              message: e.response?.data['message'] ?? 'Server Error',
+            ),
+          ),
+        );
       }
-      return Left(ServerFailure(e.toString()));
+      return left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 }

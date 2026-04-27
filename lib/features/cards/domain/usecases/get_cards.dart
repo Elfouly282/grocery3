@@ -8,7 +8,7 @@ class GetCardsUseCase {
 
   GetCardsUseCase({required this.repository});
 
-  Future<Either<Failure, List<PaymentCardEntity>>> call() async {
+  Future<Either<ServerException, List<PaymentCardEntity>>> call() async {
     return await repository.getCards();
   }
 }

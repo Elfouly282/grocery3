@@ -8,7 +8,7 @@ class GetSmartListsUseCase {
 
   GetSmartListsUseCase({required this.repository});
 
-  Future<Either<Failure, List<SmartListEntity>>> call() async {
+  Future<Either<ServerException, List<SmartListEntity>>> call() async {
     return await repository.getSmartLists();
   }
 }

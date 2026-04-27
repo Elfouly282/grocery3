@@ -7,7 +7,7 @@ class ToggleFavoriteUseCase {
 
   ToggleFavoriteUseCase({required this.repository});
 
-  Future<Either<Failure, String>> call(int id) async {
+  Future<Either<ServerException, String>> call(int id) async {
     return await repository.toggleFavorite(id);
   }
 }

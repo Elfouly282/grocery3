@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/api_keys.dart';
 import 'package:grocery3/features/smart_lists/data/models/smart_list_model.dart';
@@ -14,11 +15,16 @@ class SmartListsRemoteDataSourceImpl implements SmartListsRemoteDataSource {
 
   @override
   Future<List<SmartListModel>> getSmartLists() async {
-    dynamic response = await api.get(EndPoint.smartLists);
-    print(response[ApiKeys.data]);
-    return (response[ApiKeys.data] as List)
-        .map((e) => SmartListModel.fromJson(e))
-        .toList();
+    var response = await api.get(EndPoint.smartLists);
+     if (response['success'] == true) {
+      List<dynamic> data = response[ApiKeys.data];
+      return data.map((item) => SmartListModel.fromJson(item)).toList();
+    } else {
+      debugPrint(response["message"]);
+      throw Exception(response[ApiKeys.message]);
+      
+    }
+    
   }
 
   @override

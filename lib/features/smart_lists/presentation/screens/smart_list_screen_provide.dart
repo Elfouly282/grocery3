@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/utils/get_it_server_locator.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:grocery3/features/orders/presentation/bloc/orders_bloc.dart';
 import 'package:grocery3/features/smart_lists/domain/usecases/get_smart_list_details.dart';
 import 'package:grocery3/features/smart_lists/domain/usecases/get_smart_lists.dart';
 import 'package:grocery3/features/smart_lists/presentation/bloc/smart_lists_bloc.dart';
@@ -12,9 +14,18 @@ class SmartListScreenBlocProvide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SmartListsBloc>(),
-      child: SmartListsScreen(),
+    return MultiBlocProvider(
+      providers: [
+         BlocProvider(
+        create: (context) => getIt<SmartListsBloc>(),),
+         BlocProvider(
+        create: (context) => getIt<FavoritesBloc>(),),
+         BlocProvider(
+        create: (context) => getIt<OrdersBloc>(),),
+
+      ]
+      
+      , child: SmartListsScreen(),
     );
   }
 }

@@ -8,7 +8,7 @@ class GetSmartListDetailsUseCase {
 
   GetSmartListDetailsUseCase({required this.repository});
 
-  Future<Either<Failure, SmartListEntity>> call(int id) async {
+  Future<Either<ServerException, SmartListEntity>> call(int id) async {
     return await repository.getSmartListDetails(id);
   }
 }

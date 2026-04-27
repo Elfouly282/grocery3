@@ -17,7 +17,7 @@ class SmartListsBloc extends Bloc<SmartListsEvent, SmartListsState> {
       emit(SmartListsLoading());
       final result = await getSmartListsUseCase();
       result.fold(
-        (failure) => emit(SmartListsError(failure.message)),
+        (failure) => emit(SmartListsError(failure.toString())),
         (lists) => emit(SmartListsLoaded(lists)),
       );
     });
@@ -26,7 +26,7 @@ class SmartListsBloc extends Bloc<SmartListsEvent, SmartListsState> {
       emit(SmartListsLoading());
       final result = await getSmartListDetailsUseCase(event.id);
       result.fold(
-        (failure) => emit(SmartListsError(failure.message)),
+        (failure) => emit(SmartListsError(failure.toString())),
         (list) => emit(SmartListDetailsLoaded(list)),
       );
     });

@@ -8,7 +8,7 @@ class GetFavoritesUseCase {
 
   GetFavoritesUseCase({required this.repository});
 
-  Future<Either<Failure, List<ProductEntity>>> call() async {
+  Future<Either<ServerException, List<ProductEntity>>> call() async {
     return await repository.getFavorites();
   }
 }

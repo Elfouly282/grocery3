@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:grocery3/core/error/error_model.dart';
 import 'package:grocery3/core/error/failures.dart';
 import 'package:grocery3/features/product_details/domain/entities/product.dart';
 import 'package:grocery3/features/favorites/domain/repositories/favorites_repository.dart';
@@ -11,28 +12,52 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   FavoritesRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getFavorites() async {
+  Future<Either<ServerException, List<ProductEntity>>> getFavorites() async {
     try {
       final favorites = await remoteDataSource.getFavorites();
       return Right(favorites);
     } catch (e) {
       if (e is DioException) {
-         return Left(ServerFailure(e.response?.data['message'] ?? 'Server Error'));
+        return Left(
+          ServerException(
+            e.response?.data['message'] ?? 'Server Error',
+            errModel: ErrorModel(
+              message: e.response?.data['message'] ?? 'Server Error',
+            ),
+          ),
+        );
       }
-      return Left(ServerFailure(e.toString()));
+      return Left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 
   @override
-  Future<Either<Failure, String>> toggleFavorite(int id) async {
+  Future<Either<ServerException, String>> toggleFavorite(int id) async {
     try {
       final message = await remoteDataSource.toggleFavorite(id);
       return Right(message);
     } catch (e) {
       if (e is DioException) {
-         return Left(ServerFailure(e.response?.data['message'] ?? 'Server Error'));
+        return Left(
+          ServerException(
+            e.response?.data['message'] ?? 'Error',
+            errModel: ErrorModel(
+              message: e.response?.data['message'] ?? 'Error',
+            ),
+          ),
+        );
       }
-      return Left(ServerFailure(e.toString()));
+      return Left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 }

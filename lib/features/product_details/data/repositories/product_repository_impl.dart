@@ -1,7 +1,6 @@
-
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failures.dart';
+import 'package:grocery3/core/error/error_model.dart';
+import 'package:grocery3/core/error/failures.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../datasources/product_remote_data_source.dart';
@@ -12,14 +11,21 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, ProductEntity>> getProductDetails(String id) async {
+  Future<Either<ServerException, ProductEntity>> getProductDetails(
+    String id,
+  ) async {
     try {
       final product = await remoteDataSource.getProductDetails(id);
       return Right(product);
     } on ServerException catch (e) {
-      return Left(ServerFailure(e.errModel.message ?? 'Server Error'));
+      return Left(ServerException(e.message, errModel: e.errModel));
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 }

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/error/error_model.dart';
-import 'package:grocery3/core/error/exception.dart';
+import 'package:grocery3/core/error/failures.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/data/models/categories_model/categories_model.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/data/models/sub_categores_item_model/sub_categores_item_model.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/domin/entities/categores_entity.dart';
@@ -36,6 +36,7 @@ class CategoryRepoImpl implements CategoryRepo {
       }
       return left(
         ServerException(
+          response["message"],
           errModel: ErrorModel(message: response["message"]),
         ),
       );
@@ -44,13 +45,19 @@ class CategoryRepoImpl implements CategoryRepo {
       if (e is DioException) {
         return left(
           ServerException(
+            e.response?.data['message'] ?? 'An error occurred',
             errModel: ErrorModel(
               message: e.response?.data['message'] ?? 'An error occurred',
             ),
           ),
         );
       }
-      return left(ServerException(errModel: ErrorModel(message: e.toString())));
+      return left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 
@@ -79,6 +86,7 @@ class CategoryRepoImpl implements CategoryRepo {
       }
       return left(
         ServerException(
+          response["message"],
           errModel: ErrorModel(message: response["message"]),
         ),
       );
@@ -87,13 +95,19 @@ class CategoryRepoImpl implements CategoryRepo {
       if (e is DioException) {
         return left(
           ServerException(
+            e.response?.data['message'] ?? 'An error occurred',
             errModel: ErrorModel(
               message: e.response?.data['message'] ?? 'An error occurred',
             ),
           ),
         );
       }
-      return left(ServerException(errModel: ErrorModel(message: e.toString())));
+      return left(
+        ServerException(
+          e.toString(),
+          errModel: ErrorModel(message: e.toString()),
+        ),
+      );
     }
   }
 }

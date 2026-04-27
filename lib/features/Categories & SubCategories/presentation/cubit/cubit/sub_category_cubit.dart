@@ -15,7 +15,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
     result.fold(
       (failure) =>
-          emit(CategoryError(failure.errModel.message ?? 'An error occurred')),
+          emit(CategoryError(failure.errModel?.message ?? 'An error occurred')),
       (categories) => emit(CategoryLoaded(categories)),
     );
   }
@@ -30,7 +30,7 @@ class SubCategoryCubit extends Cubit<CategoryState> {
 
     result.fold(
       (failure) => emit(
-        SubCategoryError(failure.errModel.message ?? 'An error occurred'),
+        SubCategoryError(failure.errModel?.message ?? 'An error occurred'),
       ),
       (categories) => emit(SubCategoryLoaded(categories)),
     );

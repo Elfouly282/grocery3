@@ -8,7 +8,7 @@ class GetOrdersUseCase {
 
   GetOrdersUseCase({required this.repository});
 
-  Future<Either<Failure, List<OrderEntity>>> call() async {
+  Future<Either<ServerException, List<OrderEntity>>> call() async {
     return await repository.getOrders();
   }
 }
