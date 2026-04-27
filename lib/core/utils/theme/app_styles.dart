@@ -9,9 +9,21 @@ class AppStyles {
     color: AppColors.black,
   );
 
+  static const TextStyle font18SemiBold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
   static const TextStyle font16Medium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
+
+  static const TextStyle font14SemiBold = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
     color: AppColors.black,
   );
 
@@ -21,12 +33,97 @@ class AppStyles {
     color: AppColors.grey,
   );
 
+  static const TextStyle font12RegularGrey = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.grey,
+  );
+
   static const TextStyle font14Regular = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.normal, 
-    fontFamily: AppFonts.mainFont, 
-    color: AppColors.black,       
+    fontWeight: FontWeight.normal,
+    fontFamily: AppFonts.mainFont,
+    color: AppColors.black,
   );
-  
-  
+
+  // Checkout Styles
+  static const TextStyle checkoutSectionTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.checkoutPrimaryText,
+  );
+
+  static const TextStyle checkoutPrimaryBody = TextStyle(
+    fontSize: 13.5,
+    fontWeight: FontWeight.w500,
+    color: AppColors.checkoutPrimaryText,
+  );
+
+  static const TextStyle checkoutPrimaryBodySemiBold = TextStyle(
+    fontSize: 13.5,
+    fontWeight: FontWeight.w600,
+    color: AppColors.checkoutPrimaryText,
+  );
+
+  static const TextStyle checkoutLocationLabel = TextStyle(
+    fontSize: 13.5,
+    fontWeight: FontWeight.w600,
+    color: AppColors.checkoutLocationAccent,
+    fontFamily: AppFonts.mainFont,
+  );
+
+  static const TextStyle checkoutPrimaryBodyBold = TextStyle(
+    fontSize: 13.5,
+    fontWeight: FontWeight.w700,
+    color: AppColors.checkoutPrimaryText,
+  );
+
+  static const TextStyle checkoutHintText = TextStyle(
+    fontSize: 12.5,
+    fontWeight: FontWeight.w500,
+    color: AppColors.checkoutSecondaryText,
+  );
+
+  static const TextStyle checkoutButtonText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0.3,
+    color: AppColors.white,
+  );
+
+  static const TextStyle checkoutBadgeText = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w800,
+  );
+
+  static const TextStyle checkoutMiniBadgeText = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const TextStyle checkoutCardBrandText = TextStyle(
+    fontSize: 9,
+    fontWeight: FontWeight.w800,
+    color: AppColors.white,
+  );
+
+  static const TextStyle checkoutCardBrandSmallText = TextStyle(
+    fontSize: 8,
+    fontWeight: FontWeight.w800,
+    color: AppColors.white,
+  );
 }
+  const TextStyle font16BoldPrimary = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColors.primary,
+  );
+
+  const TextStyle font12RegularLineThrough = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.grey,
+    decoration: TextDecoration.lineThrough,
+  );
+
+
