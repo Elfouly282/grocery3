@@ -49,7 +49,7 @@ PageViewModel getCustomPageViewModel({
             },
             child: Text(
               "Skip",
-              style: AppStyles.font16Bold.copyWith(color: AppColors.darkBlue),
+              style: AppStyles.font16Medium.copyWith(color: AppColors.darkBlue),
             ),
           ),
         ),
@@ -58,7 +58,7 @@ PageViewModel getCustomPageViewModel({
     titleWidget: Text(
       title,
       textAlign: TextAlign.center,
-      style: AppStyles.font18SemdiBold,
+      style: AppStyles.font16SemiBold,
     ),
     bodyWidget: Text(
       body,

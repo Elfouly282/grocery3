@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
 import '../bloc/orders_bloc.dart';
 import '../bloc/orders_event.dart';
 import '../bloc/orders_state.dart';
+import '../../../../core/shared_widgets/empty_state_widget.dart';
 
+@RoutePage()
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
 
@@ -22,9 +25,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.appBarBackground,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.appBarBackground,
         elevation: 0,
         title: const Text(
           'My Orders',
@@ -40,7 +43,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
             return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
           } else if (state is OrdersLoaded) {
             if (state.orders.isEmpty) {
-              return const Center(child: Text('No orders yet'));
+              return const EmptyStateWidget(
+                icon: Icons.receipt_long_outlined,
+                message: 'Your shopping history is empty. Start shopping now!',
+              );
             }
             return ListView.separated(
               padding: const EdgeInsets.all(16),

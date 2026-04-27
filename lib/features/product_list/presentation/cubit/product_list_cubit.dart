@@ -1,9 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grocery3/features/product_list/domain/SubCategories/get_categories_use_case.dart'
-    show GetSubCategoriesUseCase;
-import 'package:grocery3/features/product_list/domain/product/get_products_use_case.dart';
-import 'package:grocery3/features/product_list/domain/product/product_entity.dart';
-import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_entity.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
+import 'package:grocery3/features/product_list/domin/usecases/get_products_use_case.dart';
+import 'package:grocery3/features/product_list/domin/usecases/get_sub_categories_use_case.dart';
+import 'package:grocery3/features/product_list/domin/sub_categoriy_entity.dart';
 import 'package:grocery3/features/product_list/presentation/cubit/product_list_state.dart';
 
 class ProductListCubit extends Cubit<ProductListState> {

@@ -35,6 +35,10 @@ class _SmartListsScreenState extends State<SmartListsScreen>
     _tabController.addListener(() {
       setState(() {});
     });
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {});
+    });
     context.read<SmartListsBloc>().add(GetSmartListsEvent());
     context.read<FavoritesBloc>().add(GetFavoritesEvent());
     context.read<OrdersBloc>().add(GetOrdersEvent());
@@ -44,12 +48,20 @@ class _SmartListsScreenState extends State<SmartListsScreen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+    context.read<FavoritesBloc>().add(GetFavoritesEvent());
+    context.read<OrdersBloc>().add(GetOrdersEvent());
   }
+
+  @override
+  // void dispose() {
+  //   _tabController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.appBarBackground,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
@@ -66,6 +78,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
+          
         ),
         centerTitle: true,
         bottom: TabBar(
@@ -382,7 +395,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SmartListDetailsScreen(listId: list.id);
+                          return SmartListDetailsScreen(  listId: list.id);
                         },
                       ),
                     );
@@ -519,3 +532,6 @@ class _FavoriteHorizontalCard extends StatelessWidget {
     );
   }
 }
+
+
+

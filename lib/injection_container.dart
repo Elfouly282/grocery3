@@ -30,6 +30,11 @@ import 'package:grocery3/features/cards/data/repositories/cards_repository_impl.
 import 'package:grocery3/features/cards/domain/repositories/cards_repository.dart';
 import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
+import 'package:grocery3/features/checkout/data/datasources/checkout_remote_data_source.dart';
+import 'package:grocery3/features/checkout/data/repositories/checkout_repository_impl.dart';
+import 'package:grocery3/features/checkout/domain/repositories/checkout_repository.dart';
+import 'package:grocery3/features/checkout/domain/usecases/pay_now_usecase.dart';
+import 'package:grocery3/features/checkout/presentation/bloc/checkout_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -133,6 +138,23 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<CardsRemoteDataSource>(
     () => CardsRemoteDataSourceImpl(api: sl()),
+  );
+
+  //! Features - Checkout
+  // Bloc
+  sl.registerFactory(() => CheckoutBloc(payNowUseCase: sl()));
+
+  // Use cases
+  sl.registerLazySingleton(() => PayNowUseCase(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<CheckoutRepository>(
+    () => CheckoutRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<CheckoutRemoteDataSource>(
+    () => CheckoutRemoteDataSourceImpl(api: sl()),
   );
 
   //! Core

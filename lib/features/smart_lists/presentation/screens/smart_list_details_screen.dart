@@ -7,7 +7,7 @@ import '../bloc/smart_lists_bloc.dart';
 import '../bloc/smart_lists_event.dart';
 import '../bloc/smart_lists_state.dart';
 
-
+// @RoutePage()
 class SmartListDetailsScreen extends StatefulWidget {
   final int listId;
   const SmartListDetailsScreen({super.key, required this.listId});
@@ -26,9 +26,9 @@ class _SmartListDetailsScreenState extends State<SmartListDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.appBarBackground,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.appBarBackground,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: AppColors.primary),

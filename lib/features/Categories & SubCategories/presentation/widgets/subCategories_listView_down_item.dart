@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery3/core/shared_widgets/cached_image_widget.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/domin/entities/sub_categores_item_entity.dart';
-import 'package:grocery3/features/product_list/presentation/screen/product_list_screen.dart';
+
 import 'package:grocery3/features/product_list/presentation/screen/product_list_view.dart';
 
 class SubcategoriesListviewDownItem extends StatelessWidget {

@@ -7,11 +7,13 @@ import '../bloc/product_bloc.dart';
 import '../bloc/product_state.dart';
 import '../widgets/info_card.dart';
 import '../widgets/product_card.dart';
+import 'package:auto_route/auto_route.dart';
 
+@RoutePage()
 class ProductDetailsScreen extends StatefulWidget {
   final String productId;
   // BuildContext? context;
-  const ProductDetailsScreen({super.key , required this.productId});
+  const ProductDetailsScreen({super.key, required this.productId});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -19,12 +21,14 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int quantity = 1;
+  bool? _isFavorited;
 
   @override
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(GetProductDetailsEvent(widget.productId));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +37,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.primary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.primary,
+            size: 20,
+          ),
+          onPressed: () {
+            if (context.router.canPop()) {
+              Navigator.pop(context);
+            } else {
+              // Navigator.push(context, MaterialPageRoute (builder: (context) => const ProductListRoute()));
+            }
+          },
         ),
         title: const Text(
           'Product Details',
@@ -46,8 +60,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: AppColors.primary),
-            onPressed: () {},
+            icon: const Icon(Icons.search, color: AppColors.primary, size: 22),
+            onPressed: () {
+              // Action for search
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -73,12 +89,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             );
           } else if (state is ProductLoaded) {
             final product = state.product;
+            _isFavorited ??= product.isFavorite;
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product Image with Favorite Icon
+                  // Product Image with Favorite Icon (Full Width)
                   Stack(
                     children: [
                       ClipRRect(
@@ -110,141 +126,175 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  // Title and Price
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          product.title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '£${product.finalPrice.toStringAsFixed(0)}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.secondary,
-                            ),
-                          ),
-                          if (product.hasOffer)
-                            Text(
-                              '£${product.price.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: AppColors.grey,
-                                decoration: TextDecoration.lineThrough,
+                  const SizedBox(height: 16),
+
+                  // Rest of the content wrapped in padding
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Title and Price
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                product.title,
+                                style: const TextStyle(
+                                  fontSize: 18, // Reduced from 22
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.black,
+                                ),
                               ),
                             ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  // Rating
-                  Row(
-                    children: [
-                      ...List.generate(5, (index) {
-                        return Icon(
-                          index < product.rating.floor()
-                              ? Icons.star
-                              : Icons.star_border,
-                          color: AppColors.accent,
-                          size: 20,
-                        );
-                      }),
-                      const SizedBox(width: 8),
-                      Text(
-                        '(${product.ratingCount})',
-                        style: const TextStyle(color: AppColors.grey),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // Details Section
-                  const Text(
-                    'Details',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: InfoCard(
-                          title: 'Includes',
-                          value: product.includes,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '£${product.finalPrice.toStringAsFixed(0)}',
+                                  style: const TextStyle(
+                                    fontSize: 18, // Reduced from 20
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.secondary,
+                                  ),
+                                ),
+                                if (product.hasOffer)
+                                  Text(
+                                    '£${product.price.toStringAsFixed(0)}',
+                                    style: const TextStyle(
+                                      fontSize: 13, // Reduced from 14
+                                      color: AppColors.grey,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: InfoCard(title: 'Size', value: product.size),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: InfoCard(title: 'Expiry', value: '6 months'),
-                      ), // Hardcoded as placeholder if not in entity
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // Description
-                  const Text(
-                    'Description',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    product.description,
-                    style: const TextStyle(color: AppColors.grey, height: 1.5),
-                  ),
-                  const SizedBox(height: 20),
-                  // How to Use
-                  const Text(
-                    'How to Use',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    product.howToUse,
-                    style: const TextStyle(color: AppColors.grey, height: 1.5),
-                  ),
-                  const SizedBox(height: 20),
-                  // Similar Products
-                  if (product.similarProducts.isNotEmpty) ...[
-                    const Text(
-                      'Similar Products',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                        const SizedBox(height: 8),
+                        // Rating
+                        Row(
+                          children: [
+                            ...List.generate(5, (index) {
+                              return Icon(
+                                index < product.rating.floor()
+                                    ? Icons.star
+                                    : Icons.star_border,
+                                color: AppColors.accent,
+                                size: 20,
+                              );
+                            }),
+                            const SizedBox(width: 8),
+                            Text(
+                              '(${product.ratingCount})',
+                              style: const TextStyle(color: AppColors.grey),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        // Details Section
+                        const Text(
+                          'Details',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: InfoCard(
+                                title: 'Includes',
+                                value: product.includes,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: InfoCard(
+                                title: 'Size',
+                                value: product.size,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: InfoCard(
+                                title: 'Expiry',
+                                value: '6 months',
+                              ),
+                            ), // Hardcoded as placeholder if not in entity
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        // Description
+                        const Text(
+                          'Description',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          product.description,
+                          style: const TextStyle(
+                            color: AppColors.grey,
+                            height: 1.4,
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        // How to Use
+                        const Text(
+                          'How to Use',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          product.howToUse,
+                          style: const TextStyle(
+                            color: AppColors.grey,
+                            height: 1.4,
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        // Similar Products
+                        if (product.similarProducts.isNotEmpty) ...[
+                          const Text(
+                            'Similar Products',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            height: 220, // Reduced from 280
+
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: product.similarProducts.length,
+                              separatorBuilder:
+                                  (context, index) => const SizedBox(width: 12),
+                              itemBuilder: (context, index) {
+                                return ProductCard(
+                                  product: product.similarProducts[index],
+                                  onAddToCart: () {},
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 100), // Spacing for bottom bar
+                      ],
                     ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 280,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: product.similarProducts.length,
-                        separatorBuilder:
-                            (context, index) => const SizedBox(width: 12),
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                            product: product.similarProducts[index],
-                            onAddToCart: () {},
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 100), // Spacing for bottom bar
+                  ),
                 ],
               ),
             );
@@ -299,7 +349,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Add to Cart Button
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed:
+                    () => {
+                      //  Navigator. push(context, MaterialPageRoute (builder: (context) => const ProductListRoute()))
+                    },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 16),

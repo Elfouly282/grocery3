@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery3/core/shared_widgets/cached_image_widget.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
-import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_entity.dart';
+import 'package:grocery3/features/product_list/domin/sub_categoriy_entity.dart';
 
 class CategoryItem extends StatelessWidget {
   final SubCategoryEntity category;

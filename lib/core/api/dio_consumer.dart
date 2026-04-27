@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../error/exception.dart';
-import '../helper/cache/cache_helper.dart';
 import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
@@ -58,14 +57,9 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.get(
         path,
         queryParameters: queryParameters,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-            ...?headers,
-          },
-        ),
+        options: headers != null ? Options(headers: headers) : null,
       );
-      
+
       // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
       if (response.data is String) {
         return jsonDecode(response.data);
@@ -119,10 +113,4 @@ class DioConsumer extends ApiConsumer {
       rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
-}
-
-//! Get token from cache/local storage
-Future<String> _getToken() async {
-  final token = await CacheHelper().getData(key: ApiKeys.token);
-  return token ?? '';
 }

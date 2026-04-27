@@ -3,7 +3,7 @@ import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_view.dart';
-import 'package:grocery3/features/product_list/domain/product/product_entity.dart';
+import 'package:grocery3/features/product_list/domin/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -16,7 +16,7 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsView(productId: product.id),
+            builder: (context) => ProductDetailsView(productId:   product.id),
           ),
         );
       },

@@ -1,6 +1,6 @@
 // import 'package:grocery3/core/api/api_keys.dart';
 import 'package:flutter/material.dart' show debugPrint;
-import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_entity.dart';
+import 'package:grocery3/features/product_list/domin/sub_categoriy_entity.dart';
 
 class SubSubCategoryModel extends SubCategoryEntity {
   SubSubCategoryModel({

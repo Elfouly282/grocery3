@@ -6,7 +6,6 @@ import 'package:grocery3/features/product_list/presentation/cubit/product_list_c
 import 'package:grocery3/features/product_list/presentation/cubit/product_list_state.dart';
 import 'package:grocery3/features/product_list/presentation/widgets/category_item.dart';
 import 'package:grocery3/features/product_list/presentation/widgets/product_card.dart';
-import 'package:grocery3/features/product_list/presentation/widgets/custom_bottom_nav_bar.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});

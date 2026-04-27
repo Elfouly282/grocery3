@@ -4,12 +4,9 @@ import 'package:grocery3/features/home/presentation/cubit/home_category_cubit/ca
 import 'package:grocery3/features/home/presentation/cubit/recommended_product_cubit/recommended_product_cubit.dart';
 import 'package:grocery3/features/home/presentation/cubit/today_deals_cubit/today_deals_cubit.dart';
 import 'package:grocery3/features/home/presentation/widgets/home_view_body.dart';
-import 'package:grocery3/features/layout/presentation/screens/main_screen.dart';
-import 'package:grocery3/features/product_list/presentation/widgets/custom_bottom_nav_bar.dart';
 import 'package:grocery3/features/smart_lists/presentation/screens/smart_list_screen_provide.dart';
-import 'package:grocery3/features/smart_lists/presentation/screens/smart_lists_screen.dart';
-import 'package:grocery3/features/orders/presentation/screens/orders_screen.dart';
 import 'package:grocery3/features/profile/presentation/screens/profile_screen.dart';
+import 'package:grocery3/features/product_list/presentation/widgets/custom_bottom_nav_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

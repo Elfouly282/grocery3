@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme/app_colors.dart';
 import '../../../favorites/presentation/screens/favorites_screen.dart';
 import '../../../orders/presentation/screens/orders_screen.dart';
 import '../../../smart_lists/presentation/screens/smart_lists_screen.dart';
-import '../../../cards/presentation/screens/my_cards_screen.dart';
+
 import '../../../product_details/presentation/screens/product_details_screen.dart';
 import '../cubit/layout_cubit.dart';
 
+@RoutePage()
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -16,7 +18,7 @@ class MainScreen extends StatelessWidget {
     FavoritesScreen(),
     SmartListsScreen(),
     OrdersScreen(),
-    MyCardsScreen(),
+    Center(child: Text('Profile Screen')), // Placeholder for Profile
   ];
 
   @override

@@ -12,8 +12,8 @@ class OrderModel extends OrderEntity {
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       id: json['id'],
-      status: json['status'] ?? '',
-      totalPrice: (json['total_price'] as num?)?.toDouble() ?? 0.0,
+      status: json['status_description'] ?? json['status'] ?? '',
+      totalPrice: double.tryParse(json['total']?.toString() ?? '0.0') ?? 0.0,
       createdAt: json['created_at'] ?? '',
       items: (json['items'] as List?)
               ?.map((e) => OrderItemModel.fromJson(e))
@@ -29,16 +29,30 @@ class OrderItemModel extends OrderItemEntity {
     required super.title,
     required super.quantity,
     required super.price,
+    required super.finalPrice,
     required super.imageUrl,
+    required super.size,
+    required super.rating,
+    required super.ratingCount,
+    required super.hasOffer,
   });
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
+    final meal = json['meal'] as Map<String, dynamic>?;
+    final double originalPrice = double.tryParse(meal?['price']?.toString() ?? json['unit_price']?.toString() ?? '0.0') ?? 0.0;
+    final double discountedPrice = double.tryParse(meal?['final_price']?.toString() ?? json['unit_price']?.toString() ?? '0.0') ?? 0.0;
+    
     return OrderItemModel(
-      id: json['id'],
-      title: json['title'] ?? '',
+      id: meal?['id'] ?? json['id'],
+      title: meal?['title'] ?? '',
       quantity: json['quantity'] ?? 0,
-      price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      imageUrl: json['image_url'] ?? '',
+      price: originalPrice,
+      finalPrice: discountedPrice,
+      imageUrl: meal?['image_url'] ?? '',
+      size: meal?['size'] ?? '',
+      rating: double.tryParse(meal?['rating']?.toString() ?? '5.0') ?? 5.0,
+      ratingCount: meal?['rating_count'] ?? 0,
+      hasOffer: meal?['has_offer'] ?? (originalPrice > discountedPrice && discountedPrice > 0),
     );
   }
 }

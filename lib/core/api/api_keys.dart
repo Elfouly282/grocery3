@@ -10,12 +10,27 @@ class EndPoint {
   static const String toggleFavorite = "/api/favorites/";
   static const String orders = "/api/orders";
   static const String smartLists = "/api/smart-lists";
-  static const String cards = "/api/payment-cards";
+  // static const String cards = "/api/payment-cards";
   static const String getAllRecommendedProducts = "/api/meals/recommendations";
   static const String getAllTodayDeals = "/api/meals/today";
   static const String getAllCategory = "/api/categories";
   static const String meals = "/api/meals";
   static const String subCategories = "/api/subcategories";
+  static const String cards = "/api/cards";
+  // static const String meals = "/api/meals";
+
+  static const String logout = "/auth/logout";
+  static const String verifyOtp = "/auth/verify-otp";
+  static const String changePassword = "/auth/change-password";
+  static const String deleteAccount = "/auth/delete-account";
+
+  static const String products = "/meals";
+  // static const String subCategories = "/subcategories";
+
+  static const String todayDeals = "/meals/today";
+  static const String hotMeals = "/meals/hot";
+  static const String bestSells = "/best-sells";
+  static const String newProducts = "/new-products";
 }
 
 class ApiKeys {
@@ -53,4 +68,15 @@ class ApiKeys {
   static const String rating = 'rating';
   static const String oldPrice = 'oldPrice';
   static const String weight = 'weight';
+}
+
+class StripeKeys {
+  static const String publishableKey =
+      "pk_test_51TOickRsbjFLOoimFJJoHxAVC6Zv8RLvHkscQSwgwgEFKyMNua0MX4uigF4z5bAAM5440SJyPS7sJAsi8z9zcBBs00AvZdbWph";
+}
+
+extension PaymentEndPoints on EndPoint {
+  static const String savedCardsList = "/cards";
+  static const String storeSavedCard = "/store";
+  static const String paymentsHistory = "/payments/history";
 }

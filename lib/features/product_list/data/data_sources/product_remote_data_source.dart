@@ -1,6 +1,6 @@
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/api_keys.dart';
-import 'package:grocery3/features/product_list/data/models/product_model.dart';
+import 'package:grocery3/features/product_details/data/models/product_model.dart';
 import 'package:grocery3/features/product_list/data/models/category_model.dart';
 
 abstract class ProductRemoteDataSource {

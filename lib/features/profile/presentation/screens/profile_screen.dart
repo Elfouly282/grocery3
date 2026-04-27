@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Profile',
-          style: AppStyles.font18SemdiBold.copyWith(color: AppColors.white),
+          style: AppStyles.font16SemiBold.copyWith(color: AppColors.white),
         ),
         backgroundColor: AppColors.primary,
         elevation: 0,
@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   Text(
                     'John Doe',
-                    style: AppStyles.font18SemdiBold.copyWith(
+                    style: AppStyles.font16SemiBold.copyWith(
                       color: AppColors.black,
                     ),
                   ),
@@ -160,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppStyles.font16Bold.copyWith(
+                    style: AppStyles.font16SemiBold.copyWith(
                       color: isDestructive ? Colors.red : AppColors.black,
                     ),
                   ),
