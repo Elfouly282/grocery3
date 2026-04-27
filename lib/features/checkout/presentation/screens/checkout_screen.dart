@@ -7,6 +7,8 @@ import 'package:grocery3/features/checkout/domain/usecases/pay_now_usecase.dart'
 import 'package:grocery3/features/checkout/presentation/bloc/checkout_bloc.dart';
 import 'package:grocery3/features/checkout/presentation/bloc/checkout_event.dart';
 import 'package:grocery3/features/checkout/presentation/bloc/checkout_state.dart';
+import 'package:grocery3/features/payment/domain/entities/PaymentDetails.dart';
+import 'package:grocery3/features/payment/presentation/screens/PaymentSuccessView.dart';
 import 'package:grocery3/injection_container.dart';
 import '../widgets/delivery_speed_widget.dart';
 import '../widgets/fulfillment_toggle_widget.dart';
@@ -62,9 +64,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       child: BlocConsumer<CheckoutBloc, CheckoutState>(
         listener: (context, state) {
           if (state is CheckoutSuccess) {
+            PaymentDetails details = PaymentDetails(
+              amount: state.response.data.total,
+              date: state.response.data.createdAt,
+              paymentMethod: state.response.data.paymentMethod,
+              transactionId: state.response.data.id.toString(),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PaymentSuccessView(details: details),
+              ),
+            );
+          
+
             // go to success screen
           } else if (state is CheckoutError) {
-            CustomToast.showToast(message: state.message, state: ToastState.error);
+            CustomToast.showToast(
+              message: state.message,
+              state: ToastState.error,
+            );
           }
         },
         builder: (context, state) {
@@ -107,8 +126,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 () => _selectedDeliveryPayment = value,
                               ),
                           onPickupPaymentChanged:
-                              (value) =>
-                                  setState(() => _selectedPickupPayment = value),
+                              (value) => setState(
+                                () => _selectedPickupPayment = value,
+                              ),
                         ),
 
                         // Delivery Speed (only in delivery mode)

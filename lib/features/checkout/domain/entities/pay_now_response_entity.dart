@@ -25,7 +25,7 @@ class PayNowOrderDataEntity {
   final String tax;
   final String discount;
   final double shippingFee;
-  final String total;
+  final double total;
   final String? notes;
   final String createdAt;
   final String updatedAt;

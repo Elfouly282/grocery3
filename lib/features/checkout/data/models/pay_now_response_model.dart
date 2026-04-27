@@ -70,7 +70,7 @@ class PayNowOrderDataModel extends PayNowOrderDataEntity {
       tax: json['tax']?.toString() ?? '0.00',
       discount: json['discount']?.toString() ?? '0.00',
       shippingFee: double.tryParse(json['shipping_fee']?.toString() ?? '0') ?? 0,
-      total: json['total']?.toString() ?? '0.00',
+      total: double.tryParse(json['total']?.toString() ?? '0') ?? 0,
       notes: json['notes']?.toString(),
       createdAt: json['created_at']?.toString() ?? '',
       updatedAt: json['updated_at']?.toString() ?? '',

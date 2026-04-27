@@ -13,6 +13,10 @@ class AppColors {
   static const Color appBarBackground = Color(0xFFF5F7F7);
   static const Color backgroundAlternative = Color(0xFFF5F7F7);
 
+  static const Color whiteGrey = Color(0xFFF1F1F1);
+  static const Color discountRed = Color(0xFFE53935);
+
+
   // Checkout Colors
   static const Color checkoutPrimaryText = Color(0xFF1B3A57);
   static const Color checkoutSecondaryText = Color(0xFF8A9BB0);
@@ -32,3 +36,5 @@ class AppColors {
   static const Color error = Color(0xFFDC3545);
   static const Color warning = Color(0xFFFFC107);
 }
+ 
+

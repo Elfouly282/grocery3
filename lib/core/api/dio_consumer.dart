@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../error/exception.dart';
@@ -5,7 +6,6 @@ import '../helper/cache/cache_helper.dart';
 import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
-
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
@@ -59,6 +59,11 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
         options: headers != null ? Options(headers: headers) : null,
       );
+
+      // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
+      if (response.data is String) {
+        return jsonDecode(response.data);
+      }
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
@@ -104,3 +109,8 @@ class DioConsumer extends ApiConsumer {
   }
 }
 
+//! Get token from cache/local storage
+Future<String> _getToken() async {
+  final token = CacheHelper.getData(key: ApiKeys.token);
+  return token ?? '';
+}
