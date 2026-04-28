@@ -57,7 +57,6 @@ class _SmartListsScreenState extends State<SmartListsScreen>
   //   _tabController.dispose();
   //   super.dispose();
   // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +77,6 @@ class _SmartListsScreenState extends State<SmartListsScreen>
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
-          
         ),
         centerTitle: true,
         bottom: TabBar(
@@ -228,7 +226,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
             for (var item in order.items) {
               historyProducts.add(
                 ProductEntity(
-                  id: item.id,
+                  id: item.id.toString(),
                   title: item.title,
                   description: '',
                   imageUrl: item.imageUrl,
@@ -395,7 +393,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SmartListDetailsScreen(  listId: list.id);
+                          return SmartListDetailsScreen(listId: list.id);
                         },
                       ),
                     );
@@ -532,6 +530,3 @@ class _FavoriteHorizontalCard extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/dio_consumer.dart';
+import 'package:grocery3/features/product_details/data/datasources/product_remote_data_source.dart';
+import 'package:grocery3/features/product_details/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_list/data/data_sources/product_remote_data_source.dart'
     as product_list_data_source;
-import 'package:grocery3/features/product_list/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_list/data/repositories/sub_category_repository_impl.dart';
 import 'package:grocery3/features/product_list/domin/usecases/get_sub_categories_use_case.dart';
 import 'package:grocery3/features/product_list/domin/usecases/get_products_use_case.dart';
@@ -20,7 +22,7 @@ class ProductListView extends StatefulWidget {
 
 class _ProductListViewState extends State<ProductListView> {
   ProductRepositoryImpl get productRepo =>
-      ProductRepositoryImpl(remoteDataSource: subCategoryRemoteDataSource);
+      ProductRepositoryImpl(remoteDataSource: ProductRemoteDataSourceImpl(api: DioConsumer(dio: Dio())));
   SubCategoryRepositoryImpl get subCategoryRepo =>
       SubCategoryRepositoryImpl(remoteDataSource: subCategoryRemoteDataSource);
   // final dio = Dio();

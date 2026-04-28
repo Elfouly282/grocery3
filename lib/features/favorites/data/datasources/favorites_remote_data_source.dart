@@ -4,7 +4,7 @@ import 'package:grocery3/features/product_details/data/models/product_model.dart
 
 abstract class FavoritesRemoteDataSource {
   Future<List<ProductModel>> getFavorites();
-  Future<String> toggleFavorite(int id);
+  Future<String> toggleFavorite(String id);
 }
 
 class FavoritesRemoteDataSourceImpl implements FavoritesRemoteDataSource {
@@ -21,7 +21,7 @@ class FavoritesRemoteDataSourceImpl implements FavoritesRemoteDataSource {
   }
 
   @override
-  Future<String> toggleFavorite(int id) async {
+  Future<String> toggleFavorite(String id) async {
     final response = await api.post("${EndPoint.toggleFavorite}$id/toggle");
     return response[ApiKeys.message];
   }

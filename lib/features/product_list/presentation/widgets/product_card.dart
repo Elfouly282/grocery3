@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/product_details/domain/entities/product.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_view.dart';
 import 'package:grocery3/features/product_list/domin/product_entity.dart';
@@ -16,7 +17,7 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsView(productId:   product.id),
+            builder: (context) => ProductDetailsView(productId: product.id),
           ),
         );
       },
@@ -76,15 +77,15 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          product.name,
+                          product.categoryName,
                           style: AppStyles.font16SemiBold,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (product.weight != null)
+                      if (product.discountPrice != null)
                         Text(
-                          " (${product.weight})",
+                          " (${product.discountPrice!.toStringAsFixed(0)})",
                           style: AppStyles.font12Regular,
                         ),
                     ],
@@ -125,10 +126,10 @@ class ProductCard extends StatelessWidget {
                           color: AppColors.primary,
                         ),
                       ),
-                      if (product.oldPrice != null) ...[
+                      if (product.discountPrice != null) ...[
                         const SizedBox(width: 8),
                         Text(
-                          "£${product.oldPrice!.toStringAsFixed(0)}",
+                          "£${product.discountPrice!.toStringAsFixed(0)}",
                           style: AppStyles.font12Regular.copyWith(
                             color: AppColors.grey,
                             decoration: TextDecoration.lineThrough,

@@ -49,9 +49,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           childAspectRatio: 0.62,
                         ),
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      return ProductCard(product: state.products[index]);
+                      var product = state.products[index];
+                      return ProductCard(product: product);
                     }, childCount: state.products.length),
-                  ),
+                  ),  
                 ),
               ],
             );

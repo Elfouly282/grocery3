@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/features/product_details/domain/entities/product.dart';
+import 'package:grocery3/features/product_list/domin/product_entity.dart' hide ProductEntityForCart;
 import 'package:grocery3/features/product_list/domin/usecases/get_products_use_case.dart';
 import 'package:grocery3/features/product_list/domin/usecases/get_sub_categories_use_case.dart';
 import 'package:grocery3/features/product_list/domin/sub_categoriy_entity.dart';
@@ -50,10 +51,10 @@ class ProductListCubit extends Cubit<ProductListState> {
 
     try {
       final products = await getProductsUseCase.call(
-        id: categoryId != null ? int.tryParse(categoryId) : null,
+        categoryId: categoryId != null ? int.tryParse(categoryId) : null,
       );
 
-      _products = products;
+      _products = products as List<ProductEntity>;
 
       emit(
         ProductListSuccess(

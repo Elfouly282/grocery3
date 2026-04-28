@@ -4,5 +4,5 @@ import 'package:grocery3/features/product_details/domain/entities/product.dart';
 
 abstract class FavoritesRepository {
   Future<Either<ServerException, List<ProductEntity>>> getFavorites();
-  Future<Either<ServerException, String>> toggleFavorite(int id);
+  Future<Either<ServerException, String>> toggleFavorite(String id);
 }

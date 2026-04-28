@@ -42,7 +42,9 @@ class _ProductCardState extends State<ProductCard> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20), // Increased radius like the image
+        borderRadius: BorderRadius.circular(
+          20,
+        ), // Increased radius like the image
         border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
         boxShadow: [
           BoxShadow(
@@ -67,8 +69,11 @@ class _ProductCardState extends State<ProductCard> {
                       child: CachedNetworkImage(
                         imageUrl: widget.product.imageUrl,
                         fit: BoxFit.contain, // Like the image
-                        placeholder: (context, url) => Container(color: Colors.grey[50]),
-                        errorWidget: (context, url, error) => const Icon(Icons.error_outline),
+                        placeholder:
+                            (context, url) => Container(color: Colors.grey[50]),
+                        errorWidget:
+                            (context, url, error) =>
+                                const Icon(Icons.error_outline),
                       ),
                     ),
                   ),
@@ -81,7 +86,9 @@ class _ProductCardState extends State<ProductCard> {
                       setState(() {
                         isFavorite = !isFavorite;
                       });
-                      context.read<FavoritesBloc>().add(ToggleFavoriteEvent(widget.product.id));
+                      context.read<FavoritesBloc>().add(
+                        ToggleFavoriteEvent(widget.product.id),
+                      );
                     },
                     child: Container(
                       padding: const EdgeInsets.all(6),
@@ -98,7 +105,8 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                       child: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : const Color(0xFF9CA3AF),
+                        color:
+                            isFavorite ? Colors.red : const Color(0xFF9CA3AF),
                         size: 18,
                       ),
                     ),
@@ -133,7 +141,7 @@ class _ProductCardState extends State<ProductCard> {
                     Text(
                       '(${widget.product.size.isNotEmpty ? widget.product.size : '500gm'})',
                       style: const TextStyle(
-                        color: Color(0xFF374151), 
+                        color: Color(0xFF374151),
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
                       ),
@@ -147,14 +155,21 @@ class _ProductCardState extends State<ProductCard> {
                     ...List.generate(5, (index) {
                       return Icon(
                         Icons.star,
-                        color: index < widget.product.rating.floor() ? const Color(0xFFFBBF24) : const Color(0xFFE5E7EB),
+                        color:
+                            index < widget.product.rating.floor()
+                                ? const Color(0xFFFBBF24)
+                                : const Color(0xFFE5E7EB),
                         size: 16,
                       );
                     }),
                     const SizedBox(width: 4),
                     Text(
                       '(${widget.product.ratingCount})',
-                      style: const TextStyle(fontSize: 12, color: Color(0xFF9CA3AF), fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF9CA3AF),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
@@ -199,12 +214,18 @@ class _ProductCardState extends State<ProductCard> {
                       backgroundColor: const Color(0xFF003E5B),
                       foregroundColor: Colors.white,
                       elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       padding: EdgeInsets.zero,
                     ),
                     child: const Text(
-                      'Add to cart', 
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                      'Add to cart',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                      ),
                     ),
                   ),
                 ),

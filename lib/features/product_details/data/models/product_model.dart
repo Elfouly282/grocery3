@@ -30,7 +30,10 @@ class ProductModel extends ProductEntity {
       description: json['description'] ?? '',
       imageUrl: json['image_url'] ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      discountPrice: json['discount_price'] != null ? (json['discount_price'] as num).toDouble() : null,
+      discountPrice:
+          json['discount_price'] != null
+              ? (json['discount_price'] as num).toDouble()
+              : null,
       finalPrice: (json['final_price'] as num?)?.toDouble() ?? 0.0,
       hasOffer: json['has_offer'] ?? false,
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
@@ -43,9 +46,12 @@ class ProductModel extends ProductEntity {
       inStock: json['in_stock'] ?? false,
       categoryName: json['category'] != null ? json['category']['name'] : '',
       isFavorite: json['is_favorited'] ?? false,
-      similarProducts: json['similar_products'] != null
-          ? List<ProductModel>.from(json['similar_products'].map((x) => ProductModel.fromJson(x)))
-          : [],
+      similarProducts:
+          json['similar_products'] != null
+              ? List<ProductModel>.from(
+                json['similar_products'].map((x) => ProductModel.fromJson(x)),
+              )
+              : [],
     );
   }
 
@@ -69,7 +75,8 @@ class ProductModel extends ProductEntity {
       'in_stock': inStock,
       'is_favorited': isFavorite,
       'category': {'name': categoryName},
-      'similar_products': similarProducts.map((x) => (x as ProductModel).toJson()).toList(),
+      'similar_products':
+          similarProducts.map((x) => (x as ProductModel).toJson()).toList(),
     };
   }
 }

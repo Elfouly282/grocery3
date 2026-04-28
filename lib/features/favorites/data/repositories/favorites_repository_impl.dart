@@ -12,7 +12,8 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   FavoritesRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<ServerException, List<ProductEntity>>> getFavorites() async {
+  Future<Either<ServerException, List<ProductEntity>>>
+  getFavorites() async {
     try {
       final favorites = await remoteDataSource.getFavorites();
       return Right(favorites);
@@ -37,7 +38,7 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  Future<Either<ServerException, String>> toggleFavorite(int id) async {
+  Future<Either<ServerException, String>> toggleFavorite(String id) async {
     try {
       final message = await remoteDataSource.toggleFavorite(id);
       return Right(message);
