@@ -110,7 +110,7 @@ extension PaymentEndPoints on EndPoint {
   static const String brand = "brand";
   static const String stockQuantity = "stock_quantity";
   static const String isAvailable = "is_available";
-  static const String inStock = "in_stock";
+  // static const String inStock = "in_stock";
   static const String mealId = "meal_id";
 
   static const String category = "category";
