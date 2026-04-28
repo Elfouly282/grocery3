@@ -3,7 +3,7 @@ import 'package:grocery3/core/api/api_consumer.dart';
 import '../models/product_model.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<ProductModel> getProductDetails(String id);
+  Future<ProductModel> getProductDetails(int id);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -12,7 +12,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductRemoteDataSourceImpl({required this.api});
 
   @override
-  Future<ProductModel> getProductDetails(String id) async {
+  Future<ProductModel> getProductDetails(int id) async {
     final response = await api.get('${EndPoint.meals}/$id');
     return ProductModel.fromJson(response['data']);
   }

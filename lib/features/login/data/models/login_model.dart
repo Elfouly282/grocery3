@@ -1,5 +1,7 @@
 // data/models/user_model.dart
 
+import 'package:grocery3/core/api/api_keys.dart';
+import 'package:grocery3/core/helper/cache/cache_helper.dart';
 import 'package:grocery3/features/login/domain/entities/user_entity.dart';
 
 class UserModel extends User {
@@ -26,7 +28,7 @@ class AuthResultModel extends AuthResult {
   factory AuthResultModel.fromJson(Map<String, dynamic> json) {
     // Accessing 'data' directly from the unwrapped Map
     final data = json['data'] as Map<String, dynamic>;
-
+    CacheHelper().setData(key: ApiKeys.token, value: data['token']);
     return AuthResultModel(
       user: UserModel.fromJson(data['user'] as Map<String, dynamic>),
       token: data['token'] as String,

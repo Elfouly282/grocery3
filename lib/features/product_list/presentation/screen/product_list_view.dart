@@ -1,15 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/dio_consumer.dart';
-import 'package:grocery3/features/product_details/data/datasources/product_remote_data_source.dart';
-import 'package:grocery3/features/product_details/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_list/data/data_sources/product_remote_data_source.dart'
     as product_list_data_source;
+import 'package:grocery3/features/product_list/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_list/data/repositories/sub_category_repository_impl.dart';
-import 'package:grocery3/features/product_list/domin/usecases/get_sub_categories_use_case.dart';
-import 'package:grocery3/features/product_list/domin/usecases/get_products_use_case.dart';
+import 'package:grocery3/features/product_list/domain/SubCategories/get_categories_use_case.dart';
+import 'package:grocery3/features/product_list/domain/product/get_products_use_case.dart';
+import 'package:grocery3/features/product_list/domain/product/product_repository.dart';
 import 'package:grocery3/features/product_list/presentation/cubit/product_list_cubit.dart';
 import 'package:grocery3/features/product_list/presentation/screen/product_list_screen.dart';
 
@@ -21,16 +20,20 @@ class ProductListView extends StatefulWidget {
 }
 
 class _ProductListViewState extends State<ProductListView> {
-  ProductRepositoryImpl get productRepo =>
-      ProductRepositoryImpl(remoteDataSource: ProductRemoteDataSourceImpl(api: DioConsumer(dio: Dio())));
+  BaseProductRepo get productRepo =>
+      ProductRepositoryImpl(remoteDataSource: productRemoteDataSource);
   SubCategoryRepositoryImpl get subCategoryRepo =>
       SubCategoryRepositoryImpl(remoteDataSource: subCategoryRemoteDataSource);
-  // final dio = Dio();
+
   final apiConsumer = DioConsumer(dio: Dio());
 
   product_list_data_source.ProductRemoteDataSource
   get subCategoryRemoteDataSource =>
       product_list_data_source.ProductRemoteDataSourceImpl(apiConsumer);
+  product_list_data_source.ProductRemoteDataSource
+  get productRemoteDataSource =>
+      product_list_data_source.ProductRemoteDataSourceImpl(apiConsumer);
+
   // final dynamic productRepo;
   @override
   Widget build(BuildContext context) {

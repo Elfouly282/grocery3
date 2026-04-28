@@ -3,6 +3,11 @@ import 'app_colors.dart';
 import 'app_fonts.dart';
 
 class AppStyles {
+  static const TextStyle font12regulargray = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.grey,
+  );
   static const TextStyle font24Bold = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
@@ -12,6 +17,18 @@ class AppStyles {
   static const TextStyle font16SemiBold = TextStyle(
     color: Color(0xFF000015) /* Color-black */,
     fontSize: 16,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+  );
+  static const TextStyle font14SemiBold = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 14,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+  );
+  static const TextStyle font18SemiBold = TextStyle(
+    color: Color(0xFF000015) /* Color-black */,
+    fontSize: 18,
     fontFamily: 'Inter',
     fontWeight: FontWeight.w600,
   );

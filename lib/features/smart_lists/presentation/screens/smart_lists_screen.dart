@@ -25,7 +25,7 @@ class SmartListsScreen extends StatefulWidget {
 }
 
 class _SmartListsScreenState extends State<SmartListsScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -117,6 +117,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
   Widget _buildFab() {
     if (_tabController.index == 0) {
       return FloatingActionButton(
+        heroTag: 'add_list',
         onPressed: () {},
         backgroundColor: AppColors.primary,
         shape: const CircleBorder(),
@@ -124,6 +125,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
       );
     } else if (_tabController.index == 2) {
       return FloatingActionButton(
+        heroTag: 'add_history',
         onPressed: () {},
         backgroundColor: const Color(0xFFE5E7EB),
         elevation: 2,
@@ -226,7 +228,7 @@ class _SmartListsScreenState extends State<SmartListsScreen>
             for (var item in order.items) {
               historyProducts.add(
                 ProductEntity(
-                  id: item.id.toString(),
+                  id: item.id,
                   title: item.title,
                   description: '',
                   imageUrl: item.imageUrl,

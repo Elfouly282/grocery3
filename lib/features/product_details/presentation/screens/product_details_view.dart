@@ -7,7 +7,7 @@ import 'package:grocery3/features/product_details/presentation/screens/product_d
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key, required this.productId});
-  final String productId;
+  final int productId;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

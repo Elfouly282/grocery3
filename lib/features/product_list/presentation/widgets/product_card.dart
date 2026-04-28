@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
-import 'package:grocery3/features/product_details/domain/entities/product.dart';
-import 'package:grocery3/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:grocery3/features/product_details/presentation/screens/product_details_view.dart';
-import 'package:grocery3/features/product_list/domin/product_entity.dart';
+import 'package:grocery3/features/product_list/domain/product/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -77,16 +75,16 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          product.categoryName,
-                          style: AppStyles.font16SemiBold,
+                          product.name,
+                          style: AppStyles.font14SemiBold,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (product.discountPrice != null)
+                      if (product.weight != null)
                         Text(
-                          " (${product.discountPrice!.toStringAsFixed(0)})",
-                          style: AppStyles.font12Regular,
+                          " (${product.weight})",
+                          style: AppStyles.font12regulargray,
                         ),
                     ],
                   ),
@@ -107,12 +105,7 @@ class ProductCard extends StatelessWidget {
                         );
                       }),
                       const SizedBox(width: 4),
-                      Text(
-                        "(5)",
-                        style: AppStyles.font12Regular.copyWith(
-                          color: AppColors.grey,
-                        ),
-                      ),
+                      Text("(5)", style: AppStyles.font12regulargray),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -122,16 +115,15 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "£${product.price.toStringAsFixed(0)}",
-                        style: AppStyles.font16SemiBold.copyWith(
+                        style: AppStyles.font16BoldPrimary.copyWith(
                           color: AppColors.primary,
                         ),
                       ),
-                      if (product.discountPrice != null) ...[
+                      if (product.oldPrice != null) ...[
                         const SizedBox(width: 8),
                         Text(
-                          "£${product.discountPrice!.toStringAsFixed(0)}",
-                          style: AppStyles.font12Regular.copyWith(
-                            color: AppColors.grey,
+                          "£${product.oldPrice!.toStringAsFixed(0)}",
+                          style: AppStyles.font12regulargray.copyWith(
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),

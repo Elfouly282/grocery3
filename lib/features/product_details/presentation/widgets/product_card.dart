@@ -87,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                         isFavorite = !isFavorite;
                       });
                       context.read<FavoritesBloc>().add(
-                        ToggleFavoriteEvent(widget.product.id),
+                        ToggleFavoriteEvent(widget.product.id.toString()),
                       );
                     },
                     child: Container(

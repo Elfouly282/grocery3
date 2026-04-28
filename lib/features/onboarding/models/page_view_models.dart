@@ -3,26 +3,32 @@ import 'package:grocery3/core/constants/app_assets.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_fonts.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:grocery3/features/login/presentation/screens/login_view.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-final List<PageViewModel> pagesViewModel = [
-  getCustomPageViewModel(
-    title: "Shop Everything You Need, In One Click",
-    imagePath: Assets.assetsOnboarding1,
-    body:
-        " Discover over 1000 fresh and essential grocery products in a single place.",
-  ),
-  getCustomPageViewModel(
-    title: "Save Time, Get Groceries Delivered to Your Door",
-    imagePath: Assets.assetsOnboarding2,
-    body: "Ultra-fast delivery with real-time tracking straight to you.",
-  ),
-];
+List<PageViewModel> pagesViewModel(BuildContext context) {
+  return [
+    getCustomPageViewModel(
+      title: "Shop Everything You Need, In One Click",
+      imagePath: Assets.assetsOnboarding1,
+      body:
+          " Discover over 1000 fresh and essential grocery products in a single place.",
+      context: context,
+    ),
+    getCustomPageViewModel(
+      title: "Save Time, Get Groceries Delivered to Your Door",
+      imagePath: Assets.assetsOnboarding2,
+      body: "Ultra-fast delivery with real-time tracking straight to you.",
+      context: context,
+    ),
+  ];
+}
 
 PageViewModel getCustomPageViewModel({
   required String title,
   required String body,
   required String imagePath,
+  required BuildContext context,
 }) {
   return PageViewModel(
     decoration: const PageDecoration(imageFlex: 8, bodyFlex: 5),
@@ -45,7 +51,10 @@ PageViewModel getCustomPageViewModel({
           alignment: AlignmentDirectional.topEnd,
           child: TextButton(
             onPressed: () {
-              // navigate to home screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginView()),
+              );
             },
             child: Text(
               "Skip",

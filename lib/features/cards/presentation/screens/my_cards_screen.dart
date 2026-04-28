@@ -6,7 +6,7 @@ import '../bloc/cards_bloc.dart';
 import '../bloc/cards_event.dart';
 import '../bloc/cards_state.dart';
 
-@RoutePage()
+// @RoutePage()
 class MyCardsScreen extends StatefulWidget {
   const MyCardsScreen({super.key});
 
@@ -30,16 +30,26 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
         elevation: 0,
         title: const Text(
           'My Cards',
-          style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
       body: BlocBuilder<CardsBloc, CardsState>(
         builder: (context, state) {
           if (state is CardsLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            );
           } else if (state is CardsError) {
-            return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
+            return Center(
+              child: Text(
+                state.message,
+                style: const TextStyle(color: AppColors.error),
+              ),
+            );
           } else if (state is CardsLoaded) {
             if (state.cards.isEmpty) {
               return const Center(child: Text('No cards found'));
@@ -75,7 +85,11 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                         children: [
                           Text(
                             card.cardType,
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                           const Icon(Icons.credit_card, color: Colors.white),
                         ],
@@ -83,7 +97,11 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                       const SizedBox(height: 30),
                       Text(
                         card.cardNumber,
-                        style: const TextStyle(color: Colors.white, fontSize: 22, letterSpacing: 2),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          letterSpacing: 2,
+                        ),
                       ),
                       const SizedBox(height: 30),
                       Row(
@@ -92,15 +110,39 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('CARD HOLDER', style: TextStyle(color: Colors.white70, fontSize: 10)),
-                              Text(card.cardHolderName, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              const Text(
+                                'CARD HOLDER',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 10,
+                                ),
+                              ),
+                              Text(
+                                card.cardHolderName,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('EXPIRES', style: TextStyle(color: Colors.white70, fontSize: 10)),
-                              Text(card.expiryDate, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              const Text(
+                                'EXPIRES',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 10,
+                                ),
+                              ),
+                              Text(
+                                card.expiryDate,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -115,6 +157,7 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'add_card',
         onPressed: () {},
         backgroundColor: AppColors.primary,
         child: const Icon(Icons.add, color: Colors.white),

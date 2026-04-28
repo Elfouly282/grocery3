@@ -17,14 +17,13 @@ class EndPoint {
   static const String meals = "/api/meals";
   static const String subCategories = "/api/subcategories";
   static const String cards = "/api/cards";
-  // static const String meals = "/api/meals";
 
   static const String logout = "/auth/logout";
   static const String verifyOtp = "/auth/verify-otp";
   static const String changePassword = "/auth/change-password";
   static const String deleteAccount = "/auth/delete-account";
 
-  static const String products = "/meals";
+  // static const String products = "/meals";
   // static const String subCategories = "/subcategories";
 
   static const String todayDeals = "/meals/today";

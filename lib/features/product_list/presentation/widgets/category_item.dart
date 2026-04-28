@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:grocery3/core/shared_widgets/cached_image_widget.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
-import 'package:grocery3/features/product_list/domin/sub_categoriy_entity.dart';
+import 'package:grocery3/features/product_list/domain/SubCategories/sub_category_entity.dart';
 
 class CategoryItem extends StatelessWidget {
   final SubCategoryEntity category;
@@ -44,18 +43,22 @@ class CategoryItem extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                child: CustomNetworkImage(imageUrl: category.imageUrl ?? ' '),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(category.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-
             const SizedBox(height: 8),
             Text(
               category.name,
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppStyles.font14Medium.copyWith(
+              style: AppStyles.font14SemiBold.copyWith(
                 color: isSelected ? AppColors.primary : AppColors.black,
                 fontSize: 12,
               ),

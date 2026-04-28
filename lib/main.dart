@@ -7,6 +7,7 @@ import 'package:grocery3/core/helper/cache/cache_helper.dart';
 import 'package:grocery3/core/utils/get_it_server_locator.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/features/home/presentation/screens/home_view.dart';
+import 'package:grocery3/features/onboarding/screens/on_boarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class Grocery3 extends StatelessWidget {
         designSize: Size(402, 874),
         minTextAdapt: true,
         splitScreenMode: true,
-        child: HomeView(),
+        child: OnBoardingScreen(),
       ),
     );
   }

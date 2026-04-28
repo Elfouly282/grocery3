@@ -7,7 +7,7 @@ abstract class ProductEvent extends Equatable {
 }
 
 class GetProductDetailsEvent extends ProductEvent {
-  final String id;
+  final int id;
   GetProductDetailsEvent(this.id);
 
   @override

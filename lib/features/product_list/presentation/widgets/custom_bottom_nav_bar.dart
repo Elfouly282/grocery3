@@ -31,7 +31,7 @@ class CustomBottomNavBar extends StatelessWidget {
         children: [
           _buildNavItem(0, Icons.home_rounded, "Home"),
           _buildNavItem(1, Icons.list_alt_rounded, "My List"),
-          _buildNavItem(2, Icons.time_to_leave_rounded, "My Order"),
+          _buildNavItem(2, Icons.time_to_leave_rounded, "My Cart"),
           _buildNavItem(3, Icons.person_outline_rounded, "Profile"),
         ],
       ),
@@ -60,7 +60,7 @@ class CustomBottomNavBar extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             label,
-            style: AppStyles.font14Medium.copyWith(
+            style: AppStyles.font14SemiBold.copyWith(
               fontSize: 10,
               color: isSelected ? AppColors.primary : AppColors.grey,
             ),

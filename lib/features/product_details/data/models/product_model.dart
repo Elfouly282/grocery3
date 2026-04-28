@@ -23,7 +23,7 @@ class ProductModel extends ProductEntity {
     super.similarProducts,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
+  factory ProductModel.fromJson(dynamic json) {
     return ProductModel(
       id: json['id'],
       title: json['title'],

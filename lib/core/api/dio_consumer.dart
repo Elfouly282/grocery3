@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery3/core/helper/cache/cache_helper.dart';
 
 import '../error/exception.dart';
 import 'api_consumer.dart';
@@ -57,7 +58,15 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.get(
         path,
         queryParameters: queryParameters,
-        options: headers != null ? Options(headers: headers) : null,
+        options:
+            headers != null
+                ? Options(
+                  headers: {
+                    "Authorization":
+                        "Bearer ${CacheHelper().getData(key: ApiKeys.token)}",
+                  },
+                )
+                : null,
       );
 
       // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
@@ -105,6 +114,12 @@ class DioConsumer extends ApiConsumer {
         path,
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${CacheHelper().getData(key: ApiKeys.token)}",
+          },
+        ),
       );
       return response.data;
     } on DioException catch (e) {

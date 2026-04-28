@@ -20,7 +20,12 @@ class SmartListsRepositoryImpl implements SmartListsRepository {
       var lists = await remoteDataSource.getSmartLists();
       return right(lists);
     } catch (e) {
-      debugPrint('error  in  smart list impl  : ${e.toString()}');
+      debugPrint('error: ${e.toString()}');
+
+      if (e is ServerException) {
+        return left(e); // 👈 مهم جدا
+      }
+
       if (e is DioException) {
         return left(
           ServerException(
@@ -31,6 +36,7 @@ class SmartListsRepositoryImpl implements SmartListsRepository {
           ),
         );
       }
+
       return left(
         ServerException(
           e.toString(),
@@ -40,7 +46,7 @@ class SmartListsRepositoryImpl implements SmartListsRepository {
     }
   }
 
-  @override
+  
   @override
   Future<Either<ServerException, SmartListEntity>> getSmartListDetails(
     int id,

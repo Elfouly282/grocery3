@@ -12,7 +12,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<ServerException, ProductEntity>> getProductDetails(
-    String id,
+    int id,
   ) async {
     try {
       final product = await remoteDataSource.getProductDetails(id);

@@ -6,6 +6,7 @@ import 'package:grocery3/features/product_list/presentation/cubit/product_list_c
 import 'package:grocery3/features/product_list/presentation/cubit/product_list_state.dart';
 import 'package:grocery3/features/product_list/presentation/widgets/category_item.dart';
 import 'package:grocery3/features/product_list/presentation/widgets/product_card.dart';
+import 'package:grocery3/features/product_list/presentation/widgets/custom_bottom_nav_bar.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -15,6 +16,8 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  final int _navIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     // شيلنا الـ BlocProvider من هنا لأننا بنوفره في ملف الـ main.dart
@@ -35,7 +38,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text("Products", style: AppStyles.font18SemdiBold),
+                    child: Text("Products", style: AppStyles.font18SemiBold),
                   ),
                 ),
                 SliverPadding(
@@ -49,10 +52,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           childAspectRatio: 0.62,
                         ),
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      var product = state.products[index];
-                      return ProductCard(product: product);
+                      return ProductCard(product: state.products[index]);
                     }, childCount: state.products.length),
-                  ),  
+                  ),
                 ),
               ],
             );
@@ -67,6 +69,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
           return const SizedBox.shrink();
         },
       ),
+      // bottomNavigationBar: CustomBottomNavBar(
+      //   currentIndex: _navIndex,
+      //   onTap: (index) => setState(() => _navIndex = index),
+      // ),
     );
   }
 
@@ -80,7 +86,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
           color: AppColors.black,
           size: 20,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       actions: [
         IconButton(
@@ -109,7 +117,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       children: [
         const Padding(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
-          child: Text("Sub Categories", style: AppStyles.font18SemdiBold),
+          child: Text("Sub Categories", style: AppStyles.font18SemiBold),
         ),
         SizedBox(
           height: 120,

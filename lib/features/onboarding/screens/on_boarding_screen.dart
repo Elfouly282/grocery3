@@ -29,9 +29,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         body: Stack(
           children: [
             IntroductionScreen(
+              onSkip: () {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginView()),
+                );
+              },
               isProgress: false,
               key: introKey,
-              pages: pagesViewModel,
+              pages: pagesViewModel (context),
               done: Image.asset(Assets.assetsRightArrow, scale: 2),
               next: Image.asset(Assets.assetsRightArrow, scale: 2),
               back: Image.asset(Assets.assetsLeftArrow, scale: 2),
@@ -53,7 +59,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               right: 0,
               left: 0,
               child: DotsIndicator(
-                dotsCount: pagesViewModel.length,
+                dotsCount: pagesViewModel(context).length,
                 position: currentPage.toDouble(),
                 decorator: DotsDecorator(
                   size: const Size.square(12),

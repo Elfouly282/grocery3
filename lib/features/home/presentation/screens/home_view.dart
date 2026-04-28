@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery3/features/cards/presentation/screens/my_card_view_provide.dart';
+import 'package:grocery3/features/cards/presentation/screens/my_cards_screen.dart';
 import 'package:grocery3/features/home/presentation/cubit/home_category_cubit/category_cubit.dart';
 import 'package:grocery3/features/home/presentation/cubit/recommended_product_cubit/recommended_product_cubit.dart';
 import 'package:grocery3/features/home/presentation/cubit/today_deals_cubit/today_deals_cubit.dart';
@@ -25,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
       case 1:
         return SmartListScreenBlocProvide();
       case 2:
-        return Placeholder();
+        return MyCardViewProvide();
       case 3:
         return ProfileScreen();
       default:
@@ -36,7 +38,15 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildCurrentPage(),
+      body: IndexedStack(
+        index: _navIndex,
+        children: [
+          HomeBlocBrovider(),
+          SmartListScreenBlocProvide(),
+          MyCardViewProvide(),
+          ProfileScreen(),
+        ],
+      ),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _navIndex,
         onTap: (index) => setState(() => _navIndex = index),

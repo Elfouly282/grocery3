@@ -14,7 +14,7 @@ class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   final List<Widget> screens = const [
-    ProductDetailsScreen(productId: '1'), // Placeholder for Home
+    // ProductDetailsScreen(productId: 1), // Placeholder for Home
     FavoritesScreen(),
     SmartListsScreen(),
     OrdersScreen(),

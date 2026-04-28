@@ -11,7 +11,7 @@ import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
 class ProductDetailsScreen extends StatefulWidget {
-  final String productId;
+  final int productId;
   // BuildContext? context;
   const ProductDetailsScreen({super.key, required this.productId});
 
