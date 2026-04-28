@@ -39,7 +39,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _appBar(context),
-            SizedBox(height: 42),
+            // SizedBox(height: 42),
             _loginText(),
             SizedBox(height: 32),
             _inputField(),
@@ -61,12 +61,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            customSnakebar(context, 'Login Sucessed');
+            customSnakebar(context, 'Login Sucessed', Colors.green);
             Navigator.of(
               context,
             ).push(MaterialPageRoute(builder: (_) => HomeView()));
           } else if (state is LoginFailure) {
-            customSnakebar(context, state.message);
+            customSnakebar(context, state.message , Colors.red);
           } else {
             return;
           }
@@ -156,10 +156,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       children: [
         SizedBox(
           width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.3,
-          child: SvgPicture.asset(Assets.assetsSignupBackground),
+          // height: MediaQuery.sizeOf(context).height * 0.3,
+          child: Image.asset(Assets.assetsSignupBackground),
         ),
+        SizedBox(height: 16),
         Image.asset(Assets.assetsAuthAppLogo, scale: 4),
+        SizedBox(height: 16),
         Text('Welcome back !', style: AppStyles.font24Bold),
       ],
     );

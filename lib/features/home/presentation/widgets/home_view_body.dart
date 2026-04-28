@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
+import 'package:grocery3/core/services/add_to_cart_method.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/categories_view.dart';
@@ -301,7 +302,7 @@ class HomeViewBody extends StatelessWidget {
                   0.70, // Adjust to fit card content without overflow
             ),
             delegate: SliverChildBuilderDelegate((context, index) {
-              return _buildProductCard(products[index]);
+              return _buildProductCard(products[index], context);
             }, childCount: products.length),
           );
         }
@@ -320,7 +321,10 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(RecommendedProductsEntity product) {
+  Widget _buildProductCard(
+    RecommendedProductsEntity product,
+    BuildContext context,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -435,11 +439,16 @@ class HomeViewBody extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text(
-                      'Add to cart',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: () {
+                        // TODO: Implement add to cart functionality
+                      },
+                      child: const Text(
+                        'Add to cart',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

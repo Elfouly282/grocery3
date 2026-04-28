@@ -1,4 +1,3 @@
-
 abstract class ApiConsumer {
   Future<dynamic> get(
     String path, {
@@ -7,6 +6,7 @@ abstract class ApiConsumer {
   });
   Future<dynamic> post(
     String path, {
+    Map<String, dynamic>? headers,
     Object? data,
     Map<String, dynamic>? queryParameters,
     // Options? options,
@@ -19,6 +19,12 @@ abstract class ApiConsumer {
     bool isFromData = false,
   });
   Future<dynamic> delete(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFromData = false,
+  });
+  Future<dynamic> put(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,

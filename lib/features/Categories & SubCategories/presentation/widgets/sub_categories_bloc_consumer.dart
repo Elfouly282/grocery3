@@ -17,10 +17,10 @@ class SubCategoriesBlocConsumer extends StatelessWidget {
     return BlocConsumer<SubCategoryCubit, CategoryState>(
       listener: (context, state) {
         if (state is SubCategoryError) {
-          customSnakebar(context, state.message);
+          customSnakebar(context, state.message , Colors.red);
         } else if (state is SubCategoryLoaded) {
           //  var subCategories = state.subCategories;
-          customSnakebar(context, 'Subcategories loaded successfully');
+          customSnakebar(context, 'Subcategories loaded successfully', Colors.green);
         }
       },
       builder: (context, state) {

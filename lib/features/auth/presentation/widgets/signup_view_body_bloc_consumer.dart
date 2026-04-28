@@ -17,10 +17,10 @@ class SignupViewBodyBlocConsumer extends StatelessWidget {
           customSnakebar(
             context,
             state.message ?? 'An error occurred',
-            isError: true,
+            Colors.red,
           );
         } else if (state is SignUpSuccess) {
-          customSnakebar(context, 'Sign Up Successful', isError: false);
+          customSnakebar(context, 'Sign Up Successful', Colors.green);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeView()),

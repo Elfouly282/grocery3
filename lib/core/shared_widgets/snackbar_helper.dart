@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void customSnakebar(
   BuildContext context,
-  String message, {
+  String message, green, {
   bool isError = false,
 }) {
   ScaffoldMessenger.of(context).showSnackBar(

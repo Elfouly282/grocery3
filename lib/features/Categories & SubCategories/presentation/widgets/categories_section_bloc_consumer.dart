@@ -14,9 +14,9 @@ class CategoriesSectionBlocConsumer extends StatelessWidget {
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
         if (state is CategoryError) {
-          customSnakebar(context, state.message);
+          customSnakebar(context, state.message , Colors.red);
         } else if (state is CategoryLoaded) {
-          customSnakebar(context, 'Categories loaded successfully');
+          customSnakebar(context, 'Categories loaded successfully', Colors.green);
         }
       },
       builder: (context, state) {
