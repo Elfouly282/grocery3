@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
-import 'package:grocery3/core/services/add_to_cart_method.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/categories_view.dart';

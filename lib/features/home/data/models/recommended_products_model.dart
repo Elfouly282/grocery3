@@ -37,7 +37,7 @@ class RecommendedProductModel extends RecommendedProductsEntity {
     required super.recommendationReason,
   });
 
-  factory RecommendedProductModel.fromJson(Map<String, dynamic> json) {
+  factory RecommendedProductModel.fromJson(dynamic json) {
     return RecommendedProductModel(
       id: json['id'],
       title: json['title'],
