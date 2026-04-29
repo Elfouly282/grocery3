@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery3/core/helper/cache/cache_helper.dart';
 
 import '../error/exception.dart';
-import '../helper/cache/cache_helper.dart';
 import 'api_consumer.dart';
 import 'api_interceptor.dart';
 import 'api_keys.dart';
@@ -12,6 +13,7 @@ class DioConsumer extends ApiConsumer {
 
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.headers = {'Accept': 'application/json'};
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(
       LogInterceptor(
@@ -28,6 +30,8 @@ class DioConsumer extends ApiConsumer {
   @override
   Future delete(
     String path, {
+    Map<String, dynamic>? headers,
+
     dynamic data,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
@@ -40,7 +44,9 @@ class DioConsumer extends ApiConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
@@ -54,22 +60,34 @@ class DioConsumer extends ApiConsumer {
       final response = await dio.get(
         path,
         queryParameters: queryParameters,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${await _getToken()}',
-            ...?headers,
-          },
-        ),
+        options:
+            headers != null
+                ? Options(
+                  headers: {
+                    "Authorization":
+                        "Bearer ${CacheHelper().getData(key: ApiKeys.token)}",
+                  },
+                )
+                : null,
       );
+
+      // هنا بنتأكد لو البيانات جت نص بنحولها لـ JSON
+      if (response.data is String) {
+        return jsonDecode(response.data);
+      }
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
 
   @override
   Future patch(
     String path, {
+    Map<String, dynamic>? headers,
+
     dynamic data,
     Map<String, dynamic>? queryParameters,
     bool isFromData = false,
@@ -80,39 +98,63 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
-  }
-
-  @override
-  Future<dynamic> post(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    bool isFromData = false,
-    Options? options,
-  }) async {
-    try {
-      final response = await dio.post(
-        path,
-        data: isFromData ? FormData.fromMap(data as Map<String, dynamic>) : data,
-        queryParameters: queryParameters,
-        options: options,
-      );
-
       return response;
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 
-      throw e; // 🔥 مهم جدًا بدل ما ترجع null
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
     }
   }
-}
 
-//! Get token from cache/local storage
-Future<String> _getToken() async {
-  final token = await CacheHelper().getData(key: ApiKeys.token);
-  return token ?? '';
+  @override
+  Future post(
+    String path, {
+    Map<String, dynamic>? headers,
+
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    bool isFromData = false,
+  }) async {
+    try {
+      final response = await dio.post(
+        path,
+        data: isFromData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${CacheHelper().getData(key: ApiKeys.token)}",
+          },
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
+    }
+  }
+
+  @override
+  Future put(
+    String path, {
+    Map<String, dynamic>? headers,
+
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFromData = false,
+  }) async {
+    try {
+      final response = await dio.post(
+        path,
+        // data: isFromData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters,
+      );
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+      debugPrint('post error: ${e.toString()}');
+      rethrow; // 🔥 مهم جدًا بدل ما ترجع null
+    }
+  }
 }

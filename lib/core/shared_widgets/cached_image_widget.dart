@@ -1,34 +1,41 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart'; // اختيارية للتحميل الجمالي
+import 'package:skeletonizer/skeletonizer.dart';
 
-class CachedImageWidget extends StatelessWidget {
-  final String imageUrl;
-  final double? height;
-  final double? width;
-  final BoxFit fit;
-
-  const CachedImageWidget({
+class CustomNetworkImage extends StatelessWidget {
+  const CustomNetworkImage( {
     super.key,
     required this.imageUrl,
-    this.height,
-    this.width,
-    this.fit = BoxFit.cover,
+    this.scaleValue,
   });
 
+  final String imageUrl;
+  final double? scaleValue;
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      height: height,
-      width: width,
-      fit: fit,
-      placeholder: (context, url) => Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        child: Container(color: Colors.white),
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4),
+
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        scale: 1,
+
+        placeholder:
+            (context, url) => Skeletonizer(
+              enabled: true,
+              child: Container(
+                color: Colors.grey,
+                width: width * 22,
+                height: height * 7,
+              ),
+            ),
+
+        errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+        fit: BoxFit.cover,
       ),
-      errorWidget: (context, url, error) => const Icon(Icons.error_outline),
     );
+    // return Image.network(imageUrl);
   }
 }

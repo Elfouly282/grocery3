@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class YouAlreadyHaveAnAccountWidget extends StatelessWidget {
-  const YouAlreadyHaveAnAccountWidget({
-    super.key,
-  });
+  const YouAlreadyHaveAnAccountWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +24,22 @@ class YouAlreadyHaveAnAccountWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          width: 63.w,
-          child: Text(
-            'Login',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: const Color(0xFF014162) /* Color-main */,
-              fontSize: 14.sp,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+
+          child: SizedBox(
+            width: 63.w,
+            child: Text(
+              'Login',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color(0xFF014162) /* Color-main */,
+                fontSize: 14.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),

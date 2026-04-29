@@ -24,12 +24,13 @@ class UserEntity {
       token: model.token,
     );
   }
-   UserModel toModel(){
+  UserModel toModel() {
     return UserModel(
       id: id,
       name: name,
       email: email,
       phone: phone,
       token: token,
-    );}
+    );
+  }
 }

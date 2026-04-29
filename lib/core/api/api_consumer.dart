@@ -1,16 +1,15 @@
-import 'package:dio/dio.dart';
-
 abstract class ApiConsumer {
- Future<dynamic> get(
+  Future<dynamic> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
   });
   Future<dynamic> post(
     String path, {
+    Map<String, dynamic>? headers,
     Object? data,
     Map<String, dynamic>? queryParameters,
-    Options? options,
+    // Options? options,
     bool isFromData = false,
   });
   Future<dynamic> patch(
@@ -20,6 +19,12 @@ abstract class ApiConsumer {
     bool isFromData = false,
   });
   Future<dynamic> delete(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFromData = false,
+  });
+  Future<dynamic> put(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,

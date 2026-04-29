@@ -132,7 +132,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       formKey.currentState!.save(); // 🔥 لازم دي الأول
 
       if ((password1 ?? '') != (password2 ?? '')) {
-        customSnakebar(context, 'Passwords do not match', isError: true);
+        customSnakebar(context, 'Passwords do not match', Colors.red);
         return;
       }
 
@@ -147,7 +147,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         customSnakebar(
           context,
           'You must agree to the terms and conditions',
-          isError: true,
+          Colors.red,
         );
       }
     } else {

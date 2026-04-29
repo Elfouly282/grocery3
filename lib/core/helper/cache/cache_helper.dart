@@ -9,7 +9,7 @@ class CacheHelper {
 
   //! this method to put data in local database using key
 
-  String? getDataString({required String key}) {
+  static String? getDataString({required String key}) {
     return sharedPreferences.getString(key);
   }
 

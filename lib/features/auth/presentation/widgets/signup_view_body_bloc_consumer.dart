@@ -4,6 +4,7 @@ import 'package:grocery3/core/shared_widgets/custom_progress_hud_indicator.dart'
 import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/features/auth/presentation/cubit/cubit/sign_up_cubit.dart';
 import 'package:grocery3/features/auth/presentation/widgets/signup_view_body.dart';
+import 'package:grocery3/features/home/presentation/screens/home_view.dart';
 
 class SignupViewBodyBlocConsumer extends StatelessWidget {
   const SignupViewBodyBlocConsumer({super.key});
@@ -16,20 +17,21 @@ class SignupViewBodyBlocConsumer extends StatelessWidget {
           customSnakebar(
             context,
             state.message ?? 'An error occurred',
-            isError: true,
+            Colors.red,
           );
         } else if (state is SignUpSuccess) {
-          customSnakebar(
+          customSnakebar(context, 'Sign Up Successful', Colors.green);
+          Navigator.push(
             context,
-            'Sign Up Successful',
-            isError: false,
+            MaterialPageRoute(builder: (context) => HomeView()),
           );
         }
       },
       builder: (context, state) {
-        return CoustomProgressIndicatorHud( 
+        return CoustomProgressIndicatorHud(
           isLoad: state is SignUpLoading,
-          child: const SignupViewBody());
+          child: const SignupViewBody(),
+        );
       },
     );
   }

@@ -2,11 +2,9 @@ class AppConstants {
   static const String baseUrl = "";
   static const int connectTimeout = 30000; // 30 seconds
 
-  
   // Header Constants
   static const String contentType = "application/json";
   static const String emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-
 
   // Animation Durations
   static const int splashDelay = 3; // Seconds
@@ -16,7 +14,7 @@ class AppConstants {
   static const int defaultPageSize = 10;
   static const double horizontalPadding = 16.0;
   static const double verticalPadding = 12.0;
-  
+
   // Design Constants (Spacing)
   static const double borderRadius = 12.0;
 
@@ -25,5 +23,4 @@ class AppConstants {
   static const String isUserLoggedIn = "is_logged_in";
   static const String languageKey = "app_lang";
   static const double kHorizontalPadding = 24.0;
-
 }

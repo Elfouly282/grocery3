@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../utils/theme/app_colors.dart'; // تأكد من المسار الصحيح لملف الألوان
 
 class CustomToast {
-  
   /// إظهار رسالة سريعة
   static void showToast({
     required String message,
@@ -26,7 +25,7 @@ class CustomToast {
       case ToastState.success:
         return AppColors.success; // تأكد من تعريف success في AppColors
       case ToastState.error:
-        return AppColors.error;   // تأكد من تعريف error في AppColors
+        return AppColors.error; // تأكد من تعريف error في AppColors
       case ToastState.warning:
         return AppColors.warning; // تأكد من تعريف warning في AppColors
     }
