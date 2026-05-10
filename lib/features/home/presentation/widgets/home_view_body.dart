@@ -148,7 +148,7 @@ class HomeViewBody extends StatelessWidget {
               itemCount: deals.length,
               separatorBuilder: (context, index) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
-                return _buildPromoCard(deals[index]);
+                return _buildPromoCard(context, deals[index]);
               },
             ),
           );
@@ -163,8 +163,12 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 
-  Container _buildPromoCard(DealEntity banner) {
-    return Container(
+  Widget _buildPromoCard(BuildContext context, DealEntity banner) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(ProductDetailsScreenRoute(productId: banner.id));
+      },
+      child: Container(
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -210,8 +214,9 @@ class HomeViewBody extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildSectionTitle(String title) {
     return Text(title, style: AppStyles.font24Bold.copyWith(fontSize: 20));
