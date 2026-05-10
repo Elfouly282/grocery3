@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToNext() {
     Timer(const Duration(seconds: AppConstants.splashDelay), () {
       if (mounted) {
-        context.router.replace(const OnBoardingRoute());
+        context.router.replace(const OnBoardingScreenRoute());
       }
     });
   }

@@ -9,6 +9,8 @@ import 'package:grocery3/core/shared_widgets/custom_text_form_field.dart';
 import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
 import 'package:grocery3/core/utils/theme/app_styles.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:grocery3/core/routes/app_router.dart';
 import 'package:grocery3/features/auth/presentation/sign_up_view.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery3/features/login/presentation/cubit/login_state.dart';
@@ -62,6 +64,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             customSnakebar(context, 'Login Sucessed');
+            context.router.replace(const MainScreenRoute());
           } else if (state is LoginFailure) {
             customSnakebar(context, state.message);
           } else {

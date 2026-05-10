@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/api/dio_consumer.dart';
+import 'package:grocery3/core/connection/network_info.dart';
+
 import 'package:grocery3/features/product_details/data/datasources/product_remote_data_source.dart';
 import 'package:grocery3/features/product_details/data/repositories/product_repository_impl.dart';
 import 'package:grocery3/features/product_details/domain/repositories/product_repository.dart';
@@ -31,113 +34,104 @@ import 'package:grocery3/features/cards/domain/repositories/cards_repository.dar
 import 'package:grocery3/features/cards/domain/usecases/get_cards.dart';
 import 'package:grocery3/features/cards/presentation/bloc/cards_bloc.dart';
 
+// Login Feature
+import 'package:grocery3/features/login/data/datasources/login_remote_data_source.dart';
+import 'package:grocery3/features/login/data/repositories/login_repository_impl.dart';
+import 'package:grocery3/features/login/domain/repositories/login_repo.dart';
+import 'package:grocery3/features/login/domain/usecases/login_usecase.dart';
+import 'package:grocery3/features/login/presentation/cubit/login_cubit.dart';
+
+// Auth/SignUp Feature (Home branch)
+import 'package:grocery3/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:grocery3/features/auth/domin/repos/auth_repo.dart';
+import 'package:grocery3/features/auth/presentation/cubit/cubit/sign_up_cubit.dart';
+
+// Categories Feature (Home branch)
+import 'package:grocery3/features/Categories%20&%20SubCategories/data/repos/cateory_repo_impl.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/domin/repos/sub_categry_repo.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/cubit/cubit/sub_category_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
   //! Features - Product Details
-  // Bloc
   sl.registerFactory(() => ProductBloc(getProductDetailsUseCase: sl()));
-
-  //! Features - Layout
-  // Cubit
-  sl.registerFactory(() => LayoutCubit());
-
-  // Use cases
   sl.registerLazySingleton(() => GetProductDetailsUseCase(sl()));
-
-  // Repository
   sl.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(remoteDataSource: sl()),
   );
-
-  // Data sources
   sl.registerLazySingleton<ProductRemoteDataSource>(
     () => ProductRemoteDataSourceImpl(sl()),
   );
 
-  //! Features - Favorites
-  // Bloc
-  sl.registerFactory(
-    () => FavoritesBloc(
-      getFavoritesUseCase: sl(),
-      toggleFavoriteUseCase: sl(),
-    ),
-  );
+  //! Features - Layout
+  sl.registerFactory(() => LayoutCubit());
 
-  // Use cases
+  //! Features - Favorites
+  sl.registerFactory(() => FavoritesBloc(getFavoritesUseCase: sl(), toggleFavoriteUseCase: sl()));
   sl.registerLazySingleton(() => GetFavoritesUseCase(repository: sl()));
   sl.registerLazySingleton(() => ToggleFavoriteUseCase(repository: sl()));
-
-  // Repository
   sl.registerLazySingleton<FavoritesRepository>(
     () => FavoritesRepositoryImpl(remoteDataSource: sl()),
   );
-
-  // Data sources
   sl.registerLazySingleton<FavoritesRemoteDataSource>(
     () => FavoritesRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Orders
-  // Bloc
   sl.registerFactory(() => OrdersBloc(getOrdersUseCase: sl()));
-
-  // Use cases
   sl.registerLazySingleton(() => GetOrdersUseCase(repository: sl()));
-
-  // Repository
   sl.registerLazySingleton<OrdersRepository>(
     () => OrdersRepositoryImpl(remoteDataSource: sl()),
   );
-
-  // Data sources
   sl.registerLazySingleton<OrdersRemoteDataSource>(
     () => OrdersRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Smart Lists
-  // Bloc
-  sl.registerFactory(
-    () => SmartListsBloc(
-      getSmartListsUseCase: sl(),
-      getSmartListDetailsUseCase: sl(),
-    ),
-  );
-
-  // Use cases
+  sl.registerFactory(() => SmartListsBloc(getSmartListsUseCase: sl(), getSmartListDetailsUseCase: sl()));
   sl.registerLazySingleton(() => GetSmartListsUseCase(repository: sl()));
   sl.registerLazySingleton(() => GetSmartListDetailsUseCase(repository: sl()));
-
-  // Repository
   sl.registerLazySingleton<SmartListsRepository>(
     () => SmartListsRepositoryImpl(remoteDataSource: sl()),
   );
-
-  // Data sources
   sl.registerLazySingleton<SmartListsRemoteDataSource>(
     () => SmartListsRemoteDataSourceImpl(api: sl()),
   );
 
   //! Features - Cards
-  // Bloc
   sl.registerFactory(() => CardsBloc(getCardsUseCase: sl()));
-
-  // Use cases
   sl.registerLazySingleton(() => GetCardsUseCase(repository: sl()));
-
-  // Repository
   sl.registerLazySingleton<CardsRepository>(
     () => CardsRepositoryImpl(remoteDataSource: sl()),
   );
-
-  // Data sources
   sl.registerLazySingleton<CardsRemoteDataSource>(
     () => CardsRemoteDataSourceImpl(api: sl()),
   );
 
+  //! Features - Login
+  sl.registerFactory(() => LoginCubit(sl()));
+  sl.registerLazySingleton(() => LoginUseCase(sl()));
+  sl.registerLazySingleton<LoginRepository>(
+    () => LoginRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<LoginRemoteDataSource>(
+    () => LoginRemoteDataSource(api: sl()),
+  );
+
+  //! Features - Auth/SignUp
+  sl.registerFactory(() => SignUpCubit(authRepo: sl()));
+  sl.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(sl()));
+
+  //! Features - Categories
+  sl.registerFactory(() => CategoryCubit(categoryRepo: sl()));
+  sl.registerLazySingleton<CategoryRepo>(() => CategoryRepoImpl(sl()));
+
   //! Core
   sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(dio: sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   //! External
   sl.registerLazySingleton(() => Dio());
+  sl.registerLazySingleton(() => DataConnectionChecker());
 }

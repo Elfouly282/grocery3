@@ -13,13 +13,16 @@ class CategoryModelResponseModel {
     required this.data,
   });
 
-  factory CategoryModelResponseModel.fromJson(Map<String, dynamic> json) {
+  factory CategoryModelResponseModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return CategoryModelResponseModel(success: false, message: '', data: []);
+    }
     return CategoryModelResponseModel(
-      success: json['success'],
-      message: json['message'],
-      data: (json['data'] as List)
-          .map((i) => HomeCategoryModel.fromJson(i))
-          .toList(),
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      data: (json['data'] as List?)
+          ?.map((i) => HomeCategoryModel.fromJson(i as Map<String, dynamic>))
+          .toList() ?? [],
     );
   }
 }
@@ -30,22 +33,44 @@ class HomeCategoryModel extends CategoryEntity {
     required super.name,
     required super.slug,
     required super.description,
-   required super.imageUrl,
+    required super.imageUrl,
     required super.mealsCount,
     required super.sortOrder,
     required super.createdAt,
   });
 
-  factory HomeCategoryModel.fromJson(Map<String, dynamic> json) {
+  factory HomeCategoryModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return HomeCategoryModel(
+        id: 0,
+        name: '',
+        slug: '',
+        description: '',
+        imageUrl: '',
+        mealsCount: 0,
+        sortOrder: 0,
+        createdAt: DateTime.now(),
+      );
+    }
+    
+    DateTime parseDate(dynamic dateString) {
+      if (dateString != null) {
+        try {
+          return DateTime.parse(dateString.toString());
+        } catch (_) {}
+      }
+      return DateTime.now();
+    }
+
     return HomeCategoryModel(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      slug: json['slug'] as String,
-      description: json['description'] as String,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
+      slug: json['slug'] as String? ?? '',
+      description: json['description'] as String? ?? '',
       imageUrl: json['image_url'] as String? ?? '',
       mealsCount: json['meals_count'] as int? ?? 0,
       sortOrder: json['sort_order'] as int? ?? 0,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: parseDate(json['created_at']),
     );
   }
 }

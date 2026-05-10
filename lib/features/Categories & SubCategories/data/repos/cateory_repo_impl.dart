@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery3/core/api/api_consumer.dart';
 import 'package:grocery3/core/error/error_model.dart';
 import 'package:grocery3/core/error/exception.dart';
+import 'package:grocery3/core/api/api_keys.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/data/models/categories_model/categories_model.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/data/models/sub_categores_item_model/sub_categores_item_model.dart';
 import 'package:grocery3/features/Categories%20&%20SubCategories/domin/entities/categores_entity.dart';
@@ -20,8 +21,8 @@ class CategoryRepoImpl implements CategoryRepo {
       var response = await apiConsumer.get(
         'https://grocery.newcinderella.online/api/categories',
       );
-      if (response.data["success"] == true) {
-        List<dynamic> data = response.data["data"];
+      if (response["success"] == true) {
+        List<dynamic> data = response["data"];
 
         List<CategoriesItemEntity> categories = [];
         for (var item in data) {
@@ -32,11 +33,11 @@ class CategoryRepoImpl implements CategoryRepo {
 
         return right(categories);
       } else {
-        debugPrint(response.data["message"]);
+        debugPrint(response["message"]);
       }
       return left(
         ServerException(
-          errModel: ErrorModel(message: response.data["message"]),
+          errModel: ErrorModel(message: response["message"]),
         ),
       );
     } catch (e) {
@@ -59,13 +60,19 @@ class CategoryRepoImpl implements CategoryRepo {
   getSubCategories(String id) async {
     try {
       var response = await apiConsumer.get(
-        'https://grocery.newcinderella.online/api/categories/$id',
+        '${EndPoint.baseUrl}/api/categories/$id',
       );
-      if (response.data["success"] == true) {
-        List<dynamic> data = response.data["data"]["meals"];
+      if (response["success"] == true) {
+        // Handle both cases: data is a list of meals or data is a map containing meals list
+        List<dynamic> mealsData = [];
+        if (response["data"] is Map && response["data"]["meals"] != null) {
+          mealsData = response["data"]["meals"];
+        } else if (response["data"] is List) {
+          mealsData = response["data"];
+        }
 
         List<SubCategoresItemEntity> subCategories = [];
-        for (var item in data) {
+        for (var item in mealsData) {
           subCategories.add(
             SubCategoresItemEntity.fromModel(
               SubCategoresItemModel.fromJson(item),
@@ -75,11 +82,11 @@ class CategoryRepoImpl implements CategoryRepo {
 
         return right(subCategories);
       } else {
-        debugPrint(response.data["message"]);
+        debugPrint(response["message"]);
       }
       return left(
         ServerException(
-          errModel: ErrorModel(message: response.data["message"]),
+          errModel: ErrorModel(message: response["message"] ?? "Unknown error"),
         ),
       );
     } catch (e) {

@@ -22,7 +22,7 @@ class DealResponseModel {
       data: (json['data'] as List?)
               ?.map((i) => DealModel.fromJson(i as Map<String, dynamic>))
               .toList() ?? 
-          [], // Fallback to an empty list if data is null
+          [], 
     );
   }
 }
@@ -35,7 +35,7 @@ class CategoryModel extends CategoryEntity {
 
   factory CategoryModel.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
-      return CategoryModel(id: 0, name: ''); // Fallback if the whole object is null
+      return CategoryModel(id: 0, name: ''); 
     }
     
     return CategoryModel(
@@ -64,7 +64,6 @@ class DealModel extends DealEntity {
   });
 
   factory DealModel.fromJson(Map<String, dynamic>? json) {
-    // If the entire deal object is null for some reason, return a safe default
     if (json == null) {
       return DealModel(
         id: 0,
@@ -84,14 +83,13 @@ class DealModel extends DealEntity {
       );
     }
 
-    // Helper to safely parse dates and avoid FormatExceptions
     DateTime parseDate(dynamic dateString) {
       if (dateString != null) {
         try {
           return DateTime.parse(dateString.toString());
         } catch (_) {}
       }
-      return DateTime.now(); // Fallback date
+      return DateTime.now();
     }
 
     return DealModel(
@@ -101,19 +99,13 @@ class DealModel extends DealEntity {
       description: json['description'] as String? ?? '',
       imageUrl: json['image_url'] as String? ?? '',
       offerTitle: json['offer_title'] as String? ?? '',
-      
-      // Safely handle numbers that could be parsed as int or double by the API
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       discountPrice: (json['discount_price'] as num?)?.toDouble() ?? 0.0,
       finalPrice: (json['final_price'] as num?)?.toDouble() ?? 0.0,
-      
       hasOffer: json['has_offer'] as bool? ?? false,
-      
-      // Safely parse the nested CategoryModel, providing a dummy model if null
       category: json['category'] != null 
           ? CategoryModel.fromJson(json['category'] as Map<String, dynamic>)
           : CategoryModel(id: 0, name: ''),
-          
       features: json['features'] as String? ?? '',
       availableDate: parseDate(json['available_date']),
       createdAt: parseDate(json['created_at']),

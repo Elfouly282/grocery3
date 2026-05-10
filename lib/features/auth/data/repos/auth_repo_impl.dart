@@ -31,8 +31,8 @@ class AuthRepoImpl extends AuthRepo {
         }),
         options: Options(headers: {"Accept": "application/json"}),
       );
-      if (response.data["success"] == true) {
-        dynamic data = response.data["data"];
+      if (response["success"] == true) {
+        dynamic data = response["data"];
 
         dynamic user = UserModel.fromJson({
           ...data["user"],
@@ -41,13 +41,13 @@ class AuthRepoImpl extends AuthRepo {
 
         return right(UserEntity.fromModel(user));
       } else {
-        debugPrint(response.data["message"]);
+        debugPrint(response["message"]);
       }
       return left(
         ServerException(
-          errModel: ErrorModel(message: response.data["message"]),
+          errModel: ErrorModel(message: response["message"]),
         ),
-      ); // maybe error there
+      ); 
     } catch (e) {
       debugPrint('error  in sign up  : ${e.toString()}');
       if (e is DioException) {

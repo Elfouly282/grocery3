@@ -11,25 +11,25 @@ import 'package:grocery3/features/layout/presentation/screens/product_list_scree
 import 'package:grocery3/features/orders/presentation/screens/cart_screen.dart';
 import 'package:grocery3/features/splash/presentation/screens/splash_screen.dart';
 import 'package:grocery3/features/onboarding/screens/on_boarding_screen.dart';
+import 'package:grocery3/features/login/presentation/screens/login_view.dart';
 
 part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
-class AppRouter extends _$AppRouter {
-  AppRouter();
-
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: SplashRoute.page, initial: true),
-        AutoRoute(page: OnBoardingRoute.page),
-        AutoRoute(page: MainRoute.page),
-        AutoRoute(page: ProductDetailsRoute.page),
-        AutoRoute(page: SmartListsRoute.page),
-        AutoRoute(page: SmartListDetailsRoute.page),
-        AutoRoute(page: OrdersRoute.page),
-        AutoRoute(page: FavoritesRoute.page),
-        AutoRoute(page: MyCardsRoute.page),
-        AutoRoute(page: ProductListRoute.page),
-        AutoRoute(page: CartRoute.page),
+        AutoRoute(page: SplashScreenRoute.page, initial: true),
+        AutoRoute(page: OnBoardingScreenRoute.page),
+        AutoRoute(page: MainScreenRoute.page),
+        AutoRoute(page: ProductDetailsScreenRoute.page),
+        AutoRoute(page: SmartListsScreenRoute.page),
+        AutoRoute(page: SmartListDetailsScreenRoute.page),
+        AutoRoute(page: OrdersScreenRoute.page),
+        AutoRoute(page: FavoritesScreenRoute.page),
+        AutoRoute(page: MyCardsScreenRoute.page),
+        AutoRoute(page: ProductListScreenRoute.page),
+        AutoRoute(page: CartScreenRoute.page),
+        AutoRoute(page: LoginViewRoute.page),
       ];
 }

@@ -5,6 +5,13 @@ import 'package:grocery3/features/home/presentation/cubit/recommended_product_cu
 import 'package:grocery3/features/home/presentation/cubit/today_deals_cubit/today_deals_cubit.dart';
 
 import 'package:grocery3/features/home/presentation/widgets/home_view_body.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/cubit/cubit/sub_category_cubit.dart' as sub;
+import 'package:grocery3/features/Categories%20&%20SubCategories/domin/repos/sub_categry_repo.dart' as sub_repo;
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_event.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_state.dart';
+import 'package:grocery3/injection_container.dart';
+import 'package:grocery3/core/shared_widgets/snackbar_helper.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -24,8 +31,11 @@ class HomeView extends StatelessWidget {
           BlocProvider(
             create: (context) => CategoryCubit()..getAllCategories(),
           ),
+          BlocProvider(
+            create: (context) => sub.SubCategoryCubit(categoryRepo: sl<sub_repo.CategoryRepo>())..getSubCategories('2'),
+          ),
         ],
-        child: HomeViewBody(),
+        child: const HomeViewBody(),
       ),
     );
   }

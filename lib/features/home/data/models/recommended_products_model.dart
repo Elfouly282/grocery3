@@ -12,13 +12,16 @@ class RecommendedProductsResponseModel {
     required this.data,
   });
 
-  factory RecommendedProductsResponseModel.fromJson(Map<String, dynamic> json) {
+  factory RecommendedProductsResponseModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return RecommendedProductsResponseModel(success: false, message: '', data: []);
+    }
     return RecommendedProductsResponseModel(
-      success: json['success'],
-      message: json['message'],
-      data: (json['data'] as List)
-          .map((i) => RecommendedProductModel.fromJson(i))
-          .toList(),
+      success: json['success'] as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      data: (json['data'] as List?)
+          ?.map((i) => RecommendedProductModel.fromJson(i as Map<String, dynamic>))
+          .toList() ?? [],
     );
   }
 }
@@ -48,19 +51,32 @@ class RecommendedProductModel extends RecommendedProductsEntity {
          recommendationReason: recommendationReason,
        );
 
-  factory RecommendedProductModel.fromJson(Map<String, dynamic> json) {
+  factory RecommendedProductModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return RecommendedProductModel(
+        id: 0,
+        title: '',
+        description: '',
+        imageUrl: '',
+        price: 0.0,
+        finalPrice: 0.0,
+        hasOffer: false,
+        category: CategoryModel(id: 0, name: '', slug: ''),
+        features: '',
+        recommendationReason: '',
+      );
+    }
     return RecommendedProductModel(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      imageUrl: json['image_url'],
-      price: (json['price'] as num).toDouble(),
-      finalPrice: (json['final_price'] as num).toDouble(),
-      hasOffer: json['has_offer'],
-      category: CategoryModel.fromJson(json['category']),
-      // Splitting the comma-separated string into a list
-      features: json['features'],
-      recommendationReason: json['recommendation_reason'],
+      id: json['id'] as int? ?? 0,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      imageUrl: json['image_url'] as String? ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      finalPrice: (json['final_price'] as num?)?.toDouble() ?? 0.0,
+      hasOffer: json['has_offer'] as bool? ?? false,
+      category: CategoryModel.fromJson(json['category'] as Map<String, dynamic>?),
+      features: json['features'] as String? ?? '',
+      recommendationReason: json['recommendation_reason'] as String? ?? '',
     );
   }
 }
@@ -70,11 +86,14 @@ class CategoryModel extends CategoryEntity {
   CategoryModel({required int id, required String name, required String slug})
     : super(id: id, name: name, slug: slug);
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+  factory CategoryModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return CategoryModel(id: 0, name: '', slug: '');
+    }
     return CategoryModel(
-      id: json['id'],
-      name: json['name'],
-      slug: json['slug'],
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
+      slug: json['slug'] as String? ?? '',
     );
   }
 }

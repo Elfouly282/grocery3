@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,6 @@ import '../../../../features/favorites/presentation/bloc/favorites_event.dart';
 import '../../../../features/favorites/presentation/bloc/favorites_state.dart';
 
 @RoutePage()
-
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
 
@@ -48,7 +46,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             if (context.router.canPop()) {
               context.router.pop();
             } else {
-              context.router.replace(const ProductListRoute());
+              context.router.replace(const ProductListScreenRoute());
             }
           },
         ),
@@ -66,7 +64,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.primary, size: 22),
-            onPressed: () => context.router.push(const CartRoute()),
+            onPressed: () => context.router.push(const CartScreenRoute()),
           ),
         ],
       ),
@@ -88,16 +86,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       CachedNetworkImage(
                         imageUrl: product.imageUrl,
-                        height: 250, // Increased height for full-width presentation
+                        height: 250,
                         width: double.infinity,
-                        fit: BoxFit.cover, // Fit to cover the entire width
+                        fit: BoxFit.cover,
                         placeholder: (context, url) => Container(color: AppColors.lightGrey),
                         errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                       Positioned(
                         top: 16,
                         right: 16,
-<<<<<<< HEAD
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -111,13 +108,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               (_isFavorited ?? false) ? Icons.favorite : Icons.favorite_border,
                               color: (_isFavorited ?? false) ? Colors.red : AppColors.grey,
                             ),
-=======
-                        child: CircleAvatar(
-                          backgroundColor: AppColors.background,
-                          child: Icon(
-                            product.inStock ? Icons.favorite_border : Icons.favorite,
-                            color: AppColors.grey,
->>>>>>> origin/home
                           ),
                         ),
                       ),
@@ -139,7 +129,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: Text(
                           product.title,
                           style: const TextStyle(
-                            fontSize: 18, // Reduced from 22
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: AppColors.black,
                           ),
@@ -151,7 +141,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Text(
                             '£${product.finalPrice.toStringAsFixed(0)}',
                             style: const TextStyle(
-                              fontSize: 18, // Reduced from 20
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: AppColors.secondary,
                             ),
@@ -160,7 +150,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Text(
                               '£${product.price.toStringAsFixed(0)}',
                               style: const TextStyle(
-                                fontSize: 13, // Reduced from 14
+                                fontSize: 13,
                                 color: AppColors.grey,
                                 decoration: TextDecoration.lineThrough,
                               ),
@@ -201,7 +191,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       const SizedBox(width: 10),
                       Expanded(child: InfoCard(title: 'Size', value: product.size)),
                       const SizedBox(width: 10),
-                      Expanded(child: InfoCard(title: 'Expiry', value: '6 months')), // Hardcoded as placeholder if not in entity
+                      Expanded(child: InfoCard(title: 'Expiry', value: '6 months')),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -235,8 +225,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                     const SizedBox(height: 12),
                     SizedBox(
-                      height: 220, // Reduced from 280
-
+                      height: 220,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: product.similarProducts.length,
@@ -250,7 +239,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                   ],
-                  const SizedBox(height: 100), // Spacing for bottom bar
+                  const SizedBox(height: 100),
                       ],
                     ),
                   ),
@@ -264,7 +253,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
-          color: AppColors. white,
+          color: AppColors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           boxShadow: [
             BoxShadow(
@@ -305,7 +294,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Add to Cart Button
             Expanded(
               child: ElevatedButton(
-                onPressed: () => context.router.push(const CartRoute()),
+                onPressed: () => context.router.push(const CartScreenRoute()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 16),

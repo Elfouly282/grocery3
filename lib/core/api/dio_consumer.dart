@@ -61,7 +61,7 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
         options: headers != null ? Options(headers: headers) : null,
       );
-      return response;
+      return response.data;
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 
@@ -82,7 +82,7 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return response;
+      return response.data;
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 
@@ -107,7 +107,7 @@ class DioConsumer extends ApiConsumer {
         options: options,
       );
 
-      return response;
+      return response.data;
     } on DioException catch (e) {
       debugPrint('post error: ${e.toString()}');
 

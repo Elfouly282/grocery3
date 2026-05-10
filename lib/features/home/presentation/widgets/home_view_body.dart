@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:grocery3/core/constants/app_assets.dart';
@@ -12,6 +13,10 @@ import 'package:grocery3/features/home/presentation/cubit/recommended_product_cu
 import 'package:grocery3/features/home/presentation/cubit/recommended_product_cubit/recommended_product_state.dart';
 import 'package:grocery3/features/home/presentation/cubit/today_deals_cubit/today_deals_cubit.dart';
 import 'package:grocery3/features/home/presentation/cubit/today_deals_cubit/today_deals_state.dart';
+import 'package:grocery3/features/Categories%20&%20SubCategories/presentation/cubit/cubit/sub_category_cubit.dart' as sub;
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:grocery3/features/favorites/presentation/bloc/favorites_event.dart';
+import 'package:grocery3/core/routes/app_router.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -37,6 +42,10 @@ class HomeViewBody extends StatelessWidget {
                 _buildSectionTitle('Categories'),
                 const SizedBox(height: 16),
                 _buildCategoriesRow(),
+                const SizedBox(height: 24),
+                _buildSectionTitle('Sub Categories'),
+                const SizedBox(height: 16),
+                _buildSubCategoriesRow(),
                 const SizedBox(height: 24),
                 _buildSectionTitle('Recommended For You'),
                 const SizedBox(height: 16),
@@ -207,12 +216,14 @@ class HomeViewBody extends StatelessWidget {
   Widget _buildSectionTitle(String title) {
     return Text(title, style: AppStyles.font24Bold.copyWith(fontSize: 20));
   }
-
-  Widget _buildCategoriesRow() {
+  Widget _buildCategoriesRow() {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         if (state is CategoryLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox(
+            height: 100,
+            child: Center(child: CircularProgressIndicator()),
+          );
         } else if (state is CategorySuccess) {
           final categories = state.categories;
           return SizedBox(
@@ -222,36 +233,53 @@ class HomeViewBody extends StatelessWidget {
               itemCount: categories.length,
               separatorBuilder: (context, index) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
-                return SizedBox(
-                  width: 80,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.grey.shade200),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              categories[index].imageUrl,
-                            ),
+                return GestureDetector(
+                  onTap: () {
+                    context.read<sub.SubCategoryCubit>().getSubCategories(categories[index].id.toString());
+                  },
+                  child: SizedBox(
+                    width: 80,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 1,
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                            border: Border.all(color: Colors.grey.shade100),
+                            image: categories[index].imageUrl.isNotEmpty
+                                ? DecorationImage(
+                                    image: NetworkImage(categories[index].imageUrl),
+                                    fit: BoxFit.contain,
+                                  )
+                                : null,
                           ),
+                          child: categories[index].imageUrl.isEmpty
+                              ? const Icon(Icons.category, color: Colors.grey)
+                              : null,
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        categories[index].name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black87,
+                        const SizedBox(height: 8),
+                        Text(
+                          categories[index].name,
+                          textAlign: TextAlign.center,
+                          style: AppStyles.font12Regular.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -259,18 +287,13 @@ class HomeViewBody extends StatelessWidget {
           );
         }
         if (state is CategoryError) {
-          return SliverToBoxAdapter(
-            child: SizedBox(
-              height: 200,
-              child: Center(child: Text(state.message)),
-            ),
-          );
+          return Center(child: Text(state.message));
         }
-
-        return const SliverToBoxAdapter(child: SizedBox.shrink());
+        return const SizedBox.shrink();
       },
     );
   }
+
 
   Widget _buildRecommendedGrid() {
     return BlocBuilder<RecommendedProductCubit, RecommendedProductState>(
@@ -292,10 +315,10 @@ class HomeViewBody extends StatelessWidget {
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio:
-                  0.70, // Adjust to fit card content without overflow
+                  0.65, // Adjust to fit card content without overflow
             ),
             delegate: SliverChildBuilderDelegate((context, index) {
-              return _buildProductCard(products[index]);
+              return _buildProductCard(context, products[index]);
             }, childCount: products.length),
           );
         }
@@ -314,8 +337,12 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 
-  Widget _buildProductCard(RecommendedProductsEntity product) {
-    return Container(
+  Widget _buildProductCard(BuildContext context, RecommendedProductsEntity product) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(ProductDetailsScreenRoute(productId: product.id));
+      },
+      child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.grey.shade200),
@@ -342,16 +369,13 @@ class HomeViewBody extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey.shade100,
-                      radius: 14,
-                      child: const Icon(
-                        Icons.favorite,
-                        size: 16,
-                        color: Colors.grey,
-                      ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey.shade100,
+                    radius: 14,
+                    child: const Icon(
+                      Icons.favorite,
+                      size: 16,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -368,26 +392,27 @@ class HomeViewBody extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    FittedBox(
+                    Expanded(
                       child: Text(
-                        product.category.name,
-                        maxLines: 2,
+                        product.title,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: AppStyles.font14Regular.copyWith(fontSize: 12),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(
-                        '(${product.category.id}gm)',
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 11,
+                        style: AppStyles.font14Regular.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  product.category.name,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Row(
@@ -443,6 +468,84 @@ class HomeViewBody extends StatelessWidget {
           ),
         ],
       ),
+    ),);
+  }
+
+  Widget _buildSubCategoriesRow() {
+    return BlocBuilder<sub.SubCategoryCubit, sub.CategoryState>(
+      builder: (context, state) {
+        if (state is sub.SubCategoryInitial || state is sub.CategoryInitial) {
+           return const SizedBox(height: 100, child: Center(child: Text('Select a category')));
+        }
+        if (state is sub.SubCategoryLoading || state is sub.CategoryLoading) {
+          return const SizedBox(
+            height: 100,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        } else if (state is sub.SubCategoryLoaded) {
+          final subCategories = state.subCategories;
+          return SizedBox(
+            height: 140,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: subCategories.length,
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 80,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                          border: Border.all(color: Colors.grey.shade100),
+                          image: subCategories[index].imageUrl != null && subCategories[index].imageUrl!.isNotEmpty
+                              ? DecorationImage(
+                                  image: NetworkImage(subCategories[index].imageUrl!),
+                                  fit: BoxFit.contain,
+                                )
+                              : null,
+                        ),
+                        child: (subCategories[index].imageUrl == null || subCategories[index].imageUrl!.isEmpty)
+                            ? Center(
+                                child: Icon(Icons.category_outlined, color: AppColors.primary),
+                              )
+                            : null,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        subCategories[index].title ?? '',
+                        textAlign: TextAlign.center,
+                        style: AppStyles.font12Regular.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        if (state is sub.SubCategoryError) {
+          return Center(child: Text(state.message));
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

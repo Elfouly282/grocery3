@@ -25,34 +25,9 @@ PageViewModel getCustomPageViewModel({
 }) {
   return PageViewModel(
     decoration: const PageDecoration(imageFlex: 8, bodyFlex: 5),
-    image: Stack(
-      children: [
-        // Container(
-        //   width: double.infinity,
-        //   decoration: const BoxDecoration(
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/on_boarding_bg.png"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        Align(
-          alignment: AlignmentGeometry.bottomCenter,
-          child: Image.asset(imagePath, height: 252, fit: BoxFit.cover),
-        ),
-        Align(
-          alignment: AlignmentDirectional.topEnd,
-          child: TextButton(
-            onPressed: () {
-              // navigate to home screen
-            },
-            child: Text(
-              "Skip",
-              style: AppStyles.font16Bold.copyWith(color: AppColors.darkBlue),
-            ),
-          ),
-        ),
-      ],
+    image: Align(
+      alignment: AlignmentGeometry.bottomCenter,
+      child: Image.asset(imagePath, height: 252, fit: BoxFit.cover),
     ),
     titleWidget: Text(
       title,

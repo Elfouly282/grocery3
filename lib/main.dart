@@ -15,7 +15,7 @@ import 'core/helper/cache/cache_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheHelper().init();
+  await CacheHelper.init();
   await di.init();
   Bloc.observer = MyBlocObserver();
   runApp(MyApp());

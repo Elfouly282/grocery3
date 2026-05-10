@@ -7,6 +7,7 @@ import '../../../orders/presentation/screens/orders_screen.dart';
 import '../../../smart_lists/presentation/screens/smart_lists_screen.dart';
 import '../../../cards/presentation/screens/my_cards_screen.dart';
 import '../../../product_details/presentation/screens/product_details_screen.dart';
+import '../../../home/presentation/screens/home_view.dart';
 import '../cubit/layout_cubit.dart';
 
 @RoutePage()
@@ -14,7 +15,7 @@ class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   final List<Widget> screens = const [
-    Center(child: Text('Home Screen')), // Placeholder for Home
+    HomeView(), // The actual HomeView with APIs
     SmartListsScreen(),
     OrdersScreen(),
     Center(child: Text('Profile Screen')), // Placeholder for Profile

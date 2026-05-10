@@ -12,11 +12,11 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [CartScreen]
-class CartRoute extends PageRouteInfo<void> {
-  const CartRoute({List<PageRouteInfo>? children})
-    : super(CartRoute.name, initialChildren: children);
+class CartScreenRoute extends PageRouteInfo<void> {
+  const CartScreenRoute({List<PageRouteInfo>? children})
+    : super(CartScreenRoute.name, initialChildren: children);
 
-  static const String name = 'CartRoute';
+  static const String name = 'CartScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -28,11 +28,11 @@ class CartRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [FavoritesScreen]
-class FavoritesRoute extends PageRouteInfo<void> {
-  const FavoritesRoute({List<PageRouteInfo>? children})
-    : super(FavoritesRoute.name, initialChildren: children);
+class FavoritesScreenRoute extends PageRouteInfo<void> {
+  const FavoritesScreenRoute({List<PageRouteInfo>? children})
+    : super(FavoritesScreenRoute.name, initialChildren: children);
 
-  static const String name = 'FavoritesRoute';
+  static const String name = 'FavoritesScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -43,12 +43,28 @@ class FavoritesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [MainScreen]
-class MainRoute extends PageRouteInfo<void> {
-  const MainRoute({List<PageRouteInfo>? children})
-    : super(MainRoute.name, initialChildren: children);
+/// [LoginView]
+class LoginViewRoute extends PageRouteInfo<void> {
+  const LoginViewRoute({List<PageRouteInfo>? children})
+    : super(LoginViewRoute.name, initialChildren: children);
 
-  static const String name = 'MainRoute';
+  static const String name = 'LoginViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LoginView();
+    },
+  );
+}
+
+/// generated route for
+/// [MainScreen]
+class MainScreenRoute extends PageRouteInfo<void> {
+  const MainScreenRoute({List<PageRouteInfo>? children})
+    : super(MainScreenRoute.name, initialChildren: children);
+
+  static const String name = 'MainScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -60,11 +76,11 @@ class MainRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MyCardsScreen]
-class MyCardsRoute extends PageRouteInfo<void> {
-  const MyCardsRoute({List<PageRouteInfo>? children})
-    : super(MyCardsRoute.name, initialChildren: children);
+class MyCardsScreenRoute extends PageRouteInfo<void> {
+  const MyCardsScreenRoute({List<PageRouteInfo>? children})
+    : super(MyCardsScreenRoute.name, initialChildren: children);
 
-  static const String name = 'MyCardsRoute';
+  static const String name = 'MyCardsScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -75,12 +91,28 @@ class MyCardsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OrdersScreen]
-class OrdersRoute extends PageRouteInfo<void> {
-  const OrdersRoute({List<PageRouteInfo>? children})
-    : super(OrdersRoute.name, initialChildren: children);
+/// [OnBoardingScreen]
+class OnBoardingScreenRoute extends PageRouteInfo<void> {
+  const OnBoardingScreenRoute({List<PageRouteInfo>? children})
+    : super(OnBoardingScreenRoute.name, initialChildren: children);
 
-  static const String name = 'OrdersRoute';
+  static const String name = 'OnBoardingScreenRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnBoardingScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [OrdersScreen]
+class OrdersScreenRoute extends PageRouteInfo<void> {
+  const OrdersScreenRoute({List<PageRouteInfo>? children})
+    : super(OrdersScreenRoute.name, initialChildren: children);
+
+  static const String name = 'OrdersScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -92,30 +124,31 @@ class OrdersRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ProductDetailsScreen]
-class ProductDetailsRoute extends PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({
+class ProductDetailsScreenRoute
+    extends PageRouteInfo<ProductDetailsScreenRouteArgs> {
+  ProductDetailsScreenRoute({
     Key? key,
     required int productId,
     List<PageRouteInfo>? children,
   }) : super(
-         ProductDetailsRoute.name,
-         args: ProductDetailsRouteArgs(key: key, productId: productId),
+         ProductDetailsScreenRoute.name,
+         args: ProductDetailsScreenRouteArgs(key: key, productId: productId),
          initialChildren: children,
        );
 
-  static const String name = 'ProductDetailsRoute';
+  static const String name = 'ProductDetailsScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ProductDetailsRouteArgs>();
+      final args = data.argsAs<ProductDetailsScreenRouteArgs>();
       return ProductDetailsScreen(key: args.key, productId: args.productId);
     },
   );
 }
 
-class ProductDetailsRouteArgs {
-  const ProductDetailsRouteArgs({this.key, required this.productId});
+class ProductDetailsScreenRouteArgs {
+  const ProductDetailsScreenRouteArgs({this.key, required this.productId});
 
   final Key? key;
 
@@ -123,13 +156,13 @@ class ProductDetailsRouteArgs {
 
   @override
   String toString() {
-    return 'ProductDetailsRouteArgs{key: $key, productId: $productId}';
+    return 'ProductDetailsScreenRouteArgs{key: $key, productId: $productId}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! ProductDetailsRouteArgs) return false;
+    if (other is! ProductDetailsScreenRouteArgs) return false;
     return key == other.key && productId == other.productId;
   }
 
@@ -139,11 +172,11 @@ class ProductDetailsRouteArgs {
 
 /// generated route for
 /// [ProductListScreen]
-class ProductListRoute extends PageRouteInfo<void> {
-  const ProductListRoute({List<PageRouteInfo>? children})
-    : super(ProductListRoute.name, initialChildren: children);
+class ProductListScreenRoute extends PageRouteInfo<void> {
+  const ProductListScreenRoute({List<PageRouteInfo>? children})
+    : super(ProductListScreenRoute.name, initialChildren: children);
 
-  static const String name = 'ProductListRoute';
+  static const String name = 'ProductListScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
@@ -155,30 +188,31 @@ class ProductListRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SmartListDetailsScreen]
-class SmartListDetailsRoute extends PageRouteInfo<SmartListDetailsRouteArgs> {
-  SmartListDetailsRoute({
+class SmartListDetailsScreenRoute
+    extends PageRouteInfo<SmartListDetailsScreenRouteArgs> {
+  SmartListDetailsScreenRoute({
     Key? key,
     required int listId,
     List<PageRouteInfo>? children,
   }) : super(
-         SmartListDetailsRoute.name,
-         args: SmartListDetailsRouteArgs(key: key, listId: listId),
+         SmartListDetailsScreenRoute.name,
+         args: SmartListDetailsScreenRouteArgs(key: key, listId: listId),
          initialChildren: children,
        );
 
-  static const String name = 'SmartListDetailsRoute';
+  static const String name = 'SmartListDetailsScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<SmartListDetailsRouteArgs>();
+      final args = data.argsAs<SmartListDetailsScreenRouteArgs>();
       return SmartListDetailsScreen(key: args.key, listId: args.listId);
     },
   );
 }
 
-class SmartListDetailsRouteArgs {
-  const SmartListDetailsRouteArgs({this.key, required this.listId});
+class SmartListDetailsScreenRouteArgs {
+  const SmartListDetailsScreenRouteArgs({this.key, required this.listId});
 
   final Key? key;
 
@@ -186,13 +220,13 @@ class SmartListDetailsRouteArgs {
 
   @override
   String toString() {
-    return 'SmartListDetailsRouteArgs{key: $key, listId: $listId}';
+    return 'SmartListDetailsScreenRouteArgs{key: $key, listId: $listId}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! SmartListDetailsRouteArgs) return false;
+    if (other is! SmartListDetailsScreenRouteArgs) return false;
     return key == other.key && listId == other.listId;
   }
 
@@ -202,16 +236,32 @@ class SmartListDetailsRouteArgs {
 
 /// generated route for
 /// [SmartListsScreen]
-class SmartListsRoute extends PageRouteInfo<void> {
-  const SmartListsRoute({List<PageRouteInfo>? children})
-    : super(SmartListsRoute.name, initialChildren: children);
+class SmartListsScreenRoute extends PageRouteInfo<void> {
+  const SmartListsScreenRoute({List<PageRouteInfo>? children})
+    : super(SmartListsScreenRoute.name, initialChildren: children);
 
-  static const String name = 'SmartListsRoute';
+  static const String name = 'SmartListsScreenRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
       return const SmartListsScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SplashScreen]
+class SplashScreenRoute extends PageRouteInfo<void> {
+  const SplashScreenRoute({List<PageRouteInfo>? children})
+    : super(SplashScreenRoute.name, initialChildren: children);
+
+  static const String name = 'SplashScreenRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SplashScreen();
     },
   );
 }

@@ -90,7 +90,6 @@ class _SmartListsScreenState extends State<SmartListsScreen> with SingleTickerPr
           ],
         ),
       ),
-<<<<<<< HEAD
       body: TabBarView(
         controller: _tabController,
         children: [
@@ -135,51 +134,6 @@ class _SmartListsScreenState extends State<SmartListsScreen> with SingleTickerPr
             return const EmptyStateWidget(
               icon: Icons.favorite_border,
               message: 'You have not added any items to your favorites yet.',
-=======
-      body: BlocBuilder<SmartListsBloc, SmartListsState>(
-        builder: (context, state) {
-          if (state is SmartListsLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-          } else if (state is SmartListsError) {
-            return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
-          } else if (state is SmartListsLoaded) {
-            if (state.smartLists.isEmpty) {
-              return const Center(child: Text('No smart lists found'));
-            }
-            return ListView.separated(
-              padding: const EdgeInsets.all(16),
-              itemCount: state.smartLists.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final list = state.smartLists[index];
-                return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  tileColor: AppColors.background,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: const BorderSide(color: AppColors.border),
-                  ),
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
-                    child: Text(list.icon.isNotEmpty ? list.icon : '📝'),
-                  ),
-                  title: Text(
-                    list.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text('${list.itemsCount} Items'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.grey),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SmartListDetailsScreen(listId: list.id),
-                      ),
-                    );
-                  },
-                );
-              },
->>>>>>> origin/home
             );
           }
           return ListView.separated(
@@ -499,6 +453,3 @@ class _FavoriteHorizontalCard extends StatelessWidget {
     );
   }
 }
-
-
-

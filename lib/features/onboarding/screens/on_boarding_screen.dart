@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:grocery3/core/utils/theme/app_colors.dart';
-import 'package:grocery3/features/login/presentation/screens/login_view.dart'
-    show LoginView;
+import 'package:grocery3/core/routes/app_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -33,6 +32,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               isProgress: false,
               key: introKey,
               pages: pagesViewModel,
+              showSkipButton: true,
+              skip: Text(
+                "Skip",
+                style: TextStyle(
+                  color: AppColors.darkBlue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              onSkip: () {
+                context.router.replace(const LoginViewRoute());
+              },
               done: Image.asset("assets/images/right_arrow.png"),
               next: Image.asset("assets/images/right_arrow.png"),
               back: Image.asset("assets/images/left_arrow.png"),
@@ -43,10 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 });
               },
               onDone: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginView()),
-                );
+                context.router.replace(const LoginViewRoute());
               },
             ),
             Positioned(
